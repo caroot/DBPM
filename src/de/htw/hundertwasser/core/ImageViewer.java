@@ -1,4 +1,4 @@
-package de.view.model.view.control;
+package de.htw.hundertwasser.core;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -55,7 +55,7 @@ public class ImageViewer extends JComponent{
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
+//		super.paintComponent(g);
 		if (m_img!=null)
 		{
 		g.drawImage(m_img, 0, 0, this);

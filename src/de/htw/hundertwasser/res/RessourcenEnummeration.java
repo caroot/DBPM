@@ -84,8 +84,17 @@ public enum RessourcenEnummeration {
 	 */
 	public static  BufferedImage getImage(RessourcenEnummeration ressource) throws IOException
 	{
-		
-		return ImageIO.read(RessourcenEnummeration.class.getResourceAsStream(ressource.getName()));
+		return ImageIO.read(RessourcenEnummeration.class.getResource(ressource.getName()));
+	}
+
+	/**
+	 * Liefert das Bild zur Ressource.
+	 * @return
+	 * @throws IOException
+	 */
+	public BufferedImage getImage() throws IOException
+	{
+		return ImageIO.read(RessourcenEnummeration.class.getResource(getName()));
 	}
 	
 	/**
@@ -96,7 +105,20 @@ public enum RessourcenEnummeration {
 	 */
 	public static Icon getIcon(RessourcenEnummeration ressource) throws IOException
 	{
-		Icon icon = (Icon) ImageIO.read(RessourcenEnummeration.class.getResourceAsStream(ressource.getName()));
+		Icon icon = (Icon) ImageIO.read(RessourcenEnummeration.class.getResource(ressource.getName()));
 		return icon;
 	}
+	
+	/**
+	 * Liefert das Icon zur Ressource.
+	 * @param ressource
+	 * @return
+	 * @throws IOException
+	 */
+	public Icon getIcon() throws IOException
+	{
+		Icon icon = (Icon) ImageIO.read(RessourcenEnummeration.class.getResource(getName()));
+		return icon;
+	}
+
 }
