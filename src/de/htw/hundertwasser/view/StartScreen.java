@@ -76,7 +76,7 @@ public class StartScreen extends JFrame{
 		photoBoxes.add(boxText, BorderLayout.NORTH);
 		JPanel boxMainPanel = new JPanel();
 		photoBoxes.addMainElementPanel(boxMainPanel, ElementPanel.BOX);
-		mainScreen.add(photoBoxes);
+		mainScreen.add(new JScrollPane(photoBoxes));
 		
 	}
 	
