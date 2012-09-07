@@ -20,7 +20,7 @@ public class PhotoAlbumFullScreen extends JFrame {
 		btnNewButton.setIgnoreRepaint(false);
 		btnNewButton.setBackground(SystemColor.activeCaption);
 		btnNewButton.setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/arrow_left.png")));
-		btnNewButton.setBounds(173, 243, 27, 29);
+		btnNewButton.setBounds(173, 233, 27, 29);
 		getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("");
@@ -31,19 +31,19 @@ public class PhotoAlbumFullScreen extends JFrame {
 		btnNewButton_1.setSelectedIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/exit_fullscreen.png")));
 		btnNewButton_1.setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/exit_fullscreen.png")));
 		btnNewButton_1.setBackground(SystemColor.activeCaption);
-		btnNewButton_1.setBounds(199, 243, 57, 29);
+		btnNewButton_1.setBounds(202, 233, 57, 29);
 		getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("");
 		btnNewButton_2.setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/arrow_right.png")));
 		btnNewButton_2.setBackground(SystemColor.activeCaption);
-		btnNewButton_2.setBounds(254, 243, 27, 29);
+		btnNewButton_2.setBounds(259, 233, 27, 29);
 		getContentPane().add(btnNewButton_2);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setForeground(Color.WHITE);
-		panel.setBounds(6, 6, 438, 231);
+		panel.setBounds(0, 0, 434, 232);
 		getContentPane().add(panel);
 	}
 }
