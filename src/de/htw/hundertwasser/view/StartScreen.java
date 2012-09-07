@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 
+import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -63,7 +64,7 @@ public class StartScreen extends JFrame{
 		photoAlbums.add(albumText, BorderLayout.NORTH);
 		JPanel albumMainPanel = new JPanel();
 		photoAlbums.addMainElementPanel(albumMainPanel, ElementPanel.ALBUM);
-		mainScreen.add(new JScrollPane(photoAlbums));
+		mainScreen.add(photoAlbums);
 		
 	}
 
@@ -76,7 +77,7 @@ public class StartScreen extends JFrame{
 		photoBoxes.add(boxText, BorderLayout.NORTH);
 		JPanel boxMainPanel = new JPanel();
 		photoBoxes.addMainElementPanel(boxMainPanel, ElementPanel.BOX);
-		mainScreen.add(new JScrollPane(photoBoxes));
+		mainScreen.add(photoBoxes);
 		
 	}
 	
@@ -105,10 +106,10 @@ class SubSystemChoosingPanel extends JPanel {
 		if(mainElements != null)
 			return;
 		mainElements = mainPanel;
-		mainElements.setLayout(new GridLayout(0, 4, 1, 1));
-//		mainElements.setLayout(new FlowLayout(FlowLayout.CENTER));
+		mainElements.setLayout(new GridLayout(1, 0, 1, 1));
+//		mainElements.setLayout(new BoxLayout(mainElements, BoxLayout.X_AXIS));
 		mainElements.setBackground(Color.WHITE);
-		add(mainElements);
+		add(new JScrollPane(mainElements));
 		if(typ == ElementPanel.ALBUM)
 			mainElements.add(new ElementPanel(ElementPanel.ALBUM, ElementPanel.ADDITION, mainElements));
 		else
