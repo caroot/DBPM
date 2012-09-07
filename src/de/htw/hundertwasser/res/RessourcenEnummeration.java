@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  * Enummeration der Bilder in unserem Projekt.
@@ -105,7 +106,7 @@ public enum RessourcenEnummeration {
 	 */
 	public static Icon getIcon(RessourcenEnummeration ressource) throws IOException
 	{
-		Icon icon = (Icon) ImageIO.read(RessourcenEnummeration.class.getResource(ressource.getName()));
+		ImageIcon icon = new ImageIcon( ImageIO.read(RessourcenEnummeration.class.getResource(ressource.getName())));
 		return icon;
 	}
 	
@@ -117,7 +118,7 @@ public enum RessourcenEnummeration {
 	 */
 	public Icon getIcon() throws IOException
 	{
-		Icon icon = (Icon) ImageIO.read(RessourcenEnummeration.class.getResource(getName()));
+		ImageIcon icon = new ImageIcon( ImageIO.read(RessourcenEnummeration.class.getResource(getName())));
 		return icon;
 	}
 

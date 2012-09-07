@@ -106,7 +106,7 @@ class SubSystemChoosingPanel extends JPanel {
 		if(mainElements != null)
 			return;
 		mainElements = mainPanel;
-		mainElements.setLayout(new GridLayout(1, 0, 1, 1));
+		mainElements.setLayout(new GridLayout(0, 10, 1, 1));
 //		mainElements.setLayout(new BoxLayout(mainElements, BoxLayout.X_AXIS));
 		mainElements.setBackground(Color.WHITE);
 		add(new JScrollPane(mainElements));
@@ -125,12 +125,17 @@ class StartScreenToolPanel extends JPanel {
 	public StartScreenToolPanel() {
 		setLayout(new GridLayout(0, 4, 1, 5));
 		setBackground(Color.WHITE);
-		URL buttonImg = ClassLoader.getSystemResource(StartScreen.getIconPath(RessourcenEnummeration.OEFFNEN.getName()));
-		Icon addIcon = new ImageIcon(buttonImg);
-		JLabel openButton = new JLabel(addIcon);
-		openButton.setBackground(Color.WHITE);
-		add(openButton);
-		buttonImg = ClassLoader.getSystemResource(StartScreen.getIconPath(RessourcenEnummeration.UMBENENNEN.getName()));
+//		URL buttonImg = ClassLoader.getSystemResource(StartScreen.getIconPath(RessourcenEnummeration.OEFFNEN.getName()));
+		Icon addIcon;
+		try {
+			addIcon = RessourcenEnummeration.OEFFNEN.getIcon();
+			JLabel openButton = new JLabel(addIcon);
+			openButton.setBackground(Color.WHITE);
+			add(openButton);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		URL buttonImg = ClassLoader.getSystemResource(StartScreen.getIconPath(RessourcenEnummeration.UMBENENNEN.getName()));
 		addIcon = new ImageIcon(buttonImg);
 		JLabel renameButton = new JLabel(addIcon);
 		renameButton.setBackground(Color.WHITE);
