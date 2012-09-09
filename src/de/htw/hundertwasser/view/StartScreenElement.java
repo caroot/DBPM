@@ -31,8 +31,8 @@ public class StartScreenElement extends JPanel {
 	public static final int BOX = 1;
 	public static final String ALBUMSTR = "Album";
 	public static final String BOXSTR = "Box";
-	public static final String DEFAULT_NAME_ALBUM = "Lord Koyru Lin-Shu I. Lord of Unova";
-	public static final String DEFAULT_NAME_BOX = "Sir Aaron Oiracul II. Guardian of Aura";
+	public static final String DEFAULT_NAME_ALBUM = "Neues Photoalbum";
+	public static final String DEFAULT_NAME_BOX = "Neue Photobox";
 	
 	//variablen
 
