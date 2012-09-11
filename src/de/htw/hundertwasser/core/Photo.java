@@ -51,6 +51,11 @@ public class Photo {
 	private BufferedImage m_image = null;
 	
 	/**
+	 * This is the comment for the currrent photo.
+	 */
+	private String comment ="";
+	
+	/**
 	 * Return the Path to the given File.
 	 * @return
 	 */
@@ -141,4 +146,18 @@ public class Photo {
 		if (m_image!=null) m_image=null;
 		
 	}
+
+
+
+	public String getComment() {
+		return comment;
+	}
+
+
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	
+	
 }
