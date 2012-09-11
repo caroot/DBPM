@@ -9,9 +9,11 @@ import java.util.ArrayList;
  */
 public class PhotoAlbum {
 
+	private static final String ERROR_NO_STICKER = "The Sticker can't be null.";
 	private static final String ERROR_NO_PHOTO = "Das Photo darf nicht null sein.";
 	private String name;
 	private ArrayList<Photo> arrayList;
+	private ArrayList<StickerEnummeration> arrayListSticker;
 	/**
 	 * Konstruktor
 	 */
@@ -42,10 +44,14 @@ public class PhotoAlbum {
 
 
 
-	public ArrayList<Photo> getArrayList() {
+	public ArrayList<Photo> getPhotoArrayList() {
 		return arrayList;
 	}
 
+	public ArrayList<StickerEnummeration> getStickerArrayList()
+	{
+		return arrayListSticker;
+	}
 
 
 	public void addPhoto(Photo photo) throws IllegalArgumentException
@@ -60,4 +66,15 @@ public class PhotoAlbum {
 		arrayList.remove(photo);
 	}
 	
+	public void addSticker(StickerEnummeration sticker) throws IllegalArgumentException
+	{
+		if (sticker==null) throw new IllegalArgumentException(ERROR_NO_STICKER);
+		arrayListSticker.add(sticker);
+	}
+	
+	public void removeSticker(StickerEnummeration sticker) throws IllegalArgumentException
+	{
+		if (sticker==null) throw new IllegalArgumentException(ERROR_NO_PHOTO);
+		arrayListSticker.remove(sticker);
+	}
 }
