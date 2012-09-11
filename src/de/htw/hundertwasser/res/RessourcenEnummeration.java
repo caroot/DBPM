@@ -133,6 +133,13 @@ public enum RessourcenEnummeration {
 		return icon;
 	}
 
+	/**
+	 * Diese Methode liefert den Inhalte einer beliebigen DTD.</p>
+	 * Wird eine Datei benutzt die keine DTD ist, wird eine Exception geworfen.
+	 * @return
+	 * @throws IOException
+	 * @throws OperationNotSupportedException
+	 */
 	public String getContent() throws IOException,OperationNotSupportedException
 	{
 		StringBuilder sb = new StringBuilder ();
@@ -141,9 +148,9 @@ public enum RessourcenEnummeration {
 		InputStreamReader is = new InputStreamReader(RessourcenEnummeration.class.getResourceAsStream(getName()));
 		BufferedReader br = new BufferedReader(is);
 		String line;
-		while((line =br.readLine())!=null)
+		while((line=br.readLine())!=null)
 		{
-			sb.append(br.readLine());
+			sb.append(line);
 		}
 		return sb.toString();
 		}
