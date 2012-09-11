@@ -36,6 +36,7 @@ public class StAXCompleteWriter {
 		XMLStreamWriter writer = factory.createXMLStreamWriter(
 		                           new FileOutputStream(absoluteFilePath) );
 		writer.writeDTD(ressource.getContent());
+		//TODO:COMPLETE_XML_WRITING
 	}
 	
 }
