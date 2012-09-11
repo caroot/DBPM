@@ -1,9 +1,14 @@
 package de.htw.hundertwasser.res;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
+import javax.naming.OperationNotSupportedException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -41,11 +46,14 @@ public enum RessourcenEnummeration {
 	WERKZEUG_UMBENENNEN("tool_rename.png"),
 	WERKZEUG_SICHERN("tool_save.png"),
 	WERKZEUG_SENDEN("tool_send.png"),
-	WERKZEUG_ZOOMEN("tool_zoom.png");
-
+	WERKZEUG_ZOOMEN("tool_zoom.png"),
+	DTD_COMPLETE("Complete.dtd"),
+	DTD_EXPORT_PHOTOALBUM("TransferPhotoAlbum.dtd"),
+	DTD_EXPORT_PHOTOBOX("TransferPhotoAlbum.dtd");
 	
 	
 	
+	private static final String ERROR_NO_DTD = "Diese Methode kann nur bei einer der vorhandenen DTDs angewendet werden.";
 	/**
 	 * Name der Datei.
 	 */
@@ -125,4 +133,24 @@ public enum RessourcenEnummeration {
 		return icon;
 	}
 
+	public String getContent() throws IOException,OperationNotSupportedException
+	{
+		StringBuilder sb = new StringBuilder ();
+		if (this.equals(DTD_COMPLETE) || this.equals(DTD_EXPORT_PHOTOBOX) || this.equals(DTD_EXPORT_PHOTOALBUM) )
+		{
+		InputStreamReader is = new InputStreamReader(RessourcenEnummeration.class.getResourceAsStream(getName()));
+		BufferedReader br = new BufferedReader(is);
+		String line;
+		while((line =br.readLine())!=null)
+		{
+			sb.append(br.readLine());
+		}
+		return sb.toString();
+		}
+		else
+		{
+		throw new OperationNotSupportedException(ERROR_NO_DTD);
+		}
+	}
+	
 }
