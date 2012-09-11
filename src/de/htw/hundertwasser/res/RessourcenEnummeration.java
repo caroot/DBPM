@@ -36,7 +36,14 @@ public enum RessourcenEnummeration {
 			"tool_delete.png"), WERKZEIG_VOLLBILD("tool_fullscreen.png"), WERKZEUG_DRUCKEN(
 			"tool_print.png"), WERKZEUG_UMBENENNEN("tool_rename.png"), WERKZEUG_SICHERN(
 			"tool_save.png"), WERKZEUG_SENDEN("tool_send.png"), WERKZEUG_ZOOMEN(
-			"tool_zoom.png"), DTD_COMPLETE("Complete.dtd"), DTD_EXPORT_PHOTOALBUM(
+			"tool_zoom.png"), DTD_COMPLETE("Complete.dtd"),
+			ERROR_ICON("error_icon.png"),
+			INFORMATION_ICON("information_icon.png"),
+			WARING_ICON("waring_icon.png"),
+			SUPPORT_ICON("support_icon.png"),
+			SAVE_ICON("save-64_icon.png"),
+			CLIPBOARD_ICON("1347391265_klipper.png"),
+			DTD_EXPORT_PHOTOALBUM(
 			"TransferPhotoAlbum.dtd"), DTD_EXPORT_PHOTOBOX(
 			"TransferPhotoAlbum.dtd"), FONT_CALIBRI_BOLD("CALIBRIB.TTF"), FONT_CALIBRI(
 			"CALIBRI.TTF"), FONT_CALIBRI_ITALIC("CALIBRII.TTF"), FONT_CALIBRI_SCHRAEG(
