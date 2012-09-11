@@ -7,12 +7,16 @@ import java.util.ArrayList;
  * @author daniel
  *
  */
+//TODO Das PhotoAlbum kann Photos speichern
+//TODO Jedem Photo kann ein Text und Sticker zugeordnet werden.
+//TODO Ein Eintrag ins PhotoAlbum besteht aus einem Text,einem Sticker und einem Photo.
+//TODO DIES MUSS HIER ABGEBILDET WERDEN.
 public class PhotoAlbum {
 
 	private static final String ERROR_NO_STICKER = "The Sticker can't be null.";
 	private static final String ERROR_NO_PHOTO = "Das Photo darf nicht null sein.";
 	private String name;
-	private ArrayList<Photo> arrayList;
+	private ArrayList<PhotoAlbumEntry> arrayList;
 	private ArrayList<StickerEnummeration> arrayListSticker;
 	/**
 	 * Konstruktor
@@ -44,37 +48,29 @@ public class PhotoAlbum {
 
 
 
-	public ArrayList<Photo> getPhotoArrayList() {
+	
+
+	public ArrayList<PhotoAlbumEntry> getArrayList() {
 		return arrayList;
 	}
 
-	public ArrayList<StickerEnummeration> getStickerArrayList()
+
+	public void setEntry(PhotoAlbumEntry entry,int id)
 	{
-		return arrayListSticker;
+		
 	}
 
-
-	public void addPhoto(Photo photo) throws IllegalArgumentException
+	public void addEntry(PhotoAlbumEntry entry) throws IllegalArgumentException
 	{
-		if (photo==null) throw new IllegalArgumentException(ERROR_NO_PHOTO);
-		arrayList.add(photo);
+		if (entry==null) throw new IllegalArgumentException(ERROR_NO_PHOTO);
+		arrayList.add(entry);
 	}
 	
-	public void removePhoto(Photo photo) throws IllegalArgumentException
+	public void removeEntry(PhotoAlbumEntry entry) throws IllegalArgumentException
 	{
-		if (photo==null) throw new IllegalArgumentException(ERROR_NO_PHOTO);
-		arrayList.remove(photo);
+		if (entry==null) throw new IllegalArgumentException(ERROR_NO_PHOTO);
+		arrayList.remove(entry);
 	}
 	
-	public void addSticker(StickerEnummeration sticker) throws IllegalArgumentException
-	{
-		if (sticker==null) throw new IllegalArgumentException(ERROR_NO_STICKER);
-		arrayListSticker.add(sticker);
-	}
 	
-	public void removeSticker(StickerEnummeration sticker) throws IllegalArgumentException
-	{
-		if (sticker==null) throw new IllegalArgumentException(ERROR_NO_PHOTO);
-		arrayListSticker.remove(sticker);
-	}
 }
