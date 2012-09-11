@@ -186,4 +186,28 @@ public enum RessourcenEnummeration {
 		throw new OperationNotSupportedException(ERROR_NO_FONT);
 	}
 
+	
+	/**
+	 * Diese Methode liefert einen Font aus dem Ressourcenpool</p> Wird eine
+	 * Datei benutzt die kein Font ist, wird eine Exception geworfen.
+	 * 
+	 * @return
+	 * @throws IOException
+	 * @throws OperationNotSupportedException
+	 * @throws FontFormatException
+	 */
+	public static Font getFont(RessourcenEnummeration ressource) throws IOException, OperationNotSupportedException,
+			FontFormatException {
+
+		if (ressource.equals(FONT_CALIBRI) || ressource.equals(FONT_CALIBRI_BOLD)
+				|| ressource.equals(FONT_CALIBRI_ITALIC)
+				|| ressource.equals(FONT_CALIBRI_SCHRAEG)) {
+			Font font = Font
+					.createFont(Font.TRUETYPE_FONT,
+							RessourcenEnummeration.class
+									.getResourceAsStream(ressource.getName()));
+			return font;
+		}
+		throw new OperationNotSupportedException(ERROR_NO_FONT);
+	}
 }
