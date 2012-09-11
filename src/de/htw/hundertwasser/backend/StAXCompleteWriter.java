@@ -9,6 +9,7 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import de.htw.hundertwasser.core.Photo;
 import de.htw.hundertwasser.core.PhotoAlbum;
 import de.htw.hundertwasser.core.PhotoBox;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
@@ -43,9 +44,20 @@ public class StAXCompleteWriter {
 		for (PhotoAlbum photoalbum:arPhotoAlbum)
 		{
 			writer.writeStartElement("PhotoAlbum");
-			writer.writeAttribute("name", photoalbum.)	
+			writer.writeAttribute("name", photoalbum.getName());
+			writer.writeAttribute("anzPhotos", String.valueOf(arPhotoAlbum.size()));
+			for(Photo photo:photoalbum.getPhotoArrayList())
+			{
+			writer.writeStartElement("Photo");
+			writer.writeAttribute("src",photo.getPathToFile() );
+			writer.writeAttribute("alt",photo.getPathToFile() );
+			writer.writeAttribute("comment",photo.getComment() );
+			
+			}
+//			writer.writeEmtpyElement("PhotoBox");
+			
 		}
-		writer.writeEmtpyElement("PhotoBox");
+		
 		//TODO:COMPLETE_XML_WRITING
 	}
 	
