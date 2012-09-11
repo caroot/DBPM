@@ -1,0 +1,21 @@
+<!ELEMENT DunkelbuntPhotomanager(PhotoAlbum*)>
+<!ELEMENT PhotoAlbum(Photo*,Sticker*)>
+<!ATTLIST PhotoAlbum
+name CDATA #REQUIRED
+anzPhotos CDATA #REQUIRED
+>
+<!ELEMENT Photo(Text*,Sticker*) EMPTY>
+<!ATTLIST Photo
+imgBase64 CDATA #REQUIRED
+alt CDATA #REQUIRED
+comment CDATA #IMPLIED
+height CDATA #REQUIRED
+width CDATA #REQUIRED
+>
+<!ELEMENT Text EMPTY>
+<!ATTLIST Text
+text CDATA>
+<!ELEMENT Sticker EMPTY>
+<!ATTLIST Sticker
+id CDATA #REQUIRED><!-- ID ist die feste ID des Stickers-->
+

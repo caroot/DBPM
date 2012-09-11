@@ -1,0 +1,14 @@
+
+<!ELEMENT Photo(Text*,Sticker*) EMPTY>
+<!ATTLIST Photo
+imgBase64 CDATA #REQUIRED
+alt CDATA #REQUIRED
+comment CDATA #IMPLIED
+height CDATA #REQUIRED
+width CDATA #REQUIRED
+>
+<!ELEMENT Photobox(Photo*)>
+<!ATTLIST Photobox
+name CDATA #REQUIRED
+anzPhotos CDATA #REQUIRED>
+
