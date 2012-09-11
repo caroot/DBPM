@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  * Enummeration der Bilder in unserem Projekt.
@@ -22,6 +23,9 @@ public enum RessourcenEnummeration {
 	VOLLBILD_VERLASSEN("exit_fullscreen.png"),
 	VOLLBILD_PFEIL_LINKS("fs_arrow_left.png"),
 	VOLLBILD_PFEIL_RECHTS("fs_arrow_right.png"),
+	VOLLBILD_VERLASSEN_KLEIN("exit_fullscreen_small.png"),
+	VOLLBILD_PFEIL_LINKS_KLEIN("fs_arrow_left_small.png"),
+	VOLLBILD_PFEIL_RECHTS_KLEIN("fs_arrow_right_small.png"),
 	OEFFNEN("open.png"),
 	PHOTOALBUM("photoalbum.png"),
 	PHOTOBOX("photobox.png"),
@@ -105,7 +109,7 @@ public enum RessourcenEnummeration {
 	 */
 	public static Icon getIcon(RessourcenEnummeration ressource) throws IOException
 	{
-		Icon icon = (Icon) ImageIO.read(RessourcenEnummeration.class.getResource(ressource.getName()));
+		ImageIcon icon = new ImageIcon( ImageIO.read(RessourcenEnummeration.class.getResource(ressource.getName())));
 		return icon;
 	}
 	
@@ -117,7 +121,7 @@ public enum RessourcenEnummeration {
 	 */
 	public Icon getIcon() throws IOException
 	{
-		Icon icon = (Icon) ImageIO.read(RessourcenEnummeration.class.getResource(getName()));
+		ImageIcon icon = new ImageIcon( ImageIO.read(RessourcenEnummeration.class.getResource(getName())));
 		return icon;
 	}
 
