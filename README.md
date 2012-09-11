@@ -17,7 +17,7 @@ Wie man siche einen Dunkelbunt PhotoManager Importiert...
 3. Links-Klicken in den Package-Explorer dort auf "Import..." klicken. Git auswählen. Dann URI. Dann URI des Projektes eintragen
    Hier: https://github.com/caroot/DBPM.git und eigener Accoutnname und Passwort. angeben. Dann als Import as general Project.
 
-Git-Teilnehmer (6)
+Git-Teilnehmer (7) Komplett
 ==================
 pril
 Steffen09
@@ -25,7 +25,7 @@ fahewer
 caroot
 JohannesS1
 TimSchlosser
+RamisSabri
 
-Fehlende Teilnehmer (1)
+Fehlende Teilnehmer (0)
 =======================
-RSabri!?!
