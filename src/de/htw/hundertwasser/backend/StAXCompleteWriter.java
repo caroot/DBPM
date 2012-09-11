@@ -36,6 +36,16 @@ public class StAXCompleteWriter {
 		XMLStreamWriter writer = factory.createXMLStreamWriter(
 		                           new FileOutputStream(absoluteFilePath) );
 		writer.writeDTD(ressource.getContent());
+		writer.writeStartElement("DunkelbuntPhotomanager");
+		writer.writeAttribute("anzPhotoAlbum", String.valueOf(arPhotoAlbum.size()));
+		writer.writeAttribute("anzPhotoBox",  String.valueOf(arPhotoBox.size()));
+		
+		for (PhotoAlbum photoalbum:arPhotoAlbum)
+		{
+			writer.writeStartElement("PhotoAlbum");
+			writer.writeAttribute("name", photoalbum.)	
+		}
+		writer.writeEmtpyElement("PhotoBox");
 		//TODO:COMPLETE_XML_WRITING
 	}
 	
