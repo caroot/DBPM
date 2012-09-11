@@ -3,7 +3,6 @@ package de.htw.hundertwasser.core;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.management.GarbageCollectorMXBean;
 
 import de.htw.hundertwasser.backend.ImageManager;
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
