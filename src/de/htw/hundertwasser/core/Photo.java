@@ -63,14 +63,28 @@ public class Photo {
 		
 		return pathToFile;
 	}
-
-
+	
+	/**
+	 * Create a new Photo
+	 * @param name
+	 * @param absolutepath
+	 * @throws IllegalArgumentException
+	 */
+	public Photo(String name,String absolutePath) throws IllegalArgumentException
+	{
+		if (name==null) throw new IllegalArgumentException(ERROR_NO_NAME);
+		if (absolutePath==null) throw new IllegalArgumentException(ERROR_NO_PATH);
+		if (name.trim().isEmpty()) throw new IllegalArgumentException(ERROR_EMPTY_NAME);
+		if (absolutePath.trim().isEmpty()) throw new IllegalArgumentException(ERROR_EMPTY_PATH);
+		this.setName(name);
+		this.setPathToFile(absolutePath);
+	}
 
 	/**
 	 * This will set the Path to the file.
 	 * @param pathToFile
 	 */
-	public void setPathToFile(String pathToFile) {
+	private void setPathToFile(String pathToFile) {
 		if (name==null) throw new IllegalArgumentException(ERROR_NO_PATH);
 		if (name.trim().isEmpty()) throw new IllegalArgumentException(ERROR_EMPTY_PATH);
 		this.pathToFile = pathToFile;

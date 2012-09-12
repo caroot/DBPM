@@ -61,10 +61,10 @@ public class StAXCompleteWriterTest {
 	private PhotoBox createPhotoBox(int anzPhotos)
 	{
 		PhotoBox photobox= new PhotoBox();
+		photobox.setName("MyPhotobox with" + anzPhotos);
 		for (int i=0;i<anzPhotos;i++)
 		{
-			Photo photo = new Photo();
-			photo.setName("Name "+i);
+			Photo photo = new Photo("Name "+i,"Source"+i);
 			photo.setComment("Comment "+ i);
 			photobox.addPhoto(photo);
 
@@ -75,11 +75,11 @@ public class StAXCompleteWriterTest {
 	private PhotoAlbum createPhotoAlbum(int anzEntries)
 	{
 		PhotoAlbum photoAlbum = new PhotoAlbum();
+		photoAlbum.setName("MyPhotoAlbum with" + anzEntries);
 		for (int i=0;i<anzEntries;i++)
 		{
 			PhotoAlbumEntry photoAlbumEntry = new PhotoAlbumEntry();
-			Photo photo = new Photo();
-			photo.setName("Name "+i);
+			Photo photo = new Photo("Name "+i,"Source"+i);
 			photo.setComment("Comment "+ i);
 			photoAlbumEntry.setPhoto(photo);
 			photoAlbumEntry.setText("Text " + i);
@@ -96,8 +96,10 @@ public class StAXCompleteWriterTest {
 		photoBox10 = createPhotoBox(10);
 		photoBox100 = createPhotoBox(100);
 		photoBox0 = new PhotoBox();
+		photoBox0.setName("MyPhotoBoxName");
 		
 		photoAlbum0 = new PhotoAlbum();
+		photoAlbum0.setName("MyPhotoBoxName");
 		photoAlbum10 = createPhotoAlbum(10);
 		photoAlbum100 = createPhotoAlbum(100);
 		arPhotoAlbum= new ArrayList<PhotoAlbum>();
@@ -132,23 +134,23 @@ public class StAXCompleteWriterTest {
 		}
 		catch(IllegalArgumentException e)
 		{
-			Assert.fail(e.getLocalizedMessage());
 			e.printStackTrace();
+			Assert.fail(e.getLocalizedMessage());
 		}
 		catch(IOException e)
 		{
-			Assert.fail(e.getLocalizedMessage());
 			e.printStackTrace();
+			Assert.fail(e.getLocalizedMessage());
 		}
 		catch (OperationNotSupportedException e)
 		{
-			Assert.fail(e.getLocalizedMessage());
 			e.printStackTrace();
+			Assert.fail(e.getLocalizedMessage());
 		}
 		catch (XMLStreamException e)
 		{
-			Assert.fail(e.getLocalizedMessage());
 			e.printStackTrace();
+			Assert.fail(e.getLocalizedMessage());
 		}
 	}
 

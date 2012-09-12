@@ -40,7 +40,7 @@ public class StAXCompleteWriter {
 		XMLOutputFactory factory = XMLOutputFactory.newInstance();
 		XMLStreamWriter writer = factory
 				.createXMLStreamWriter(new FileOutputStream(absoluteFilePath));
-		writer.writeStartDocument();
+		writer.writeStartDocument("1.0");
 		writer.writeDTD(ressource.getContent());
 		writer.writeStartElement("DunkelbuntPhotomanager");
 		writer.writeAttribute("anzPhotoAlbum",
@@ -59,21 +59,19 @@ public class StAXCompleteWriter {
 					writer.writeStartElement("PhotoAlbumEntry"); // START_PHOTOALBUMENTRY
 					writer.writeAttribute("id", String.valueOf(i));
 					if (entry.getPhoto() != null) {
-						writer.writeStartElement("Photo");
-						writer.writeAttribute("src", String.valueOf(i));
-						writer.writeAttribute("comment", String.valueOf(i));
-						writer.writeEndElement();
+						writer.writeEmptyElement("Photo");
+						writer.writeAttribute("src", entry.getPhoto().getPathToFile());
+						writer.writeAttribute("name", entry.getPhoto().getName());
+						writer.writeAttribute("comment", entry.getPhoto().getComment());
 					}
 					if (entry.getText() != null) {
-						writer.writeStartElement("Text");
+						writer.writeEmptyElement("Text");
 						writer.writeAttribute("text", entry.getText());
-						writer.writeEndElement();
 					}
 					if (entry.getSticker() != null) {
-						writer.writeStartElement("Sticker");
+						writer.writeEmptyElement("Sticker");
 						writer.writeAttribute("id",
 								String.valueOf(entry.getSticker().ordinal()));
-						writer.writeEndElement();
 					}
 					writer.writeEndElement();// END_PHOTOALBUMENTRY
 				}
@@ -87,8 +85,9 @@ public class StAXCompleteWriter {
 					String.valueOf(photoBox.getCount()));
 			for (int i = 0; i < photoBox.getCount(); i++) {
 				writer.writeStartElement("Photo");
-				writer.writeAttribute("src", String.valueOf(i));
-				writer.writeAttribute("comment", String.valueOf(i));
+				writer.writeAttribute("src", photoBox.getPhoto(i).getPathToFile());
+				writer.writeAttribute("name", photoBox.getPhoto(i).getName());
+				writer.writeAttribute("comment", photoBox.getPhoto(i).getComment());
 				writer.writeEndElement();
 
 			}
