@@ -1,6 +1,7 @@
 package de.htw.hundertwasser.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * This class represents a PhotoAlbum
@@ -16,14 +17,12 @@ public class PhotoAlbum {
 	private static final String ERROR_NO_STICKER = "The Sticker can't be null.";
 	private static final String ERROR_NO_PHOTO = "Das Photo darf nicht null sein.";
 	private String name;
-	private ArrayList<PhotoAlbumEntry> arrayList;
-	private ArrayList<StickerEnummeration> arrayListSticker;
+	private HashMap<Integer,PhotoAlbumEntry> hashPhotoAlbumEntry; 
 	/**
 	 * Konstruktor
 	 */
 	public PhotoAlbum()
 	{
-		
 	}
 	
 	
@@ -41,8 +40,7 @@ public class PhotoAlbum {
 	 * @param name
 	 * @throws IllegalArgumentException
 	 */
-	public void setName(String name) throws IllegalArgumentException {
-		
+	public void setName(String name) throws IllegalArgumentException {		
 		this.name = name;
 	}
 
@@ -50,8 +48,12 @@ public class PhotoAlbum {
 
 	
 
-	public ArrayList<PhotoAlbumEntry> getArrayList() {
-		return arrayList;
+	public PhotoAlbumEntry getEntry(int id) {
+		if (hashPhotoAlbumEntry.containsKey(id))
+		{
+			return hashPhotoAlbumEntry.get(id);
+		}
+		return null;
 	}
 
 
@@ -60,17 +62,18 @@ public class PhotoAlbum {
 		
 	}
 
-	public void addEntry(PhotoAlbumEntry entry) throws IllegalArgumentException
+	public void addEntry(PhotoAlbumEntry entry,int id) throws IllegalArgumentException
 	{
-		if (entry==null) throw new IllegalArgumentException(ERROR_NO_PHOTO);
-		arrayList.add(entry);
+		hashPhotoAlbumEntry.put(id,entry);
 	}
 	
-	public void removeEntry(PhotoAlbumEntry entry) throws IllegalArgumentException
+	public void removeEntry(int id) throws IllegalArgumentException
 	{
-		if (entry==null) throw new IllegalArgumentException(ERROR_NO_PHOTO);
-		arrayList.remove(entry);
+		hashPhotoAlbumEntry.remove(id);
 	}
 	
-	
+	public int getCountEntries()
+	{
+		return hashPhotoAlbumEntry.size();
+	}
 }

@@ -11,6 +11,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 import de.htw.hundertwasser.core.Photo;
 import de.htw.hundertwasser.core.PhotoAlbum;
+import de.htw.hundertwasser.core.PhotoAlbumEntry;
 import de.htw.hundertwasser.core.PhotoBox;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
@@ -45,7 +46,40 @@ public class StAXCompleteWriter {
 		{
 			writer.writeStartElement("PhotoAlbum");
 			writer.writeAttribute("name", photoalbum.getName());
-			writer.writeAttribute("anzPhotos", String.valueOf(arPhotoAlbum.size()));
+			writer.writeAttribute("anzEntries", String.valueOf(photoalbum.getCountEntries()));
+			for (int i = 0;i<photoalbum.getCountEntries();i++)
+			{
+				PhotoAlbumEntry entry = photoalbum.getEntry(i);
+				
+				if (entry!=null)
+				{
+				writer.writeStartElement("PhotoAlbumEntry");
+				writer.writeAttribute("id",String.valueOf(i));
+				if (entry.getPhoto()!=null)
+				{
+					writer.writeStartElement("Photo");
+					writer.writeAttribute("src",String.valueOf(i));
+					writer.writeAttribute("comment",String.valueOf(i));
+					writer.writeEndElement();
+				}
+				if (entry.getText()!=null)
+				{
+				writer.writeStartElement("Text");
+				writer.writeAttribute("text", entry.getText());
+				writer.writeEndElement();
+				}
+				if (entry.getSticker()!=null)
+				{
+					writer.writeStartElement("Sticker");
+					writer.writeAttribute("id",String.valueOf( entry.getSticker().ordinal()));
+					writer.writeEndElement();
+				}
+				writer.writeEndElement();
+				
+				}
+				//TODO Photobox schreiben
+			}
+			
 //			for(Photo photo:photoalbum.getPhotoArrayList())
 //			{
 //			writer.writeStartElement("Photo");

@@ -3,15 +3,17 @@
 anzPhotoAlbum CDATA #REQUIRED
 anzPhotoBox CDATA #REQUIRED
 >
-<!ELEMENT PhotoAlbum(Photo*,Sticker*)>
+<!ELEMENT PhotoAlbum(PhotoAlbumEntry*)>
 <!ATTLIST PhotoAlbum
 name CDATA #REQUIRED
-anzPhotos CDATA #REQUIRED
+anzEntries CDATA #REQUIRED
 >
-<!ELEMENT Photo(Text*,Sticker*)>
+<!ELEMENT PhotoAlbumEntry(Photo*,Text*,Sticker*)>
+<!ATTLIST PhotoAlbumEntry
+id CDATA #REQUIRED>
+<!ELEMENT Photo EMPTY>
 <!ATTLIST Photo
 src CDATA #REQUIRED
-alt CDATA #REQUIRED
 comment CDATA #IMPLIED
 >
 <!ELEMENT Text EMPTY>
