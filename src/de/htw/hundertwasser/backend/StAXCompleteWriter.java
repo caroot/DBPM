@@ -40,6 +40,7 @@ public class StAXCompleteWriter {
 		XMLOutputFactory factory = XMLOutputFactory.newInstance();
 		XMLStreamWriter writer = factory
 				.createXMLStreamWriter(new FileOutputStream(absoluteFilePath));
+		writer.writeStartDocument();
 		writer.writeDTD(ressource.getContent());
 		writer.writeStartElement("DunkelbuntPhotomanager");
 		writer.writeAttribute("anzPhotoAlbum",
