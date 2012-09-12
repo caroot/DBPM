@@ -17,7 +17,7 @@ public class PhotoBox {
 	private static final String ERROR_PHOTO_NULL = "photo can't be null";
 	private static final String ERROR_EMPTY_NAME = "name can't be empty.";
 	private static final String ERROR_NAME_NULL = "name can't be null";
-	private String name;
+	private String name="";
 	private ArrayList<Photo> arPhotos;
 	/**
 	 * Konstruktor
