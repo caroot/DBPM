@@ -46,15 +46,15 @@ public class StAXCompleteWriter {
 			writer.writeStartElement("PhotoAlbum");
 			writer.writeAttribute("name", photoalbum.getName());
 			writer.writeAttribute("anzPhotos", String.valueOf(arPhotoAlbum.size()));
-			for(Photo photo:photoalbum.getPhotoArrayList())
-			{
-			writer.writeStartElement("Photo");
-			writer.writeAttribute("src",photo.getPathToFile() );
-			writer.writeAttribute("alt",photo.getPathToFile() );
-			writer.writeAttribute("comment",photo.getComment() );
-			
-			}
-//			writer.writeEmtpyElement("PhotoBox");
+//			for(Photo photo:photoalbum.getPhotoArrayList())
+//			{
+//			writer.writeStartElement("Photo");
+//			writer.writeAttribute("src",photo.getPathToFile() );
+//			writer.writeAttribute("alt",photo.getPathToFile() );
+//			writer.writeAttribute("comment",photo.getComment() );
+//			
+//			}
+////			writer.writeEmtpyElement("PhotoBox");
 			
 		}
 		
