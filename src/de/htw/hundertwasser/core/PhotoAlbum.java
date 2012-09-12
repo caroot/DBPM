@@ -1,6 +1,5 @@
 package de.htw.hundertwasser.core;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -23,6 +22,7 @@ public class PhotoAlbum {
 	 */
 	public PhotoAlbum()
 	{
+		hashPhotoAlbumEntry = new HashMap<Integer,PhotoAlbumEntry>();
 	}
 	
 	
