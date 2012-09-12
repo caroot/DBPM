@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
 /**
  * Enummeration der Bilder in unserem Projekt.
  * 
- * @author daniel
+ * @author daniel, tim
  * 
  */
 public enum RessourcenEnummeration {
@@ -32,11 +32,16 @@ public enum RessourcenEnummeration {
 			"rename.png"), SENDEN("send.png"), THUMBNAIL_PFEIL_LINKS(
 			"thumbnail_arrows_left.png"), THUMBNAIL_PFEIL_RECHTS(
 			"thumbnail_arrows_right.png"), WERKZEUG_SCHWARZWEIS(
-			"tool_blackwhite.png"), WERKZEUG_AUSSCHNEIDEN("tool_cut.png"), WERKZEUG_LOESCHEN(
-			"tool_delete.png"), WERKZEIG_VOLLBILD("tool_fullscreen.png"), WERKZEUG_DRUCKEN(
-			"tool_print.png"), WERKZEUG_UMBENENNEN("tool_rename.png"), WERKZEUG_SICHERN(
-			"tool_save.png"), WERKZEUG_SENDEN("tool_send.png"), WERKZEUG_ZOOMEN(
-			"tool_zoom.png"), DTD_COMPLETE("Complete.dtd"),
+			"tool_blackwhite.png"), WERKZEUG_SCHWARZWEIS_CLEAN(
+			"tool_blackwhite_clean.png"), WERKZEUG_AUSSCHNEIDEN("tool_cut.png"), WERKZEUG_AUSSCHNEIDEN_CLEAN(
+		    "tool_cut_clean.png"), WERKZEUG_LOESCHEN("tool_delete.png"), WERKZEUG_LOESCHEN_CLEAN(
+		    "tool_delete_clean.png"), WERKZEUG_VOLLBILD("tool_fullscreen.png"), WERKZEUG_VOLLBILD_CLEAN(
+		    "tool_fullscreen_clean.png"), WERKZEUG_DRUCKEN("tool_print.png"), WERKZEUG_DRUCKEN_CLEAN(
+		    "tool_print_clean.png"), WERKZEUG_UMBENENNEN("tool_rename.png"), WERKZEUG_UMBENENNEN_CLEAN(
+		    "tool_rename_clean.png"), WERKZEUG_SICHERN("tool_save.png"), WERKZEUG_SICHERN_CLEAN(
+		    "tool_save_clean.png"), WERKZEUG_SENDEN("tool_send.png"), WERKZEUG_SENDEN_CLEAN(
+		    "tool_send_clean.png"), WERKZEUG_ZOOMEN("tool_zoom.png"), WERKZEUG_ZOOMEN_CLEAN("tool_zoom_clean.png"), 
+		    DTD_COMPLETE("Complete.dtd"),
 			ERROR_ICON("error_icon.png"),
 			INFORMATION_ICON("information_icon.png"),
 			WARING_ICON("waring_icon.png"),
