@@ -24,9 +24,9 @@ public class StartScreenSubPanel extends JPanel {
 	}
 	
 	/**
-	 * Methode die einen Hinzufügen Knopf und das Scrollpane initialisiert
-	 * @param subPanel JPanel: Panel in dem die einzelnen Elemente Später angezeigt werden sollen
-	 * @param typ int: Typ des Panels. Möglichkeiten: StartScreenElement.ALBUM, StartScreenElement.BOX.
+	 * Methode die einen Hinzufï¿½gen Knopf und das Scrollpane initialisiert
+	 * @param subPanel JPanel: Panel in dem die einzelnen Elemente Spï¿½ter angezeigt werden sollen
+	 * @param typ int: Typ des Panels. Mï¿½glichkeiten: StartScreenElement.ALBUM, StartScreenElement.BOX.
 	 */
 	public void initialiseElements(JPanel subPanel, int typ) {
 		if(subElements != null) {

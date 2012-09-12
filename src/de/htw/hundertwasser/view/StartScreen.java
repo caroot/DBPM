@@ -48,7 +48,7 @@ public class StartScreen extends JFrame{
 	public StartScreen() {
 		super(DBPM);
 		setBackground(Color.BLACK);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Wenn man auf das X drückt wird das Programm beendet.
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Wenn man auf das X drï¿½ckt wird das Programm beendet.
 		setSize(getScreen());
 		setLocationRelativeTo(null); //Setzt das Fenster in die Mitte
 		setLayout( new GridLayout(0, 1, 0, 3)); //Anzahl der Spalten, Zeilen, Freiraum(L/R), Freiraum(O/U)
@@ -84,29 +84,29 @@ public class StartScreen extends JFrame{
 	}
 	
 	/**
-	 * Methode die das SubPanel für die Photoalben erstellt.
+	 * Methode die das SubPanel fï¿½r die Photoalben erstellt.
 	 */
 	private static void initialisePhotoAlbums() {
 		photoAlbums = new StartScreenSubPanel();
 		photoAlbums.setBackground(getBGColor());  //Hintergrundfarbe einstellen
 		JLabel albumText = new JLabel(PALBUMS, JLabel.CENTER); //Text erstellen
 		albumText.setForeground(Color.BLACK); //Textfarbe einstellen
-		albumText.setFont(new Font("Serif", 0, 40)); //Hier wird schriftart und größe bestimmt... Globalisieren?
-		photoAlbums.add(albumText, BorderLayout.NORTH);  //Text in das GUI einfügen
+		albumText.setFont(new Font("Serif", 0, 40)); //Hier wird schriftart und grï¿½ï¿½e bestimmt... Globalisieren?
+		photoAlbums.add(albumText, BorderLayout.NORTH);  //Text in das GUI einfï¿½gen
 		JPanel albumMainPanel = new JPanel();
 		photoAlbums.initialiseElements(albumMainPanel, StartScreenElement.ALBUM); //SubPanel wird hier erstellt
 		mainScreen.add(photoAlbums);
 	}
 
 	/**
-	 * Methode die das SubPanel für die Photoboxen erstellt.
+	 * Methode die das SubPanel fï¿½r die Photoboxen erstellt.
 	 */
 	private static void initialisePhotoBoxes() {
 		photoBoxes = new StartScreenSubPanel();
 		photoBoxes.setBackground(getBGColor());
 		JLabel boxText = new JLabel(PBOXES, JLabel.CENTER);
 		boxText.setForeground(Color.BLACK);
-		boxText.setFont(new Font("Serif", 0, 40)); //Hier wird schriftart und größe bestimmt... Globalisieren?
+		boxText.setFont(new Font("Serif", 0, 40)); //Hier wird schriftart und grï¿½ï¿½e bestimmt... Globalisieren?
 		photoBoxes.add(boxText, BorderLayout.NORTH);
 		JPanel boxMainPanel = new JPanel();
 		photoBoxes.initialiseElements(boxMainPanel, StartScreenElement.BOX);
@@ -115,7 +115,7 @@ public class StartScreen extends JFrame{
 	}
 	
 	/**
-	 * Methode die die Bildschirmauflösung zurückgibt.
+	 * Methode die die Bildschirmauflï¿½sung zurï¿½ckgibt.
 	 * @return
 	 */
 	public static Dimension getScreen() {
@@ -125,7 +125,7 @@ public class StartScreen extends JFrame{
 	}
 	
 	/**
-	 * Methode die eine Farbe zurückliefert.
+	 * Methode die eine Farbe zurï¿½ckliefert.
 	 * sollte benutztwerdne um eine einheitliche Hintergrundfarbe zu verwenden.
 	 * @return Color: Farbe, die in backGroundColor steht
 	 */

@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 /**
- * klasse die die einzelnen Tools für die Photoboxen und Alben azeigt (öffnen, umbenennen, senden und löschen)
+ * klasse die die einzelnen Tools fï¿½r die Photoboxen und Alben azeigt (ï¿½ffnen, umbenennen, senden und lï¿½schen)
  * @author Fabian
  *
  */
@@ -58,14 +58,14 @@ public class StartScreenToolPanel extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					String newName = JOptionPane.showInputDialog("Bitte neuen Namen eingeben:", "");
 					if(newName == null)
-						return; //Dann wurde Abbrechen gedrückt.
+						return; //Dann wurde Abbrechen gedrï¿½ckt.
 					((StartScreenElement) getParent()).changeName(newName);
 				}
 			};
 			
 			ActionListener sendListen = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//TODO Senden des gedöns
+					//TODO Senden des gedï¿½ns
 				}
 			};
 			

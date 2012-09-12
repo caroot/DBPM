@@ -19,7 +19,7 @@ import de.htw.hundertwasser.core.PhotoBox;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 /**
- * Klasse die ein bestimmtes Photoalbum oder Photobox vom Startscrenn aus ansprechen kann. (Und der Hinzufügen Knopf)
+ * Klasse die ein bestimmtes Photoalbum oder Photobox vom Startscrenn aus ansprechen kann. (Und der Hinzufï¿½gen Knopf)
  * @author Fabian
  *
  */
@@ -138,14 +138,14 @@ public class StartScreenElement extends JPanel {
 	}
 
 	/**
-	 * Methode, die das Element aus dem System Löscht, bzw die relevanten Buttons von der Oberfläche.
+	 * Methode, die das Element aus dem System Lï¿½scht, bzw die relevanten Buttons von der Oberflï¿½che.
 	 */
 	public void delete() {
 		JPanel parent = (JPanel) getParent();
 		parent.remove(this);
 		parent.repaint();
 		parent.validate();
-		parent.setSize(0,0); //Reset der größe des Panels
+		parent.setSize(0,0); //Reset der grï¿½ï¿½e des Panels
 	}
 
 }
