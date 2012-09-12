@@ -148,13 +148,19 @@ public class Photo {
 	}
 
 
-
+	/**
+	 * Set the Comment of the Picture
+	 * @return
+	 */
 	public String getComment() {
 		return comment;
 	}
 
 
-
+	/**
+	 * Set the Comment  of the Picuture. It is allow to save empty comments.
+	 * @param comment
+	 */
 	public void setComment(String comment) {
 		this.comment = comment;
 	}

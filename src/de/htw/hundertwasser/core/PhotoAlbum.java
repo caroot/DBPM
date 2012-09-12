@@ -1,6 +1,5 @@
 package de.htw.hundertwasser.core;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -16,13 +15,14 @@ public class PhotoAlbum {
 
 	private static final String ERROR_NO_STICKER = "The Sticker can't be null.";
 	private static final String ERROR_NO_PHOTO = "Das Photo darf nicht null sein.";
-	private String name;
+	private String name="";
 	private HashMap<Integer,PhotoAlbumEntry> hashPhotoAlbumEntry; 
 	/**
 	 * Konstruktor
 	 */
 	public PhotoAlbum()
 	{
+		hashPhotoAlbumEntry = new HashMap<Integer,PhotoAlbumEntry>();
 	}
 	
 	
