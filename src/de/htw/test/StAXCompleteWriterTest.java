@@ -27,6 +27,7 @@ import de.htw.hundertwasser.core.StickerEnummeration;
  * @author daniel
  *
  */
+//TODO: Test fertig stellen.
 public class StAXCompleteWriterTest {
 
 	private static final int TEN=10;
@@ -123,8 +124,10 @@ public class StAXCompleteWriterTest {
 	public void tearDown() throws Exception {
 	}
 
+	
+	
 	@Test
-	public void test() {
+	public void testOutput() {
 		System.out.println("Please veriyfy the output to Complete this test");
 		StAXCompleteWriter wr= new StAXCompleteWriter();
 		try

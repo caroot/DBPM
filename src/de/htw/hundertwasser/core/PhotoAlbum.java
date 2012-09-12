@@ -7,10 +7,7 @@ import java.util.HashMap;
  * @author daniel
  *
  */
-//TODO Das PhotoAlbum kann Photos speichern
-//TODO Jedem Photo kann ein Text und Sticker zugeordnet werden.
-//TODO Ein Eintrag ins PhotoAlbum besteht aus einem Text,einem Sticker und einem Photo.
-//TODO DIES MUSS HIER ABGEBILDET WERDEN.
+//TODO: Photoalbum testen; Name des Photoalbums festlegen. 
 public class PhotoAlbum {
 
 	private static final String ERROR_NO_STICKER = "The Sticker can't be null.";

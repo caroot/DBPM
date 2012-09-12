@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * @author daniel
  *
  */
+//TODO: PhotoBox testen; Name des Photoalbums festlegen. 
 public class PhotoBox {
 
 	private static final String ERROR_INDEX_OUT_OF_BOUNDS = "ID of a Photo needs to be within the current Photobox boundaries.";
