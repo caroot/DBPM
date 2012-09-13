@@ -71,49 +71,47 @@ public class ToolBar extends JPanel{
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		add(label, "3, 4");
 		
-		JButton btnRename = new JButton("Rename");
+		JButton btnRename = new JButton("    Rename  ");
 		btnRename.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnRename.setToolTipText("Rename");
-		btnRename.setBackground(Color.WHITE);
 		btnRename.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/rename.png")));
 		add(btnRename, "3, 6");
 		
 				
-		JButton btnZoom = new JButton("");
+		JButton btnZoom = new JButton(" Zoom           ");
 		btnZoom.setBackground(Color.WHITE);
-		System.out.println(btnZoom.getBounds());
 		btnZoom.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnZoom.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_zoom.png")));
+		btnZoom.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_zoom_clean.png")));
 		btnZoom.setToolTipText("Zoom");
 		add(btnZoom, "3, 8");
 		
 		
-		JButton btnCut = new JButton("");
+		JButton btnCut = new JButton("Cut               ");
 		btnCut.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCut.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_cut.png")));
+		btnCut.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_cut_clean.png")));
 		btnCut.setToolTipText("Cut");
 		add(btnCut, "3, 10");
 		
-		JButton btnDelete = new JButton("Delete");
+		JButton btnDelete = new JButton("    Delete");
 		btnDelete.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnDelete.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/delete.png")));
 		btnDelete.setToolTipText("Delete");
 		add(btnDelete, "3, 12");
 		
-		JButton btnPrint = new JButton("");
-		btnPrint.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_print.png")));
+		JButton btnPrint = new JButton("Print            ");
+		btnPrint.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_print_clean.png")));
 		btnPrint.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnPrint.setToolTipText("Print");
 		add(btnPrint, "3, 14");
 		
-		JButton btnFullscreen = new JButton("");
-		btnFullscreen.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_fullscreen.png")));
+		JButton btnFullscreen = new JButton("Fullscreen");
+		btnFullscreen.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_fullscreen_clean.png")));
 		btnFullscreen.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnFullscreen.setToolTipText("Fullscreen");
 		add(btnFullscreen, "3, 16");
 		
-		JButton btnBlackwhite = new JButton("");
-		btnBlackwhite.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_blackwhite.png")));
+		JButton btnBlackwhite = new JButton("  Black/White");
+		btnBlackwhite.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_blackwhite_clean.png")));
 		btnBlackwhite.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnBlackwhite.setToolTipText("Black/White");
 		add(btnBlackwhite, "3, 18");
