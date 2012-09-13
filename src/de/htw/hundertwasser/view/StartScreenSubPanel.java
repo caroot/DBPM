@@ -1,10 +1,12 @@
 package de.htw.hundertwasser.view;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -31,7 +33,6 @@ public class StartScreenSubPanel extends JPanel {
 	public void initialiseElements(JPanel subPanel, int typ) {
 		if(subElements != null) {
 			//TODO Fehlerausgabe, wenn so iss...
-			System.out.println("Nya");
 			return;
 		}
 		JPanel mainSubPanel = new JPanel();
@@ -39,6 +40,7 @@ public class StartScreenSubPanel extends JPanel {
 		subElements = subPanel;
 		subElements.setBackground(StartScreen.getBGColor());
 		JScrollPane elementScrollPane = new JScrollPane(subElements, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		elementScrollPane.setBorder(BorderFactory.createEmptyBorder());
 		Dimension scrollSize = new Dimension(1002, 300);
 		elementScrollPane.setPreferredSize(scrollSize);
 		mainSubPanel.add(elementScrollPane);

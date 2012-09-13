@@ -1,5 +1,6 @@
 package de.htw.hundertwasser.view;
 
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 
+import javax.naming.OperationNotSupportedException;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
@@ -17,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -40,18 +43,31 @@ public class StartScreen extends JFrame{
 	
 	//Variablen
 	private static JFrame mainScreen;
-	private static Dimension screen;
 	private static StartScreenSubPanel photoBoxes;
 	private static StartScreenSubPanel photoAlbums;
 	private static Color backgroundColor = Color.WHITE; //Hintergrundfarbe des StartScreens
+	//TODO in PhotoBox/-Album einfuegen
+	public static int noOfAlbums = 0;
+	public static int noOfBoxes = 0;
+	//TODO End
+	private static String albumText = PALBUMS + " (" + noOfAlbums + ")";
+	private static String boxText = PBOXES + " (" + noOfBoxes + ")";
+	private static JLabel albumTextLabel;
+	private static JLabel boxTextLabel;
+	public static Dimension screenSize;
+	public static Dimension subSystemSize;
+	public static Dimension scrollSize;
+	public static Dimension elementSize; 
+	
 	
 	public StartScreen() {
 		super(DBPM);
 		setBackground(Color.BLACK);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Wenn man auf das X drï¿½ckt wird das Programm beendet.
-		setSize(getScreen());
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Wenn man auf das X drückt wird das Programm beendet.
+		setSize(screenSize);
+
 		setLocationRelativeTo(null); //Setzt das Fenster in die Mitte
-		setLayout( new GridLayout(0, 1, 0, 3)); //Anzahl der Spalten, Zeilen, Freiraum(L/R), Freiraum(O/U)
+		setLayout( new GridLayout(0, 1, 0, 3)); //Anzahl der Spalten, Zeilen, Frewwwwwiraum(L/R), Freiraum(O/U)
 	}
 	
 	public static void main(String[] args) {
@@ -60,9 +76,11 @@ public class StartScreen extends JFrame{
 //			{
 //				System.out.println(info.getClassName());
 //			}
-////			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-			
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			UIManager.setLookAndFeel(
+			"com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel"
+//			"com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel"
+			);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,9 +94,15 @@ public class StartScreen extends JFrame{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		initialiseSizes();
 		mainScreen = new StartScreen(); //Initialisierung.
-		initialisePhotoBoxes();
-		initialisePhotoAlbums();
+//		JSplitPane subPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+//		subPane.setDividerLocation(768/2-50);
+//		mainScreen.add(subPane);
+//		subPane.add(initialisePhotoBoxes());
+//		subPane.add(initialisePhotoAlbums());
+		mainScreen.add(initialisePhotoBoxes());
+		mainScreen.add(initialisePhotoAlbums());
 		mainScreen.setVisible(true);
 		
 	}
@@ -86,42 +110,62 @@ public class StartScreen extends JFrame{
 	/**
 	 * Methode die das SubPanel fï¿½r die Photoalben erstellt.
 	 */
-	private static void initialisePhotoAlbums() {
+	private static JPanel initialisePhotoAlbums() {
 		photoAlbums = new StartScreenSubPanel();
 		photoAlbums.setBackground(getBGColor());  //Hintergrundfarbe einstellen
-		JLabel albumText = new JLabel(PALBUMS, JLabel.CENTER); //Text erstellen
-		albumText.setForeground(Color.BLACK); //Textfarbe einstellen
-		albumText.setFont(new Font("Serif", 0, 40)); //Hier wird schriftart und grï¿½ï¿½e bestimmt... Globalisieren?
-		photoAlbums.add(albumText, BorderLayout.NORTH);  //Text in das GUI einfï¿½gen
-		JPanel albumMainPanel = new JPanel();
-		photoAlbums.initialiseElements(albumMainPanel, StartScreenElement.ALBUM); //SubPanel wird hier erstellt
-		mainScreen.add(photoAlbums);
+		albumTextLabel = new JLabel(albumText, JLabel.CENTER); //Text erstellen
+		albumTextLabel.setForeground(Color.BLACK); //Textfarbe einstellenFont boxFont;
+		Font albumFont;
+		try {
+			albumFont = RessourcenEnummeration.FONT_CALIBRI_BOLD.getFont().deriveFont(40f);
+//			albumText.setFont(new Font("Calibri", 1, 40)); //Hier wird schriftart und größe bestimmt... Globalisieren?
+			albumTextLabel.setFont(albumFont);
+			photoAlbums.add(albumTextLabel, BorderLayout.NORTH);  //Text in das GUI einfügen
+			JPanel albumMainPanel = new JPanel();
+			photoAlbums.initialiseElements(albumMainPanel, StartScreenElement.ALBUM); //SubPanel wird hier erstellt
+
+		} catch (OperationNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		photoAlbums.setPreferredSize(subSystemSize);
+		return photoAlbums;
 	}
 
 	/**
 	 * Methode die das SubPanel fï¿½r die Photoboxen erstellt.
 	 */
-	private static void initialisePhotoBoxes() {
+	private static JPanel initialisePhotoBoxes() {
 		photoBoxes = new StartScreenSubPanel();
 		photoBoxes.setBackground(getBGColor());
-		JLabel boxText = new JLabel(PBOXES, JLabel.CENTER);
-		boxText.setForeground(Color.BLACK);
-		boxText.setFont(new Font("Serif", 0, 40)); //Hier wird schriftart und grï¿½ï¿½e bestimmt... Globalisieren?
-		photoBoxes.add(boxText, BorderLayout.NORTH);
-		JPanel boxMainPanel = new JPanel();
-		photoBoxes.initialiseElements(boxMainPanel, StartScreenElement.BOX);
-		mainScreen.add(photoBoxes);
-		
-	}
-	
-	/**
-	 * Methode die die Bildschirmauflï¿½sung zurï¿½ckgibt.
-	 * @return
-	 */
-	public static Dimension getScreen() {
-		if(screen == null)
-			screen = Toolkit.getDefaultToolkit().getScreenSize();
-		return screen;
+		boxTextLabel = new JLabel(boxText, JLabel.CENTER);
+		boxTextLabel.setForeground(Color.BLACK);
+		Font boxFont;
+		try {
+			boxFont = RessourcenEnummeration.FONT_CALIBRI_BOLD.getFont().deriveFont(40f);
+//			boxText.setFont(new Font("Calibri", 1, 40)); //Hier wird schriftart und größe bestimmt... Globalisieren?
+			boxTextLabel.setFont(boxFont);
+			photoBoxes.add(boxTextLabel, BorderLayout.NORTH);
+			JPanel boxMainPanel = new JPanel();
+			photoBoxes.initialiseElements(boxMainPanel, StartScreenElement.BOX);
+
+		} catch (OperationNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return photoBoxes;
 	}
 	
 	/**
@@ -131,6 +175,41 @@ public class StartScreen extends JFrame{
 	 */
 	public static Color getBGColor() {
 		return backgroundColor;
+	}
+	
+	public static void initialiseSizes() {
+		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//		subSystemSize = new Dimension
+		
+	}
+	
+	public static void retextAlbum() {
+		albumText = PALBUMS + " (" + noOfAlbums + ")";
+		albumTextLabel.setText(albumText);
+		System.out.println(albumText);
+		albumTextLabel.repaint();
+	}
+
+	public static void retextBox() {
+		boxText = PBOXES +  "(" + noOfBoxes + ")";
+		boxTextLabel.setText(boxText);
+		boxTextLabel.repaint();
+	}
+	
+	public static Dimension getScreenSize() {
+		return screenSize;
+	}
+	
+	public static Dimension getSubSystemSize() {
+		return subSystemSize;
+	}
+	
+	public static Dimension getScrollSize() {
+		return scrollSize;
+	}
+	
+	public static Dimension getElementSize() {
+		return elementSize;
 	}
 }
 
