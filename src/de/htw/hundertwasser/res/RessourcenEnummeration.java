@@ -21,7 +21,7 @@ import javax.swing.ImageIcon;
 public enum RessourcenEnummeration {
 
 	PHOTOALBUM_HINZUFUEGEN("add_photoalbum.png"), PHOTOALBUM_HINZUFUEGEN_NEU(
-			"add_photoalbum.png"), PHOTOBOX_HINZUFUEGEN(
+			"add_photoalbum_new.png"), PHOTOBOX_HINZUFUEGEN(
 			"add_photobox.png"), ALBUM("album.png"), PFEIL_LINKS(
 			"arrow_left.png"), PFEIL_RECHTS("arrow_right.png"), LOESCHEN(
 			"delete.png"), VOLLBILD_VERLASSEN("exit_fullscreen.png"), VOLLBILD_PFEIL_LINKS(
