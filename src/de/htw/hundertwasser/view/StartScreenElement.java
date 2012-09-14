@@ -99,7 +99,7 @@ public class StartScreenElement extends JPanel {
 		Icon addIcon;
 		try {
 			if(elementTyp == ALBUM) {
-				addIcon = RessourcenEnummeration.PHOTOALBUM_HINZUFUEGEN.getIcon();
+				addIcon = RessourcenEnummeration.PHOTOALBUM_HINZUFUEGEN_NEU.getIcon();
 			} else {
 				addIcon = RessourcenEnummeration.PHOTOBOX_HINZUFUEGEN.getIcon();
 			}	
