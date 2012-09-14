@@ -1,51 +1,40 @@
+
+
 package de.htw.hundertwasser.view;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import java.awt.Color;
-import javax.swing.ImageIcon;
-import java.awt.SystemColor;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
 
 
-public class PhotoBoxFullScreen extends JFrame {
-	public PhotoBoxFullScreen() {
-			getContentPane().setBackground(Color.WHITE);
-			getContentPane().setLayout(null);
-			
-			JButton btnNewButton = new JButton("");
-			btnNewButton.setInheritsPopupMenu(true);
-			btnNewButton.setIgnoreRepaint(false);
-			btnNewButton.setBackground(SystemColor.activeCaption);
-			btnNewButton.setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/arrow_left.png")));
-			btnNewButton.setBounds(173, 243, 27, 29);
-			getContentPane().add(btnNewButton);
-			
-			JButton btnNewButton_1 = new JButton("");
-			btnNewButton_1.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-				}
-			});
-			btnNewButton_1.setSelectedIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/exit_fullscreen.png")));
-			btnNewButton_1.setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/exit_fullscreen.png")));
-			btnNewButton_1.setBackground(SystemColor.activeCaption);
-			btnNewButton_1.setBounds(199, 243, 57, 29);
-			getContentPane().add(btnNewButton_1);
-			
-			JButton btnNewButton_2 = new JButton("");
-			btnNewButton_2.setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/arrow_right.png")));
-			btnNewButton_2.setBackground(SystemColor.activeCaption);
-			btnNewButton_2.setBounds(254, 243, 27, 29);
-			getContentPane().add(btnNewButton_2);
-			
-			JPanel panel = new JPanel();
-			panel.setBackground(Color.WHITE);
-			panel.setForeground(Color.WHITE);
-			panel.setBounds(6, 6, 438, 231);
-			getContentPane().add(panel);
+
+/**
+ * Klasse die zum anzeigen des gewünschten Fotoalbums im Fullscreen Modus genutzt wird
+ * @author johannes
+ *
+ */
+
+public class PhotoBoxFullScreen extends FullScreen {
+	FullScreen fsbox = new FullScreen();
+	public PhotoBoxFullScreen (){
+		super();
+		
+	}
+	public void exitButton(){
+		if(fsbox.getActionListener1() == true){
+			System.out.println(""+fsbox.getActionListener1()+"");
+				fsbox.dispose();
 		}
 	}
-
-
+	public void leftArrow(){
+		if(fsbox.getActionListener0() == true){
+			
+		}
+	}
+	public void reightArrwo(){
+		if(fsbox.getActionListener2() == true){
+			
+		}
+	}
+ 
+	public static void main(String[] args) {
+		PhotoAlbumFullScreen fsnew = new PhotoAlbumFullScreen();
+		fsnew.setVisible(true);
+	}
+}
