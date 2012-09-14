@@ -8,6 +8,8 @@
 package de.htw.hundertwasser.core;
 
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -28,7 +30,15 @@ public class Infobar extends JPanel {
 	/*
 	 * 
 	 */
+	private Photo photo;
+	
+	
 	public Infobar() {
+		
+		setPreferredSize(new Dimension(640,480));
+		setMaximumSize(new Dimension(640,480));
+		setMinimumSize(new Dimension(640, 480));
+		
 		setBackground(Color.WHITE);
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -61,6 +71,8 @@ public class Infobar extends JPanel {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
+		
+
 		JLabel lblInfo = new JLabel("Info");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblInfo, "4, 2, 3, 1");
@@ -95,10 +107,14 @@ public class Infobar extends JPanel {
 		JLabel lblComment = new JLabel("Comment:");
 		add(lblComment, "2, 18");
 		
-		JTextField txtComment = new JTextField();
+		JTextField txtComment = new JTextField("");
 		txtComment.setBackground(Color.WHITE);
 		txtComment.setEditable(false);
 		add(txtComment, "6, 18, fill, default");
 		txtComment.setColumns(5);
 	}	
+	
+	
+	
+
 }
