@@ -1,6 +1,6 @@
 package de.htw.hundertwasser.view;
 
-import java.awt.Color;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
@@ -8,12 +8,15 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
-import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import de.htw.hundertwasser.core.Infobar;
+import de.htw.hundertwasser.core.NavigationBar;
+import de.htw.hundertwasser.core.ThumbnailBar;
+import de.htw.hundertwasser.core.ToolBar;
 
 /**
  * Diese Klasse EditScreen BITTE HIER DATEN VON RAMIS EINTRAGEN!!!!!!!!!!!!
@@ -26,32 +29,71 @@ public class EditScreen extends JFrame implements WindowListener {
 	// Konstanten
 	private static final long serialVersionUID = 1L;
 	public static final String DBPM = "Dunkelbunt Photo Manager";
-
+	private static final int MAXWIDTH = 1024;
+	private static final int MAXHEIGHT = 768;
+	
+	
 	// Variablen
-	public static JFrame editScreen;
-	public static Dimension screenSize;
-	public static Dimension subSystemSize;
-	public static Dimension scrollSize;
-	public static Dimension elementSize;
+	protected static Dimension screenSize;
+	protected static Dimension subSystemSize;
+	protected static Dimension scrollSize;
+	protected static Dimension elementSize;
+	protected JPanel centralPanel; //Central-Element
+	protected JPanel controlPanel; //Control-Element
+	protected JPanel attractivePanel;
+	protected NavigationBar navigationBar;
+	protected ThumbnailBar thumbnailBar;
+	protected JLabel title;
+	protected JButton previous;
+	protected JButton next;
+	protected ToolBar toolBar;
+	protected Infobar infoBar;
+	
 
 	public EditScreen() {
 
 		setVisible(true);
-		setSize(screenSize);
+		setPreferredSize(new Dimension(MAXWIDTH, MAXHEIGHT));
+		setMinimumSize(new Dimension(MAXWIDTH, MAXHEIGHT));
 		setResizable(true);
 		setTitle(DBPM);
 		addWindowListener(this);
-
-		JButton nextButton = new JButton("NEXT");
-		nextButton.setBounds(140, 279, 60, 35);
-		getContentPane().add(nextButton);
-
-		JButton btnNewButton_1 = new JButton("LAST");
-		btnNewButton_1.setBounds(140, 279, 40, 35);
-		getContentPane().add(btnNewButton_1);
-
+		
+		//Create Elements
+		title = new JLabel(DBPM);
+		navigationBar = new NavigationBar();
+		infoBar = new Infobar();
+		toolBar = new ToolBar();
+		//TODO:Kucke nach ausehen
+		controlPanel = new JPanel(new BorderLayout(10,10));
+		centralPanel = new JPanel(new BorderLayout(10,10));
+		attractivePanel = new JPanel(new BorderLayout(10,10));
+		
+		// Buttons erzeugen
+	 next = new JButton("Left");
+		 previous = new JButton("Right");
+		
+		setLayout(new BorderLayout(10,10));
+		add(title,BorderLayout.NORTH);
+//		add(navigationBar,BorderLayout.WEST);
+		//Thumbnailbar muss noch implementiert werden
+		//add(thumbnailbar,BorderLayout.SOUTH);
+		add(controlPanel,BorderLayout.EAST);
+		add(centralPanel,BorderLayout.CENTER);
+		
+		
+		// ContentPane haelt standardmaeﬂig ein BorderLayout
+        // Hinzufuegen der Buttons zum Content Pane des JFrames
+        centralPanel.add(previous, BorderLayout.WEST);
+        centralPanel.add(next, BorderLayout.EAST);
+        centralPanel.add(attractivePanel,BorderLayout.CENTER);
+        controlPanel.add(infoBar,BorderLayout.NORTH);
+        controlPanel.add(toolBar,BorderLayout.SOUTH);
+        pack();
+        
 	}
 
+	
 	public static void main(String[] args) {
 		try {
 			// for(LookAndFeelInfo info:UIManager.getInstalledLookAndFeels())
@@ -76,15 +118,10 @@ public class EditScreen extends JFrame implements WindowListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		initialiseSizes();
-		editScreen = new EditScreen();
-		// PBES = new PhotoBoxEditScreen(); //Initialisierung.
-		// JSplitPane subPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-		// subPane.setDividerLocation(768/2-50);
-		// mainScreen.add(subPane);
-		// subPane.add(initialisePhotoBoxes());
-		// subPane.add(initialisePhotoAlbums());
-
+//		initialiseSizes();
+		EditScreen ed =  new EditScreen();
+		ed.setVisible(true);
+		ed.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	/**
