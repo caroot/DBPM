@@ -61,13 +61,13 @@ public class FullScreen extends JFrame {
 		getContentPane().add(panel, BorderLayout.CENTER);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(SystemColor.activeCaption);
+		panel_1.setBackground(Color.WHITE);
 		getContentPane().add(panel_1, BorderLayout.SOUTH);
 		
 		JButton btnNewButton = new JButton("");
 		panel_1.add(btnNewButton);
 		btnNewButton.setAction(action);
-		btnNewButton.setBackground(SystemColor.activeCaption);
+		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.setIcon(new ImageIcon(FullScreen.class.getResource("/de/htw/hundertwasser/res/fs_arrow_left_small.png")));
 		
 		JButton btnNewButton_1 = new JButton("");
@@ -75,7 +75,7 @@ public class FullScreen extends JFrame {
 		btnNewButton_1.setAction(action_1);
 		btnNewButton_1.setSelectedIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/exit_fullscreen_small.png")));
 		btnNewButton_1.setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/exit_fullscreen_small.png")));
-		btnNewButton_1.setBackground(SystemColor.activeCaption);
+		btnNewButton_1.setBackground(Color.WHITE);
 		
 		JButton btnNewButton_2 = new JButton("");
 		btnNewButton_2.addActionListener(new ActionListener() {
@@ -86,7 +86,7 @@ public class FullScreen extends JFrame {
 		panel_1.add(btnNewButton_2);
 		btnNewButton_2.setAction(action_2);
 		btnNewButton_2.setIcon(new ImageIcon(FullScreen.class.getResource("/de/htw/hundertwasser/res/fs_arrow_right_small.png")));
-		btnNewButton_2.setBackground(SystemColor.activeCaption);
+		btnNewButton_2.setBackground(Color.WHITE);
 	}
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
