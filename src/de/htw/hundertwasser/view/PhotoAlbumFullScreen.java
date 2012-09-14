@@ -2,6 +2,9 @@
 
 package de.htw.hundertwasser.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 
 /**
@@ -11,30 +14,41 @@ package de.htw.hundertwasser.view;
  */
 
 public class PhotoAlbumFullScreen extends FullScreen {
-	FullScreen fsalbum = new FullScreen();
+	
 	public PhotoAlbumFullScreen (){
 		super();
+		exitButton.addActionListener(getExitButtonListener());
+		leftArrow.addActionListener(getLeftArrowListener());
+		rightArrow.addActionListener(getRightArrowListener());
 		
 	}
-	public void exitButton(){
-		if(fsalbum.getActionListener1() == true){
-			System.out.println(""+fsalbum.getActionListener1()+"");
-				fsalbum.dispose();
-		}
+	
+	// exitButton
+	public ActionListener getExitButtonListener() {
+		return new ActionListener(){
+
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();}
+		};
 	}
-	public void leftArrow(){
-		if(fsalbum.getActionListener0() == true){
-			
-		}
+
+
+	// right arrow
+	public ActionListener getRightArrowListener() {
+		
+		return null;
 	}
-	public void reightArrwo(){
-		if(fsalbum.getActionListener2() == true){
-			
-		}
+
+	// left arrow
+	public ActionListener getLeftArrowListener() {
+		
+		return null;
 	}
- 
+	
+	// main method
+	 
 	public static void main(String[] args) {
 		PhotoAlbumFullScreen fsnew = new PhotoAlbumFullScreen();
 		fsnew.setVisible(true);
-	}
+  }
 }
