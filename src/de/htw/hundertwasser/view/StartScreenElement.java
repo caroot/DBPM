@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FontFormatException;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.net.URL;
 
 import javax.naming.OperationNotSupportedException;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -65,10 +67,10 @@ public class StartScreenElement extends JPanel {
 		try {
 			if(elementTyp == ALBUM) {
 				Icon elementIcon;
-					elementIcon = RessourcenEnummeration.PHOTOALBUM.getIcon();
+					elementIcon = RessourcenEnummeration.PHOTOALBUM_NEU.getIcon();
 				elementButton = new JButton(DEFAULT_NAME_ALBUM, elementIcon);
 			} else { 
-				Icon elementIcon = RessourcenEnummeration.PHOTOBOX.getIcon();
+				Icon elementIcon = RessourcenEnummeration.PHOTOBOX_NEU.getIcon();
 				elementButton = new JButton(DEFAULT_NAME_BOX, elementIcon);
 			}
 			elementButton.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -77,12 +79,15 @@ public class StartScreenElement extends JPanel {
 			ActionListener addListen = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					openToolPanel();
+					elementButton.setBackground(Color.LIGHT_GRAY);
 					parentPanel.validate();
 					parentPanel.repaint();
 				}
 			};
 			elementButton.addActionListener(addListen);
-//			button.setBackground(StartScreen.getBGColor());
+			
+			elementButton.setBackground(StartScreen.getBGColor());
+			
 			add(elementButton);
 		} catch (IOException e1) {
 			// TODO Ausgabe des Fehlers
@@ -102,10 +107,11 @@ public class StartScreenElement extends JPanel {
 			if(elementTyp == ALBUM) {
 				addIcon = RessourcenEnummeration.PHOTOALBUM_HINZUFUEGEN_NEU.getIcon();
 			} else {
-				addIcon = RessourcenEnummeration.PHOTOBOX_HINZUFUEGEN.getIcon();
+				addIcon = RessourcenEnummeration.PHOTOBOX_HINZUFUEGEN_NEU.getIcon();
 			}	
 			JButton addButton = new JButton(addIcon);
-//			addButton.setBackground(StartScreen.getBGColor());
+			
+			addButton.setBackground(StartScreen.getBGColor());
 		
 		ActionListener addListen = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -138,6 +144,7 @@ public class StartScreenElement extends JPanel {
 		if(chosenElementToolPanel != null) {
 			chosenElement = (StartScreenElement) chosenElementToolPanel.getParent();
 			chosenElement.remove(chosenElementToolPanel);
+			chosenElement.elementButton.setBackground(StartScreen.getBGColor());
 			chosenElement.parentPanel.validate();
 			chosenElement.parentPanel.repaint();
 		}

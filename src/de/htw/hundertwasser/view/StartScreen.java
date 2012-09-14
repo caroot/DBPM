@@ -55,6 +55,7 @@ public class StartScreen extends JFrame{
 	private static JLabel albumTextLabel;
 	private static JLabel boxTextLabel;
 	public static Dimension screenSize;
+	public static Dimension textSize;
 	public static Dimension subSystemSize;
 	public static Dimension scrollSize;
 	public static Dimension elementSize; 
@@ -115,6 +116,7 @@ public class StartScreen extends JFrame{
 		photoAlbums.setBackground(getBGColor());  //Hintergrundfarbe einstellen
 		albumTextLabel = new JLabel(albumText, JLabel.CENTER); //Text erstellen
 		albumTextLabel.setForeground(Color.BLACK); //Textfarbe einstellenFont boxFont;
+		albumTextLabel.setPreferredSize(textSize);
 		Font albumFont;
 		try {
 			albumFont = RessourcenEnummeration.FONT_CALIBRI_BOLD.getFont().deriveFont(40f);
@@ -146,6 +148,7 @@ public class StartScreen extends JFrame{
 		photoBoxes.setBackground(getBGColor());
 		boxTextLabel = new JLabel(boxText, JLabel.CENTER);
 		boxTextLabel.setForeground(Color.BLACK);
+		boxTextLabel.setPreferredSize(textSize);
 		Font boxFont;
 		try {
 			boxFont = RessourcenEnummeration.FONT_CALIBRI_BOLD.getFont().deriveFont(40f);
@@ -179,16 +182,15 @@ public class StartScreen extends JFrame{
 	
 	public static void initialiseSizes() {
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		subSystemSize = new Dimension( screenSize.width, screenSize.height/2);
+		textSize = new Dimension(screenSize.width, 60);
+		subSystemSize = new Dimension( screenSize.width*8/10, screenSize.height/2-20);
 		scrollSize = new Dimension(subSystemSize.width*3/4-20, subSystemSize.height-81);
-		System.out.println(scrollSize);
-		elementSize = new Dimension(scrollSize.width/3-6, scrollSize.height-22);
+		elementSize = new Dimension(scrollSize.width/3-7, scrollSize.height-10);
 		
 	}
 	
 	public static void retextAlbum() {
 		albumText = PALBUMS + " (" + noOfAlbums + ")";
-		albumTextLabel.setText(albumText);
 		System.out.println(albumText);
 		albumTextLabel.repaint();
 	}

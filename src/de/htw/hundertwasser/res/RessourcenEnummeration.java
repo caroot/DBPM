@@ -22,14 +22,16 @@ public enum RessourcenEnummeration {
 
 	PHOTOALBUM_HINZUFUEGEN("add_photoalbum.png"), PHOTOALBUM_HINZUFUEGEN_NEU(
 			"add_photoalbum_new.png"), PHOTOBOX_HINZUFUEGEN(
-			"add_photobox.png"), ALBUM("album.png"), PFEIL_LINKS(
+			"add_photobox.png"), PHOTOBOX_HINZUFUEGEN_NEU(
+			"add_photobox_neu.png"), ALBUM("album.png"), PFEIL_LINKS(
 			"arrow_left.png"), PFEIL_RECHTS("arrow_right.png"), LOESCHEN(
 			"delete.png"), VOLLBILD_VERLASSEN("exit_fullscreen.png"), VOLLBILD_PFEIL_LINKS(
 			"fs_arrow_left.png"), VOLLBILD_PFEIL_RECHTS("fs_arrow_right.png"), VOLLBILD_VERLASSEN_KLEIN(
 			"exit_fullscreen_small.png"), VOLLBILD_PFEIL_LINKS_KLEIN(
 			"fs_arrow_left_small.png"), VOLLBILD_PFEIL_RECHTS_KLEIN(
 			"fs_arrow_right_small.png"), OEFFNEN("open.png"), PHOTOALBUM(
-			"photoalbum.png"), PHOTOBOX("photobox.png"), UMBENENNEN(
+			"photoalbum.png"), PHOTOBOX("photobox.png"), PHOTOALBUM_NEU(
+			"photoalbum_neu.png"), PHOTOBOX_NEU("photobox_neu.png"), UMBENENNEN(
 			"rename.png"), SENDEN("send.png"), THUMBNAIL_PFEIL_LINKS(
 			"thumbnail_arrows_left.png"), THUMBNAIL_PFEIL_RECHTS(
 			"thumbnail_arrows_right.png"), WERKZEUG_SCHWARZWEIS(

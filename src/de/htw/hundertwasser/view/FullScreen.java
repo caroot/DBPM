@@ -24,15 +24,11 @@ import de.htw.hundertwasser.core.ImageViewer;
  *
  */
 
-public class FullScreen extends JFrame {
+public abstract class FullScreen extends JFrame {
 	
 	ImageViewer iv = new ImageViewer();
 	
-	private final Action action = new SwingAction();
-	private final Action action_1 = new SwingAction_1();
-	private final Action action_2 = new SwingAction_2();
-	
-	// Variablen zum Ÿbergeben der 
+	// boolean variables
 	
 	public boolean actionListener0 = false;
 	public boolean actionListener1 = false;
@@ -41,8 +37,16 @@ public class FullScreen extends JFrame {
 	private static int MAX_WIDTH=640;
 	private static int MAX_HEIGHT=480;
 	
+	// protected buttons
+	
+	protected JButton leftArrow;
+	protected JButton rightArrow;
+	protected JButton exitButton;
+
+	
 	public FullScreen() {
 
+		// set settings ViewerPanel
 		
 		setMinimumSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height-30 ));
 		setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height-30 ));	
@@ -53,88 +57,61 @@ public class FullScreen extends JFrame {
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		panel.add(iv, BorderLayout.CENTER);
-		panel.setBackground(Color.WHITE);
-		panel.setForeground(Color.WHITE);
-		getContentPane().add(panel, BorderLayout.CENTER);
+		JPanel Viewerpanel = new JPanel();
+		Viewerpanel.setLayout(new BorderLayout());
+		Viewerpanel.add(iv, BorderLayout.CENTER);
+		Viewerpanel.setBackground(Color.WHITE);
+		Viewerpanel.setForeground(Color.WHITE);
+		getContentPane().add(Viewerpanel, BorderLayout.CENTER);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(SystemColor.activeCaption);
-		getContentPane().add(panel_1, BorderLayout.SOUTH);
+		// set settings Toolbarpanel
 		
-		JButton btnNewButton = new JButton("");
-		panel_1.add(btnNewButton);
-		btnNewButton.setAction(action);
-		btnNewButton.setBackground(SystemColor.activeCaption);
-		btnNewButton.setIcon(new ImageIcon(FullScreen.class.getResource("/de/htw/hundertwasser/res/fs_arrow_left_small.png")));
+		JPanel Toolbarpanel = new JPanel();
+		Toolbarpanel.setBackground(Color.WHITE);
+		getContentPane().add(Toolbarpanel, BorderLayout.SOUTH);
 		
-		JButton btnNewButton_1 = new JButton("");
-		panel_1.add(btnNewButton_1);
-		btnNewButton_1.setAction(action_1);
-		btnNewButton_1.setSelectedIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/exit_fullscreen_small.png")));
-		btnNewButton_1.setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/exit_fullscreen_small.png")));
-		btnNewButton_1.setBackground(SystemColor.activeCaption);
 		
-		JButton btnNewButton_2 = new JButton("");
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnNewButton.setVerticalAlignment(SwingConstants.BOTTOM);
-		panel_1.add(btnNewButton_2);
-		btnNewButton_2.setAction(action_2);
-		btnNewButton_2.setIcon(new ImageIcon(FullScreen.class.getResource("/de/htw/hundertwasser/res/fs_arrow_right_small.png")));
-		btnNewButton_2.setBackground(SystemColor.activeCaption);
+		// left arrow button
+		
+		leftArrow= new JButton("");
+		Toolbarpanel.add(leftArrow);
+		leftArrow.setBackground(Color.WHITE);
+		leftArrow.setIcon(new ImageIcon(FullScreen.class.getResource("/de/htw/hundertwasser/res/fs_arrow_left_small.png")));
+		
+		// exitbutton
+		
+		exitButton = new JButton("");
+		Toolbarpanel.add(exitButton);
+		exitButton.setSelectedIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/exit_fullscreen_small.png")));
+		exitButton.setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/exit_fullscreen_small.png")));
+		exitButton.setBackground(Color.WHITE);
+		
+		// right arrow button
+		
+		rightArrow = new JButton("");
+		rightArrow.setVerticalAlignment(SwingConstants.BOTTOM);
+		Toolbarpanel.add(rightArrow);
+		rightArrow.setIcon(new ImageIcon(FullScreen.class.getResource("/de/htw/hundertwasser/res/fs_arrow_right_small.png")));
+		rightArrow.setBackground(Color.WHITE);
 	}
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "");
-			putValue(SHORT_DESCRIPTION, "Click on left arrow");
-		}
-		public void actionPerformed(ActionEvent e) {
-			actionListener0 = true;
-		}
-	}
-	private class SwingAction_1 extends AbstractAction {
-		public SwingAction_1() {
-			putValue(NAME, "");
-			putValue(SHORT_DESCRIPTION, "CLcik on the minimize button");
-		}
-		public void actionPerformed(ActionEvent e) {
-			actionListener1 = true;
-			dispose();
-		}
-	}
-	private class SwingAction_2 extends AbstractAction {
-		public SwingAction_2() {
-			putValue(NAME, "");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-			actionListener2 = true;
-		}
-	}
+	
+		// abstract delivery methods
 
+	public abstract ActionListener getExitButtonListener();
 	
-	public boolean getActionListener0(){
-		return actionListener0;
-		}
+	public abstract ActionListener getRightArrowListener();
 	
-	public boolean getActionListener1(){
-		return actionListener0;
-	    }
+	public abstract ActionListener getLeftArrowListener();
 	
-	public boolean getActionListener2(){
-			return actionListener2;
-		}
- 
- 
+
+        // main method
 	
-	public static void main(String[] args) {
-		FullScreen fs = new FullScreen();
-		fs.setVisible(true);
-	}
+	//public static void main(String[] args) {
+		//FullScreen fs = new FullScreen();
+		//fs.setVisible(true);
+	//}
+	
+		
+	
 }
 
