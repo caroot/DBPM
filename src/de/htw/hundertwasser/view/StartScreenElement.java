@@ -53,8 +53,9 @@ public class StartScreenElement extends JPanel {
 		if(panelTyp == ELEMENT)
 			makeElementButton();
 		this.parentPanel = parentPanel;
-		Dimension size = new Dimension(325,286);
-		setPreferredSize(size);
+//		Dimension size = new Dimension(325,286);
+//		setPreferredSize(size);
+		setPreferredSize(StartScreen.getElementSize());
 		setLayout(new GridLayout(2, 1, 1, 0));
 		setBackground(StartScreen.getBGColor());
 		repaint();

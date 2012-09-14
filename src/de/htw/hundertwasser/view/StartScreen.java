@@ -179,7 +179,10 @@ public class StartScreen extends JFrame{
 	
 	public static void initialiseSizes() {
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//		subSystemSize = new Dimension
+		subSystemSize = new Dimension( screenSize.width, screenSize.height/2);
+		scrollSize = new Dimension(subSystemSize.width*3/4-20, subSystemSize.height-81);
+		System.out.println(scrollSize);
+		elementSize = new Dimension(scrollSize.width/3-6, scrollSize.height-22);
 		
 	}
 	
@@ -191,7 +194,7 @@ public class StartScreen extends JFrame{
 	}
 
 	public static void retextBox() {
-		boxText = PBOXES +  "(" + noOfBoxes + ")";
+		boxText = PBOXES +  " (" + noOfBoxes + ")";
 		boxTextLabel.setText(boxText);
 		boxTextLabel.repaint();
 	}

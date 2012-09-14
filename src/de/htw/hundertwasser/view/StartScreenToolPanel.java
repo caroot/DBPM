@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 /**
@@ -101,13 +102,13 @@ public class StartScreenToolPanel extends JPanel {
 			deleteButton.addActionListener(deleteListen);
 			
 		} catch (IOException ioe) {
-			//TODO Ausgabe des Fehlers, iwo bre...
+			ErrorMessageDialog.showMessage(null, "Could not find the Icon", "Oh no", ioe.getStackTrace().toString());
 			ioe.printStackTrace();
 		} catch (FontFormatException ffe) {
-			//TODO Ausgabe des Fehlers, iwo bre...
+			ErrorMessageDialog.showMessage(null, "Font not where it belongs", "Oh no", ffe.getStackTrace().toString());
 			ffe.printStackTrace();
 		} catch (OperationNotSupportedException onse) {
-			//TODO Ausgabe des Fehlers, iwo bre...
+			ErrorMessageDialog.showMessage(null, "Something bad happend", "Oh no", onse.getStackTrace().toString());
 			onse.printStackTrace();
 		}
 	}
