@@ -65,10 +65,10 @@ public class StartScreenElement extends JPanel {
 		try {
 			if(elementTyp == ALBUM) {
 				Icon elementIcon;
-					elementIcon = RessourcenEnummeration.PHOTOALBUM.getIcon();
+					elementIcon = RessourcenEnummeration.PHOTOALBUM_NEU.getIcon();
 				elementButton = new JButton(DEFAULT_NAME_ALBUM, elementIcon);
 			} else { 
-				Icon elementIcon = RessourcenEnummeration.PHOTOBOX.getIcon();
+				Icon elementIcon = RessourcenEnummeration.PHOTOBOX_NEU.getIcon();
 				elementButton = new JButton(DEFAULT_NAME_BOX, elementIcon);
 			}
 			elementButton.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -102,7 +102,7 @@ public class StartScreenElement extends JPanel {
 			if(elementTyp == ALBUM) {
 				addIcon = RessourcenEnummeration.PHOTOALBUM_HINZUFUEGEN_NEU.getIcon();
 			} else {
-				addIcon = RessourcenEnummeration.PHOTOBOX_HINZUFUEGEN.getIcon();
+				addIcon = RessourcenEnummeration.PHOTOBOX_HINZUFUEGEN_NEU.getIcon();
 			}	
 			JButton addButton = new JButton(addIcon);
 //			addButton.setBackground(StartScreen.getBGColor());
