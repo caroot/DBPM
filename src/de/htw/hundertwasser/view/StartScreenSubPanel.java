@@ -41,8 +41,8 @@ public class StartScreenSubPanel extends JPanel {
 		subElements.setBackground(StartScreen.getBGColor());
 		JScrollPane elementScrollPane = new JScrollPane(subElements, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		elementScrollPane.setBorder(BorderFactory.createEmptyBorder());
-		Dimension scrollSize = new Dimension(1002, 300);
-		elementScrollPane.setPreferredSize(scrollSize);
+//		Dimension scrollSize = new Dimension(1002, 300);
+		elementScrollPane.setPreferredSize(StartScreen.getScrollSize());
 		mainSubPanel.add(elementScrollPane);
 		if(typ == StartScreenElement.ALBUM)
 			mainSubPanel.add(new StartScreenElement(StartScreenElement.ALBUM, StartScreenElement.ADDITION, subElements));

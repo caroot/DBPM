@@ -53,8 +53,9 @@ public class StartScreenElement extends JPanel {
 		if(panelTyp == ELEMENT)
 			makeElementButton();
 		this.parentPanel = parentPanel;
-		Dimension size = new Dimension(325,286);
-		setPreferredSize(size);
+//		Dimension size = new Dimension(325,286);
+//		setPreferredSize(size);
+		setPreferredSize(StartScreen.getElementSize());
 		setLayout(new GridLayout(2, 1, 1, 0));
 		setBackground(StartScreen.getBGColor());
 		repaint();
@@ -99,7 +100,7 @@ public class StartScreenElement extends JPanel {
 		Icon addIcon;
 		try {
 			if(elementTyp == ALBUM) {
-				addIcon = RessourcenEnummeration.PHOTOALBUM_HINZUFUEGEN.getIcon();
+				addIcon = RessourcenEnummeration.PHOTOALBUM_HINZUFUEGEN_NEU.getIcon();
 			} else {
 				addIcon = RessourcenEnummeration.PHOTOBOX_HINZUFUEGEN.getIcon();
 			}	
