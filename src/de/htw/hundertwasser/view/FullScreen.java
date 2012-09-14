@@ -42,7 +42,7 @@ public abstract class FullScreen extends JFrame {
 	protected JButton leftArrow;
 	protected JButton rightArrow;
 	protected JButton exitButton;
-	private final Action action = new SwingAction();
+
 	
 	public FullScreen() {
 
