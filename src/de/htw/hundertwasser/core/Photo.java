@@ -14,23 +14,24 @@ import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
  * @author daniel
  *
  */
+//TODO:Photo-Testen.
 public class Photo {
 	/**
 	 * This error message occurs if the name is null.
 	 */
-	private static final String ERROR_NO_NAME ="You need to set a name. It can't be null.";
+	public static final String ERROR_NO_NAME ="You need to set a name. It can't be null.";
 	/**
 	 * This error message occurs if the path is null.
 	 */
-	private static final String ERROR_NO_PATH ="You need to set a path. It can't be null.";
+	public static final String ERROR_NO_PATH ="You need to set a path. It can't be null.";
 	/**
 	 * This error message occurs if the name is empty.
 	 */
-	private static final String ERROR_EMPTY_NAME ="You need to set a name. It can't be empty.";
+	public static final String ERROR_EMPTY_NAME ="You need to set a name. It can't be empty.";
 	/**
 	 * This error message occurs if the paht is empty.
 	 */
-	private static final String ERROR_EMPTY_PATH ="You need to set a path. It can't be empty.";
+	public static final String ERROR_EMPTY_PATH ="You need to set a path. It can't be empty.";
 	
 	/**
 	 * This is an instance of the ImageManager he'll keeps up the loading of Images by their absolute Filepath.
@@ -54,6 +55,11 @@ public class Photo {
 	 * This is the comment for the currrent photo.
 	 */
 	private String comment ="";
+	
+	/**
+	 * 
+	 */
+	private int photoBoxId = 0;
 	
 	/**
 	 * Return the Path to the given File.
@@ -91,6 +97,21 @@ public class Photo {
 	}
 
 
+/**
+ * Determine which PhotoBox should be refrenced
+ * @return
+ */
+public int getPhotoBoxId() {
+		return photoBoxId;
+	}
+
+/**
+ * Determine the PhotoBoxId
+ * @param photoBoxId
+ */
+	public void setPhotoBoxId(int photoBoxId) {
+		this.photoBoxId = photoBoxId;
+	}
 
 /**
  * This will return the name of the Photobook.

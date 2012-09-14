@@ -5,6 +5,7 @@ package de.htw.hundertwasser.core;
  * @author daniel
  *
  */
+//TODO:PhotoAlbumEntry testen.
 public class PhotoAlbumEntry {
 private Photo photo;
 private String text;

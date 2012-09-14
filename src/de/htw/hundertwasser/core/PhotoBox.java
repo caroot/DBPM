@@ -9,7 +9,9 @@ import java.util.ArrayList;
  * @author daniel
  *
  */
-//TODO: PhotoBox testen; Name des Photoalbums festlegen. 
+//TODO: PhotoBox testen; Name der PhotoBox festlegen;
+//TODO:Kommentare Einfügen; ExceptionHandling + (Implementierung des Fehlerwurfs)
+
 public class PhotoBox {
 
 	private static final String ERROR_INDEX_OUT_OF_BOUNDS = "ID of a Photo needs to be within the current Photobox boundaries.";
@@ -20,12 +22,29 @@ public class PhotoBox {
 	private static final String ERROR_NAME_NULL = "name can't be null";
 	private String name="";
 	private ArrayList<Photo> arPhotos;
+	private String absolutePathToFiles;
 	/**
 	 * Konstruktor
+	 * @throws IllegalArgumentExceptoin
 	 */
-	public PhotoBox()
+	public PhotoBox(String absoultePathToFiles) throws IllegalArgumentException
 	{
 		arPhotos= new ArrayList<Photo>();
+	}
+	
+	/**
+	 * Get the Absolute Path to File
+	 * @return
+	 */
+	public String getAbsolutePathToFiles() {
+		return absolutePathToFiles;
+	}
+	/**
+	 * Set AbsolutePath to file
+	 * @param absolutePathToFiles
+	 */
+	public void setAbsolutePathToFiles(String absolutePathToFiles) {
+		this.absolutePathToFiles = absolutePathToFiles;
 	}
 	/**
 	 * Name of the  PhotoBox
