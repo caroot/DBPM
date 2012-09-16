@@ -45,9 +45,9 @@ public class StartScreenSubPanel extends JPanel {
 		elementScrollPane.setPreferredSize(StartScreen.getScrollSize());
 		mainSubPanel.add(elementScrollPane);
 		if(typ == StartScreenElement.ALBUM)
-			mainSubPanel.add(new StartScreenElement(StartScreenElement.ALBUM, StartScreenElement.ADDITION, subElements));
+			mainSubPanel.add(new StartScreenElement(StartScreenElement.ALBUM, StartScreenElement.ADDITION, subElements, ""));
 		else
-			mainSubPanel.add(new StartScreenElement(StartScreenElement.BOX, StartScreenElement.ADDITION, subElements));
+			mainSubPanel.add(new StartScreenElement(StartScreenElement.BOX, StartScreenElement.ADDITION, subElements, ""));
 		add(mainSubPanel);
 	}
 }
