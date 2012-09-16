@@ -31,15 +31,14 @@ public class EditScreen extends JFrame implements WindowListener {
 	public static final String DBPM = "Dunkelbunt Photo Manager";
 	private static final int MAXWIDTH = 1024;
 	private static final int MAXHEIGHT = 768;
-	
-	
+
 	// Variablen
 	protected static Dimension screenSize;
 	protected static Dimension subSystemSize;
 	protected static Dimension scrollSize;
 	protected static Dimension elementSize;
-	protected JPanel centralPanel; //Central-Element
-	protected JPanel controlPanel; //Control-Element
+	protected JPanel centralPanel; // Central-Element
+	protected JPanel controlPanel; // Control-Element
 	protected JPanel attractivePanel;
 	protected NavigationBar navigationBar;
 	protected ThumbnailBar thumbnailBar;
@@ -48,49 +47,58 @@ public class EditScreen extends JFrame implements WindowListener {
 	protected JButton next;
 	protected ToolBar toolBar;
 	protected Infobar infoBar;
-	
 
 	public EditScreen() {
 
-		setVisible(true);
+		
 		setPreferredSize(new Dimension(MAXWIDTH, MAXHEIGHT));
 		setMinimumSize(new Dimension(MAXWIDTH, MAXHEIGHT));
 		setResizable(true);
 		setTitle(DBPM);
 		addWindowListener(this);
-		
-		//Create Elements
+
+		// Create Elements
 		title = new JLabel(DBPM);
 		navigationBar = new NavigationBar();
 		infoBar = new Infobar();
 		toolBar = new ToolBar();
-		//TODO:Kucke nach ausehen
-		controlPanel = new JPanel(new BorderLayout(10,10));
-		centralPanel = new JPanel(new BorderLayout(10,10));
-		attractivePanel = new JPanel(new BorderLayout(10,10));
+		thumbnailBar = new ThumbnailBar();
+
+		// TODO:Kucke nach ausehen
+
+		// Panel, die die Infobar und Toolbar beinhaltet
+		controlPanel = new JPanel(new BorderLayout(10, 10));
+		// Panels, die den PictureViewer beinhaltet
+		centralPanel = new JPanel(new BorderLayout(10, 10));
+		attractivePanel = new JPanel(new BorderLayout(10, 10));
 		
-		// Buttons erzeugen
-	 next = new JButton("Left");
-		 previous = new JButton("Right");
+		int a = 1; //LOESCHEN
+
+		// Buttons
+		next = new JButton("Left");
+		previous = new JButton("Right");
+
+		setLayout(new BorderLayout(10, 10));
+		add(title, BorderLayout.NORTH);
+		// add(navigationBar,BorderLayout.WEST);
+		// Thumbnailbar muss noch implementiert werden
+		// add(thumbnailbar,BorderLayout.SOUTH);
+		add(controlPanel, BorderLayout.EAST);
+		add(centralPanel, BorderLayout.CENTER);
 		
-		setLayout(new BorderLayout(10,10));
-		add(title,BorderLayout.NORTH);
-//		add(navigationBar,BorderLayout.WEST);
-		//Thumbnailbar muss noch implementiert werden
-		//add(thumbnailbar,BorderLayout.SOUTH);
-		add(controlPanel,BorderLayout.EAST);
-		add(centralPanel,BorderLayout.CENTER);
-		
-		
+		int b = 2; //LOESCHEN
+
 		// ContentPane haelt standardmaeßig ein BorderLayout
-        // Hinzufuegen der Buttons zum Content Pane des JFrames
-        centralPanel.add(previous, BorderLayout.WEST);
-        centralPanel.add(next, BorderLayout.EAST);
-        centralPanel.add(attractivePanel,BorderLayout.CENTER);
-        controlPanel.add(infoBar,BorderLayout.NORTH);
-        controlPanel.add(toolBar,BorderLayout.SOUTH);
-        pack();
-        
+		// Hinzufuegen der Buttons zum Content Pane des JFrames
+		centralPanel.add(previous, BorderLayout.WEST);
+		centralPanel.add(next, BorderLayout.EAST);
+		centralPanel.add(attractivePanel, BorderLayout.CENTER);
+		controlPanel.add(infoBar, BorderLayout.NORTH);
+		controlPanel.add(toolBar, BorderLayout.SOUTH);
+		pack();
+		
+		int c = 3; //LOESCHEN
+
 	}
 
 	
@@ -118,40 +126,9 @@ public class EditScreen extends JFrame implements WindowListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		initialiseSizes();
-		EditScreen ed =  new EditScreen();
+		EditScreen ed = new EditScreen();
 		ed.setVisible(true);
 		ed.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	}
-
-	/**
-	 * Screengröße ermitteln und Window nach der Größe anpassen
-	 */
-	public static void initialiseSizes() {
-		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		subSystemSize = new Dimension(screenSize.width, screenSize.height / 2);
-		scrollSize = new Dimension(subSystemSize.width * 3 / 4 - 20,
-				subSystemSize.height - 81);
-		System.out.println(scrollSize);
-		elementSize = new Dimension(scrollSize.width / 3 - 6,
-				scrollSize.height - 22);
-
-	}
-
-	public static Dimension getScreenSize() {
-		return screenSize;
-	}
-
-	public static Dimension getSubSystemSize() {
-		return subSystemSize;
-	}
-
-	public static Dimension getScrollSize() {
-		return scrollSize;
-	}
-
-	public static Dimension getElementSize() {
-		return elementSize;
 	}
 
 	@Override
