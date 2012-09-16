@@ -2,10 +2,11 @@ package de.htw.hundertwasser.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -58,12 +59,16 @@ public class EditScreen extends JFrame implements WindowListener {
 		addWindowListener(this);
 
 		// Create Elements
-		title = new JLabel(DBPM);
+		title = new JLabel(DBPM, JLabel.CENTER);
 		navigationBar = new NavigationBar();
 		infoBar = new Infobar();
 		toolBar = new ToolBar();
 		thumbnailBar = new ThumbnailBar();
-
+		
+		
+		
+		
+		
 		// TODO:Kucke nach ausehen
 
 		// Panel, die die Infobar und Toolbar beinhaltet
@@ -72,21 +77,27 @@ public class EditScreen extends JFrame implements WindowListener {
 		centralPanel = new JPanel(new BorderLayout(10, 10));
 		attractivePanel = new JPanel(new BorderLayout(10, 10));
 		
-		int a = 1; //LOESCHEN
+		
 
 		// Buttons
-		next = new JButton("Left");
-		previous = new JButton("Right");
+		next = new JButton();
+		previous = new JButton();
+		
+		// Buttons mit Pfeile versehen
+		previous.setIcon(new ImageIcon(EditScreen.class.getResource("/de/htw/hundertwasser/res/arrow_left.png")));
+		
+		next.setIcon(new ImageIcon(EditScreen.class.getResource("/de/htw/hundertwasser/res/arrow_right.png")));
+		
 
-		setLayout(new BorderLayout(10, 10));
-		add(title, BorderLayout.NORTH);
+		getContentPane().setLayout(new BorderLayout(10, 10));
+		getContentPane().add(title, BorderLayout.NORTH);
 		// add(navigationBar,BorderLayout.WEST);
 		// Thumbnailbar muss noch implementiert werden
 		// add(thumbnailbar,BorderLayout.SOUTH);
-		add(controlPanel, BorderLayout.EAST);
-		add(centralPanel, BorderLayout.CENTER);
+		getContentPane().add(controlPanel, BorderLayout.EAST);
+		getContentPane().add(centralPanel, BorderLayout.CENTER);
 		
-		int b = 2; //LOESCHEN
+		
 
 		// ContentPane haelt standardmaeﬂig ein BorderLayout
 		// Hinzufuegen der Buttons zum Content Pane des JFrames
@@ -97,11 +108,17 @@ public class EditScreen extends JFrame implements WindowListener {
 		controlPanel.add(toolBar, BorderLayout.SOUTH);
 		pack();
 		
-		int c = 3; //LOESCHEN
+		
 
 	}
 
 	
+	private ImageIcon createImage(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	public static void main(String[] args) {
 		try {
 			// for(LookAndFeelInfo info:UIManager.getInstalledLookAndFeels())
