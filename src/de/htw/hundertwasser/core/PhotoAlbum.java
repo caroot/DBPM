@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class PhotoAlbum {
 
 	private static final String ERROR_NO_STICKER = "The Sticker can't be null.";
-	private static final String ERROR_NO_PHOTO = "Das Photo darf nicht null sein.";
+	private static final String ERROR_NO_PHOTO = "Das Photo can't be null.";
 	private String name="";
 	private HashMap<Integer,PhotoAlbumEntry> hashPhotoAlbumEntry; 
 	/**
@@ -53,22 +53,41 @@ public class PhotoAlbum {
 		return null;
 	}
 
-
-	public void setEntry(PhotoAlbumEntry entry,int id)
+	/**
+	 * Determine the entry of an Photoalbum
+	 * @param entry
+	 * @param id
+	 */
+	public void setEntry(PhotoAlbumEntry entry,int id) throws IllegalArgumentException
 	{
-		
+	  hashPhotoAlbumEntry.put(id,entry);
 	}
-
+	
+	/**
+	 * Add an Entry to the Photoalbum
+	 * @param entry
+	 * @param id
+	 * @throws IllegalArgumentException
+	 */
 	public void addEntry(PhotoAlbumEntry entry,int id) throws IllegalArgumentException
 	{
 		hashPhotoAlbumEntry.put(id,entry);
 	}
 	
+	/**
+	 * Removes an Entry from the Photoalbum
+	 * @param id
+	 * @throws IllegalArgumentException
+	 */
 	public void removeEntry(int id) throws IllegalArgumentException
 	{
 		hashPhotoAlbumEntry.remove(id);
 	}
 	
+	/**
+	 * Counts the Entries
+	 * @return
+	 */
 	public int getCountEntries()
 	{
 		return hashPhotoAlbumEntry.size();

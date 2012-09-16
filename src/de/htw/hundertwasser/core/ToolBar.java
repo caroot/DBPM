@@ -7,15 +7,11 @@
 package de.htw.hundertwasser.core;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.PrintJob;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
@@ -36,6 +32,8 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
+import de.htw.hundertwasser.view.PhotoAlbumFullScreen;
+import de.htw.hundertwasser.view.PhotoBoxFullScreen;
 
 public class ToolBar extends JPanel{
 	/**
@@ -44,14 +42,35 @@ public class ToolBar extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	private static final String ERROR_PRINTING ="An error occured while trying to print";
+	private static final String CONFIRM = "Are you sure?";
+	private static final String ZOOM_VALUE = "Needs to be implemented";
+	private static final String ERROR = "An Error occured";
+	private static final String NO_PICTURE ="No picture given";
+	private static final String NEW_NAME ="Enter new name: ";
+	private static final String NAME_SUCCESS = "Name successfully changed";
+	private static final String SUCCESS ="Success";
+	
+//	private String name = "TestBild";
+	private String absolutePath = "C:/Users/Dominic/Pictures/pics/bild.jpg";
+	
+	private boolean inPhotoBox;
 
 	private Photo photo;
 	/*
 	 * 
 	 */
 	public ToolBar() {
+		
+		photo=new Photo("TestBild", absolutePath);
+		
 		setBackground(Color.WHITE);
+//		setUndecorated(true);
+		setVisible(true);
 		setToolTipText("Tools");
+		
+		setPreferredSize(new Dimension(200, 400));
+		setMinimumSize(new Dimension(200, 400));
+		
 		FormLayout formLayout = new FormLayout(new ColumnSpec[] {
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -60,7 +79,7 @@ public class ToolBar extends JPanel{
 				FormFactory.DEFAULT_COLSPEC,},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
+				RowSpec.decode("max(15dlu;default)"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -92,13 +111,14 @@ public class ToolBar extends JPanel{
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		add(label, "3, 4");
 		
-		JButton btnRename = new JButton("    Rename  ");
+		JButton btnRename = new JButton(" Rename       ");
 		btnRename.setBackground(Color.WHITE);
 		btnRename.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnRename.setToolTipText("Rename");
 		btnRename.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/rename.png")));
 		add(btnRename, "3, 6");
 		btnRename.addActionListener(renameListener);
+		btnRename.setSize(10, 20);
 		
 				
 		JButton btnZoom = new JButton(" Zoom           ");
@@ -107,6 +127,8 @@ public class ToolBar extends JPanel{
 		btnZoom.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_zoom_clean.png")));
 		btnZoom.setToolTipText("Zoom");
 		add(btnZoom, "3, 8");
+		btnZoom.addActionListener(ZoomListener);
+		btnZoom.setSize(10, 20);
 		
 		
 		JButton btnCut = new JButton("Cut               ");
@@ -115,13 +137,20 @@ public class ToolBar extends JPanel{
 		btnCut.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_cut_clean.png")));
 		btnCut.setToolTipText("Cut");
 		add(btnCut, "3, 10");
+		btnCut.addActionListener(CutListener);
+		btnCut.setSize(10, 20);
 		
-		JButton btnDelete = new JButton("    Delete");
+		
+		
+		JButton btnDelete = new JButton("Delete          ");
 		btnDelete.setBackground(Color.WHITE);
 		btnDelete.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnDelete.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/delete.png")));
 		btnDelete.setToolTipText("Delete");
 		add(btnDelete, "3, 12");
+		btnDelete.addActionListener(DeleteListener);
+		btnDelete.setSize(10, 20);
+		
 		
 		JButton btnPrint = new JButton("Print            ");
 		btnPrint.setBackground(Color.WHITE);
@@ -130,7 +159,7 @@ public class ToolBar extends JPanel{
 		btnPrint.setToolTipText("Print");
 		add(btnPrint, "3, 14");
 		btnPrint.addActionListener(printListener);
-		
+		btnPrint.setSize(10, 20);
 		
 		
 		JButton btnFullscreen = new JButton("Fullscreen");
@@ -139,35 +168,95 @@ public class ToolBar extends JPanel{
 		btnFullscreen.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnFullscreen.setToolTipText("Fullscreen");
 		add(btnFullscreen, "3, 16");
+		btnFullscreen.addActionListener(FullScreenListener);
+		btnFullscreen.setSize(10, 20);
+		
+		
 		
 		JButton btnBlackwhite = new JButton("  Black/White");
-		btnBlackwhite.setBackground(Color.WHITE);
+		btnBlackwhite.setBackground(Color.WHITE);		
 		btnBlackwhite.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_blackwhite_clean.png")));
 		btnBlackwhite.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnBlackwhite.setToolTipText("Black/White");
 		add(btnBlackwhite, "3, 18");
+		btnBlackwhite.addActionListener(BlackWhiteListener);
+		btnBlackwhite.setSize(10, 20);
+		
 	}
-	
-	
-	
+		
 	
 	ActionListener renameListener = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
+			try{
 			String newName = 
-					JOptionPane.showInputDialog(null, "New name:", "rename", JOptionPane.QUESTION_MESSAGE);
-			if(newName == null){
-				return; // cancel pressed
-			}
+					JOptionPane.showInputDialog(null, NEW_NAME, "rename", JOptionPane.QUESTION_MESSAGE);
+			
+			if (photo!=null){	
 				
-			photo.setName(newName);
+				System.out.println(photo.getName());
+				photo.setName(newName);
+				
+				JOptionPane.showMessageDialog(null, NAME_SUCCESS, SUCCESS, JOptionPane.INFORMATION_MESSAGE);
+				System.out.println(photo.getName());
+			}
+			else {
+							JOptionPane.showMessageDialog(	null,
+							NO_PICTURE,
+							ERROR,
+							JOptionPane.OK_OPTION );
+			}
+			
+		}	catch (IllegalArgumentException illegalArg){
+								
+				JOptionPane.showMessageDialog(null, illegalArg.getMessage(), ERROR, JOptionPane.ERROR_MESSAGE);
+				
+			}
 		}
 	};
 
 	
-	ActionListener printListener = new ActionListener() {
+	ActionListener ZoomListener = new ActionListener() {
+		
 		public void actionPerformed(ActionEvent e) {
-//			String newName = 
-//					JOptionPane.showInputDialog(null, "New name:", "rename", JOptionPane.QUESTION_MESSAGE);
+			JOptionPane.showMessageDialog(	null,
+					ZOOM_VALUE,
+					"Zoom",
+					JOptionPane.OK_OPTION );
+			
+//			TODO: Zoom Implementierung
+		}
+	};
+	
+	
+	ActionListener CutListener = new ActionListener() {
+		
+		
+		public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(	null,
+						ZOOM_VALUE,
+						"Cut",
+						JOptionPane.OK_OPTION );
+				
+		}
+	};
+		
+	
+	
+	ActionListener DeleteListener = new ActionListener() {
+				
+		public void actionPerformed(ActionEvent e) {
+			JOptionPane.showConfirmDialog(	null,
+											CONFIRM,
+											"Confirm Delete",
+											JOptionPane.YES_NO_OPTION );
+		}
+	};
+		
+	
+	
+	ActionListener printListener = new ActionListener() {
+		
+		public void actionPerformed(ActionEvent e) {
 			try {
 				print();
 			} catch (PrinterException printexc) {
@@ -207,6 +296,33 @@ public class ToolBar extends JPanel{
 	};
 	
 	
+	ActionListener FullScreenListener = new ActionListener() {
+		
+		
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			if (inPhotoBox == true){
+				PhotoBoxFullScreen pbfs = new PhotoBoxFullScreen();
+				pbfs.main(null);
+		}
+			else {
+				PhotoAlbumFullScreen pafs = new PhotoAlbumFullScreen();
+				pafs.main(null);
+			}
+		}
+	};
+	
+	
+	ActionListener BlackWhiteListener = new ActionListener() {
+		
+		public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(	null,
+						ZOOM_VALUE,
+						"Black/White",
+						JOptionPane.OK_OPTION );
+			}
+	};
+	
 	
 	
 	private void print() throws PrinterException, FileNotFoundException, IOException, InsufficientPrivilegesException{
@@ -223,7 +339,7 @@ public class ToolBar extends JPanel{
 			
 //		    pjob.setJobName(jobName);		
 		if ( pjob.printDialog() == false )
-			return;
+			{return;}
 	    	pjob.setPrintable( new Printable() {
 			
 			@Override
@@ -236,7 +352,14 @@ public class ToolBar extends JPanel{
 	    );
 	   
 	    pjob.print();
-	    
-		}
+		} 
 	}
+
+
+//  main method
+//	
+//	public static void main(String[] args) {
+//	ToolBar tb = new ToolBar();
+//	tb.setVisible(true);
+//	}
 }

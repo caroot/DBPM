@@ -41,6 +41,7 @@ public class StartScreenToolPanel extends JPanel {
 		Icon addIcon;
 		try {
 			Font buttonFont = RessourcenEnummeration.FONT_CALIBRI_BOLD.getFont().deriveFont(14f);
+//			Font buttonFont = new Font("Arial", 0, 10);
 			//------ Open Button ------//
 			addIcon = RessourcenEnummeration.OEFFNEN.getIcon();
 			JButton openButton = new JButton("Open", addIcon);

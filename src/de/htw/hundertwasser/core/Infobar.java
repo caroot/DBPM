@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -31,13 +32,17 @@ public class Infobar extends JPanel {
 	 * 
 	 */
 	private Photo photo;
+	private String absolutePath = "C:/Users/Dominic/Pictures/pics/bild.jpg";
 	
 	
 	public Infobar() {
 		
-		setPreferredSize(new Dimension(640,480));
-		setMaximumSize(new Dimension(640,480));
-		setMinimumSize(new Dimension(640, 480));
+		photo=new Photo("TestBild", absolutePath);
+		photo.setComment(photo.getName());
+		
+		setPreferredSize(new Dimension(250,200));
+		setMaximumSize(new Dimension(250,200));
+		setMinimumSize(new Dimension(250,200));
 		
 		setBackground(Color.WHITE);
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -107,14 +112,11 @@ public class Infobar extends JPanel {
 		JLabel lblComment = new JLabel("Comment:");
 		add(lblComment, "2, 18");
 		
-		JTextField txtComment = new JTextField("");
+		JTextField txtComment = new JTextField(photo.getComment());
 		txtComment.setBackground(Color.WHITE);
 		txtComment.setEditable(false);
 		add(txtComment, "6, 18, fill, default");
 		txtComment.setColumns(5);
 	}	
 	
-	
-	
-
 }

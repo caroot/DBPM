@@ -68,7 +68,7 @@ public class StartScreen extends JFrame{
 		setSize(screenSize);
 
 		setLocationRelativeTo(null); //Setzt das Fenster in die Mitte
-		setLayout( new GridLayout(0, 1, 0, 3)); //Anzahl der Spalten, Zeilen, Frewwwwwiraum(L/R), Freiraum(O/U)
+		setLayout( new GridLayout(0, 1, 0, 1)); //Anzahl der Spalten, Zeilen, Frewwwwwiraum(L/R), Freiraum(O/U)
 	}
 	
 	public static void main(String[] args) {
@@ -191,7 +191,7 @@ public class StartScreen extends JFrame{
 	
 	public static void retextAlbum() {
 		albumText = PALBUMS + " (" + noOfAlbums + ")";
-		System.out.println(albumText);
+		albumTextLabel.setText(albumText);
 		albumTextLabel.repaint();
 	}
 

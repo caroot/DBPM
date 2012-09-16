@@ -4,6 +4,7 @@ package de.htw.hundertwasser.core;
  * @author daniel
  *
  */
+//TODO:StickerEnnumeration testen
 public enum StickerEnummeration {
 SMILEY,
 HEART,

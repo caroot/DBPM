@@ -2,6 +2,7 @@ package de.htw.hundertwasser.view;
 
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FontFormatException;
@@ -19,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import de.htw.hundertwasser.core.DialogHandler;
 import de.htw.hundertwasser.core.PhotoAlbum;
 import de.htw.hundertwasser.core.PhotoBox;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
@@ -47,16 +49,16 @@ public class StartScreenElement extends JPanel {
 	private JPanel parentPanel = null;
 	private JButton elementButton = null;
 	private Object element = null; //<-- Ein Album oder eine Box, je nachdem was elementTyp ist.
-	public StartScreenElement(int elementTyp, int panelTyp, JPanel parentPanel) {
-		
+	private String elementName = null;
+	public StartScreenElement(int elementTyp, int panelTyp, JPanel parentPanel, String name) {
+		elementName = name;
 		this.elementTyp = elementTyp;
-		if(panelTyp == ADDITION)
+		if(panelTyp == ADDITION) {
 			makeAddButton();
+		}
 		if(panelTyp == ELEMENT)
 			makeElementButton();
 		this.parentPanel = parentPanel;
-//		Dimension size = new Dimension(325,286);
-//		setPreferredSize(size);
 		setPreferredSize(StartScreen.getElementSize());
 		setLayout(new GridLayout(2, 1, 1, 0));
 		setBackground(StartScreen.getBGColor());
@@ -66,12 +68,16 @@ public class StartScreenElement extends JPanel {
 	private void makeElementButton() {
 		try {
 			if(elementTyp == ALBUM) {
+				if(elementName == null)
+					elementName = DEFAULT_NAME_ALBUM;
 				Icon elementIcon;
 					elementIcon = RessourcenEnummeration.PHOTOALBUM_NEU.getIcon();
-				elementButton = new JButton(DEFAULT_NAME_ALBUM, elementIcon);
-			} else { 
+				elementButton = new JButton(elementName, elementIcon);
+			} else {
+				if(elementName == null)
+					elementName = DEFAULT_NAME_BOX; 
 				Icon elementIcon = RessourcenEnummeration.PHOTOBOX_NEU.getIcon();
-				elementButton = new JButton(DEFAULT_NAME_BOX, elementIcon);
+				elementButton = new JButton(elementName, elementIcon);
 			}
 			elementButton.setHorizontalTextPosition(SwingConstants.CENTER);
 			elementButton.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -115,16 +121,29 @@ public class StartScreenElement extends JPanel {
 		
 		ActionListener addListen = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String name;
 				if(elementTyp == StartScreenElement.ALBUM) {
+					name = DialogHandler.inputDialog("Insert name here", "New PhotoBox");
+					if(name == null)
+						return; //cancel if no Name was inserted
 					element = new PhotoAlbum();
+//					((PhotoAlbum) element).setName(name);
 					StartScreen.noOfAlbums++;
 					StartScreen.retextAlbum();
 				} else {
-					element = new PhotoBox();
+					name = DialogHandler.inputDialog("Insert name here", "New PhotoBox");
+					if(name == null)
+						return; //cancel if no Name was inserted
+					String path = DialogHandler.chooseSource();
+					if(path == null)
+						return; //cancel if no Path was chosen
+					DialogHandler.showProgressBar();
+					element = new PhotoBox(path);
+					((PhotoBox) element).setName(name);
 					StartScreen.noOfBoxes++;
 					StartScreen.retextBox();
 				}
-				parentPanel.add(new StartScreenElement(elementTyp, ELEMENT, parentPanel));
+				parentPanel.add(new StartScreenElement(elementTyp, ELEMENT, parentPanel, name));
 				parentPanel.getParent().validate();
 				
 			}
