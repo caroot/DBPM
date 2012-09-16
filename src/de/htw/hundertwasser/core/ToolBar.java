@@ -21,7 +21,6 @@ import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -48,6 +47,8 @@ public class ToolBar extends JPanel{
 	private static final String ERROR = "An Error occured";
 	private static final String NO_PICTURE ="No picture given";
 	private static final String NEW_NAME ="Enter new name: ";
+	private static final String NAME_SUCCESS = "Name successfully changed";
+	private static final String SUCCESS ="Success";
 	
 //	private String name = "TestBild";
 	private String absolutePath = "C:/Users/Dominic/Pictures/pics/bild.jpg";
@@ -66,8 +67,10 @@ public class ToolBar extends JPanel{
 //		setUndecorated(true);
 		setVisible(true);
 		setToolTipText("Tools");
-		setPreferredSize(new Dimension(250, 450));
-		setMinimumSize(new Dimension(250, 450));
+		
+		setPreferredSize(new Dimension(200, 400));
+		setMinimumSize(new Dimension(200, 400));
+		
 		FormLayout formLayout = new FormLayout(new ColumnSpec[] {
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -76,7 +79,7 @@ public class ToolBar extends JPanel{
 				FormFactory.DEFAULT_COLSPEC,},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
+				RowSpec.decode("max(15dlu;default)"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -115,6 +118,7 @@ public class ToolBar extends JPanel{
 		btnRename.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/rename.png")));
 		add(btnRename, "3, 6");
 		btnRename.addActionListener(renameListener);
+		btnRename.setSize(10, 20);
 		
 				
 		JButton btnZoom = new JButton(" Zoom           ");
@@ -124,6 +128,8 @@ public class ToolBar extends JPanel{
 		btnZoom.setToolTipText("Zoom");
 		add(btnZoom, "3, 8");
 		btnZoom.addActionListener(ZoomListener);
+		btnZoom.setSize(10, 20);
+		
 		
 		JButton btnCut = new JButton("Cut               ");
 		btnCut.setBackground(Color.WHITE);
@@ -132,6 +138,8 @@ public class ToolBar extends JPanel{
 		btnCut.setToolTipText("Cut");
 		add(btnCut, "3, 10");
 		btnCut.addActionListener(CutListener);
+		btnCut.setSize(10, 20);
+		
 		
 		
 		JButton btnDelete = new JButton("Delete          ");
@@ -141,7 +149,7 @@ public class ToolBar extends JPanel{
 		btnDelete.setToolTipText("Delete");
 		add(btnDelete, "3, 12");
 		btnDelete.addActionListener(DeleteListener);
-		
+		btnDelete.setSize(10, 20);
 		
 		
 		JButton btnPrint = new JButton("Print            ");
@@ -151,7 +159,7 @@ public class ToolBar extends JPanel{
 		btnPrint.setToolTipText("Print");
 		add(btnPrint, "3, 14");
 		btnPrint.addActionListener(printListener);
-		
+		btnPrint.setSize(10, 20);
 		
 		
 		JButton btnFullscreen = new JButton("Fullscreen");
@@ -161,16 +169,19 @@ public class ToolBar extends JPanel{
 		btnFullscreen.setToolTipText("Fullscreen");
 		add(btnFullscreen, "3, 16");
 		btnFullscreen.addActionListener(FullScreenListener);
+		btnFullscreen.setSize(10, 20);
+		
 		
 		
 		JButton btnBlackwhite = new JButton("  Black/White");
-		btnBlackwhite.setBackground(Color.WHITE);
+		btnBlackwhite.setBackground(Color.WHITE);		
 		btnBlackwhite.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_blackwhite_clean.png")));
 		btnBlackwhite.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnBlackwhite.setToolTipText("Black/White");
 		add(btnBlackwhite, "3, 18");
 		btnBlackwhite.addActionListener(BlackWhiteListener);
-	
+		btnBlackwhite.setSize(10, 20);
+		
 	}
 		
 	
@@ -185,7 +196,7 @@ public class ToolBar extends JPanel{
 				System.out.println(photo.getName());
 				photo.setName(newName);
 				
-				JOptionPane.showMessageDialog(null, "Name successfully changed", "Success", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, NAME_SUCCESS, SUCCESS, JOptionPane.INFORMATION_MESSAGE);
 				System.out.println(photo.getName());
 			}
 			else {
@@ -223,7 +234,7 @@ public class ToolBar extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(	null,
 						ZOOM_VALUE,
-						"Zoom",
+						"Cut",
 						JOptionPane.OK_OPTION );
 				
 		}
@@ -241,6 +252,8 @@ public class ToolBar extends JPanel{
 		}
 	};
 		
+	
+	
 	ActionListener printListener = new ActionListener() {
 		
 		public void actionPerformed(ActionEvent e) {
@@ -305,7 +318,7 @@ public class ToolBar extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(	null,
 						ZOOM_VALUE,
-						"Zoom",
+						"Black/White",
 						JOptionPane.OK_OPTION );
 			}
 	};
