@@ -105,7 +105,7 @@ public class EditScreen extends JFrame implements WindowListener {
 		centralPanel.add(next, BorderLayout.EAST);
 		centralPanel.add(attractivePanel, BorderLayout.CENTER);
 		controlPanel.add(infoBar, BorderLayout.NORTH);
-		controlPanel.add(toolBar, BorderLayout.SOUTH);
+		controlPanel.add(toolBar, BorderLayout.CENTER);
 		pack();
 		
 		
