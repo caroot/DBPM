@@ -187,14 +187,28 @@ public class StartScreenElement extends JPanel {
 		parent.remove(this);
 		parent.repaint();
 		parent.validate();
-		if(elementTyp == ALBUM) {
+		if(elementTyp == ALBUM) { //TODO Löschen der boxen und alben
+//			((PhotoAlbum) element).destroy();
 			StartScreen.noOfAlbums--;
 			StartScreen.retextAlbum();
 		} else {
+//			((PhotoBox) element).destroy();
 			StartScreen.noOfBoxes--;
 			StartScreen.retextBox();
 		}
 		parent.setSize(0,0); //Reset der grï¿½ï¿½e des Panels
+	}
+	
+	public int getTyp() {
+		return elementTyp;
+	}
+	
+	/**
+	 * Methode, that returns the assosiated Photo Box or Album
+	 * @return PhotoBox or PhotoAlbum, depends on the Typ.
+	 */
+	public Object getElement() {
+		return element;
 	}
 
 }

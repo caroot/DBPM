@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
+import java.util.Locale;
 
 import javax.naming.OperationNotSupportedException;
 import javax.swing.BorderFactory;
@@ -96,12 +97,7 @@ public class StartScreen extends JFrame{
 			e.printStackTrace();
 		}
 		initialiseSizes();
-		mainScreen = new StartScreen(); //Initialisierung.
-//		JSplitPane subPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-//		subPane.setDividerLocation(768/2-50);
-//		mainScreen.add(subPane);
-//		subPane.add(initialisePhotoBoxes());
-//		subPane.add(initialisePhotoAlbums());
+		mainScreen = new StartScreen(); 
 		mainScreen.add(initialisePhotoBoxes());
 		mainScreen.add(initialisePhotoAlbums());
 		mainScreen.setVisible(true);
@@ -150,6 +146,7 @@ public class StartScreen extends JFrame{
 		boxTextLabel.setForeground(Color.BLACK);
 		boxTextLabel.setPreferredSize(textSize);
 		Font boxFont;
+		
 		try {
 			boxFont = RessourcenEnummeration.FONT_CALIBRI_BOLD.getFont().deriveFont(40f);
 //			boxText.setFont(new Font("Calibri", 1, 40)); //Hier wird schriftart und größe bestimmt... Globalisieren?
@@ -182,9 +179,9 @@ public class StartScreen extends JFrame{
 	
 	public static void initialiseSizes() {
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		textSize = new Dimension(screenSize.width, 60);
+		textSize = new Dimension(screenSize.width, 100);
 		subSystemSize = new Dimension( screenSize.width*8/10, screenSize.height/2-20);
-		scrollSize = new Dimension(subSystemSize.width*3/4-20, subSystemSize.height-81);
+		scrollSize = new Dimension(subSystemSize.width*3/4-20, subSystemSize.height-111);
 		elementSize = new Dimension(scrollSize.width/3-7, scrollSize.height-10);
 		
 	}

@@ -84,6 +84,12 @@ public class StartScreenToolPanel extends JPanel {
 			
 			ActionListener openListen = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					StartScreenElement parentElement = ((StartScreenElement) getParent());
+					 if (parentElement.getTyp() == StartScreenElement.ALBUM) { //TODO Open PAES
+//						new PhotoAlbumEditScreen((PhotoAlbum) parentElement.getElement());
+					} else { //TODO Open PBES
+//						new PhotoBoxEditScreen((PhotoBox) parentElement.getElement());
+					}
 					//TODO open Photobre... (geht ja noch nit so wirklich...)/TODO open Photobre... (geht ja noch nit so wirklich...)
 				}
 			};
