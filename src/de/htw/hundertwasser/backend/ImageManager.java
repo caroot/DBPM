@@ -53,6 +53,7 @@ public class ImageManager {
 	 */
 	public File[] getImagesListInFolder(String path) throws IllegalArgumentException,ChoosenFileNotAFolder,FileNotFoundException
 	{
+		//TODO:Evtl. Rekursives auslesen notwendig.
 		File imageList =null;
 		FileAcceptor fileAcceptor = new FileAcceptor();
 		if (path==null) throw new IllegalArgumentException(ERROR_NULL_PATH);
