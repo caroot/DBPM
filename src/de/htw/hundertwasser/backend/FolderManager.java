@@ -89,5 +89,14 @@ public class FolderManager {
 		}
 	}
 	
-	
+	/**
+	 * ImportPhotobox to the current working directory.
+	 * @param name
+	 * @param pathtoFile
+	 * @return
+	 */
+	public PhotoBox importPhotoBox(String name,String pathtoFile) 
+	{
+		return null;
+	}
 }

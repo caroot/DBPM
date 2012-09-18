@@ -82,6 +82,7 @@ public class Photo {
 		if (absolutePath==null) throw new IllegalArgumentException(ERROR_NO_PATH);
 		if (name.trim().isEmpty()) throw new IllegalArgumentException(ERROR_EMPTY_NAME);
 		if (absolutePath.trim().isEmpty()) throw new IllegalArgumentException(ERROR_EMPTY_PATH);
+		manager = new ImageManager();
 		this.setName(name);
 		this.setPathToFile(absolutePath);
 	}
