@@ -10,9 +10,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
 
+import de.htw.hundertwasser.core.PhotoBox;
+
 public class PhotoBoxEditScreen extends EditScreen {
 
-	public PhotoBoxEditScreen() {
+	public PhotoBoxEditScreen(PhotoBox photobox) {
 
 		super();
 
