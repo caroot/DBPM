@@ -7,14 +7,13 @@ import javax.swing.JOptionPane;
 public class PhotoAlbumEditScreen extends EditScreen{
 	
 	
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 
-	
+	public PhotoAlbumEditScreen() {
+		
+		super();
+	}
 	
 	
 	
