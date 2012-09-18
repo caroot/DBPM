@@ -64,7 +64,7 @@ public class ImageManager {
 			{
 				if (imageList.isDirectory())
 				{
-				//TODO:Warte auf Fabian Hewener wegen FileAcceptor;
+				//TODO:Warte auf Fabian Hewener wegen FileAcceptor; Achtung extends von FileFilter bei der Klasse FileAcceptor notwendig.
 				return imageList.listFiles(fileAcceptor);
 				}
 				else
