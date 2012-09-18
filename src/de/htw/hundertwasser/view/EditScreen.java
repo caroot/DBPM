@@ -59,7 +59,7 @@ public class EditScreen extends JFrame implements WindowListener {
 		addWindowListener(this);
 
 		// Create Elements
-		title = new JLabel(DBPM, JLabel.CENTER);
+//		title = new JLabel(DBPM, JLabel.CENTER);
 		navigationBar = new NavigationBar();
 		infoBar = new Infobar();
 		toolBar = new ToolBar();
@@ -90,7 +90,7 @@ public class EditScreen extends JFrame implements WindowListener {
 		
 
 		getContentPane().setLayout(new BorderLayout(10, 10));
-		getContentPane().add(title, BorderLayout.NORTH);
+//		getContentPane().add(title, BorderLayout.NORTH);
 		// add(navigationBar,BorderLayout.WEST);
 		// Thumbnailbar muss noch implementiert werden
 		// add(thumbnailbar,BorderLayout.SOUTH);

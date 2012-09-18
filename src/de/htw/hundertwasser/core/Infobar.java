@@ -9,7 +9,10 @@ package de.htw.hundertwasser.core;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -31,9 +34,10 @@ public class Infobar extends JPanel {
 	/*
 	 * 
 	 */
-	private Photo photo;
-	private String absolutePath = "C:/Users/Dominic/Pictures/pics/bild.jpg";
 	
+	private Photo photo;
+	private String absolutePath = "C:/Temp/universe.jpg";
+
 	
 	public Infobar() {
 		

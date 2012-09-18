@@ -34,6 +34,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
 import de.htw.hundertwasser.view.PhotoAlbumFullScreen;
 import de.htw.hundertwasser.view.PhotoBoxFullScreen;
+import de.htw.test.MouseListener;
 
 public class ToolBar extends JPanel{
 	/**
@@ -56,6 +57,7 @@ public class ToolBar extends JPanel{
 	private boolean inPhotoBox;
 
 	private Photo photo;
+	private MouseListener msl;
 	/*
 	 * 
 	 */
@@ -191,6 +193,7 @@ public class ToolBar extends JPanel{
 			String newName = 
 					JOptionPane.showInputDialog(null, NEW_NAME, "rename", JOptionPane.QUESTION_MESSAGE);
 			
+			if (newName != null){
 			if (photo!=null){	
 				
 				System.out.println(photo.getName());
@@ -204,6 +207,7 @@ public class ToolBar extends JPanel{
 							NO_PICTURE,
 							ERROR,
 							JOptionPane.OK_OPTION );
+			}
 			}
 			
 		}	catch (IllegalArgumentException illegalArg){
@@ -232,14 +236,17 @@ public class ToolBar extends JPanel{
 		
 		
 		public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(	null,
-						ZOOM_VALUE,
-						"Cut",
-						JOptionPane.OK_OPTION );
-				
+//				JOptionPane.showMessageDialog(	null,
+//						ZOOM_VALUE,
+//						"Cut",
+//						JOptionPane.OK_OPTION );
+
+					msl = new MouseListener();	
+					
+					
 		}
 	};
-		
+	
 	
 	
 	ActionListener DeleteListener = new ActionListener() {
@@ -250,6 +257,9 @@ public class ToolBar extends JPanel{
 											"Confirm Delete",
 											JOptionPane.YES_NO_OPTION );
 		}
+		
+		
+//			TODO: DELETE Implementierung
 	};
 		
 	
