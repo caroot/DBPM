@@ -61,7 +61,7 @@ public class StAXCompleteWriterTest {
 
 	private PhotoBox createPhotoBox(int anzPhotos)
 	{
-		PhotoBox photobox= new PhotoBox();
+		PhotoBox photobox= new PhotoBox("asdasdsda");
 		photobox.setName("MyPhotobox with" + anzPhotos);
 		for (int i=0;i<anzPhotos;i++)
 		{
@@ -96,7 +96,7 @@ public class StAXCompleteWriterTest {
 	public void setUp() throws Exception {
 		photoBox10 = createPhotoBox(10);
 		photoBox100 = createPhotoBox(100);
-		photoBox0 = new PhotoBox();
+		photoBox0 = new PhotoBox("asdasdsda");
 		photoBox0.setName("MyPhotoBoxName");
 		
 		photoAlbum0 = new PhotoAlbum();
