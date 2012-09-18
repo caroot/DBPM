@@ -35,9 +35,7 @@ public class DialogHandler {
 	public static String chooseSource() {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setDialogTitle("Choose Source");
-	    FileNameExtensionFilter filter = new FileNameExtensionFilter(
-	        "Images", "jpg", "gif", "jpeg", "tiff", "png");
-	    chooser.setFileFilter(filter);
+	    chooser.setFileFilter(de.htw.hundertwasser.backend.FileAcceptor.getFilter());
 	    chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		 
 	    int returnVal = chooser.showOpenDialog(null);
@@ -64,6 +62,7 @@ public class DialogHandler {
 		progressFrame.setUndecorated(true);
 		progressFrame.add(progressBar);
 		progressFrame.setVisible(true);
+		progressFrame.setAlwaysOnTop(true);
 		
 		//when the task of (initially) unknown length begins:
 		progressBar.setIndeterminate(true);

@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.FontFormatException;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
 import de.htw.hundertwasser.core.DialogHandler;
@@ -137,11 +139,19 @@ public class StartScreenElement extends JPanel {
 					String path = DialogHandler.chooseSource();
 					if(path == null)
 						return; //cancel if no Path was chosen
-					DialogHandler.showProgressBar();
+					JProgressBar progress = DialogHandler.showProgressBar();
 					element = new PhotoBox(path);
+					//TODO Photobox mit Photos füllen, (Folder Manager i-wan)
 					((PhotoBox) element).setName(name);
 					StartScreen.noOfBoxes++;
 					StartScreen.retextBox();
+					try {
+						Thread.sleep(3000);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					((Window) progress.getParent().getParent().getParent().getParent()).dispose();
 				}
 				parentPanel.add(new StartScreenElement(elementTyp, ELEMENT, parentPanel, name));
 				parentPanel.getParent().validate();
