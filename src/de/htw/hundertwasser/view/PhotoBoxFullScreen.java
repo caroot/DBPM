@@ -42,11 +42,13 @@ public class PhotoBoxFullScreen extends FullScreen {
 
 
 	// right arrow
+	
 	public ActionListener getRightArrowListener() {
 		return null;
-	}
+   }
 
 	// left arrow
+	
 	public ActionListener getLeftArrowListener() {
 		
 		return null;
