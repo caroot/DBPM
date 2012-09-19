@@ -34,7 +34,7 @@ public class PhotoAlbumEditScreen extends EditScreen{
 		}
 		
 		JPanel mover = new JPanel();
-		mover.setPreferredSize(new Dimension(0,150));
+		mover.setPreferredSize(new Dimension(0,100));
 		mover.setBackground(Color.WHITE);
 		centralPanel.add(mover, BorderLayout.NORTH);
 

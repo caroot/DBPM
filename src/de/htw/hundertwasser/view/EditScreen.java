@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,13 +15,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.BevelBorder;
 
 import de.htw.hundertwasser.core.ImageViewer;
 import de.htw.hundertwasser.core.Infobar;
 import de.htw.hundertwasser.core.NavigationBar;
 import de.htw.hundertwasser.core.ThumbnailBar;
 import de.htw.hundertwasser.core.ToolBar;
-import javax.swing.border.BevelBorder;
+import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 /**
  * Klasse die den EditScreen anzeigt
@@ -60,7 +62,14 @@ public class EditScreen extends JFrame implements WindowListener {
 		setPreferredSize(screenSize);
 		setResizable(true);
 		setTitle(DBPM);
-		setMinimumSize(new Dimension(900,700));
+//		setMinimumSize(new Dimension(900,700));
+		try {
+			setIconImage(RessourcenEnummeration.EICHHORN_ICON.getImage());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		addWindowListener(this);
 
 		// Create Elements

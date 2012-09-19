@@ -28,26 +28,20 @@ public class paes extends JFrame{
 	
 	
 	public paes() {
-		super(DBPM);
-		initialiseSizes();
-		setBackground(Color.BLACK);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Wenn man auf das X drückt wird das Programm beendet.
-		setSize(screenSize);
-//
+//		super(DBPM);
+//		setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+//		initialiseSizes();
+//		setBackground(Color.BLACK);
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Wenn man auf das X drückt wird das Programm beendet.
+		
+
 //		setLocationRelativeTo(null); //Setzt das Fenster in die Mitte
-//		setLayout( new GridLayout(0, 1, 0, 1)); //Anzahl der Spalten, Zeilen, Frewwwwwiraum(L/R), Freiraum(O/U)
 	}
 	
 	public static void main(String[] args) {
 		try {
-//			for(LookAndFeelInfo info:UIManager.getInstalledLookAndFeels())
-//			{
-//				System.out.println(info.getClassName());
-//			}
-//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			UIManager.setLookAndFeel(
 			"com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel"
-//			"com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel"
 			);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -63,10 +57,17 @@ public class paes extends JFrame{
 			e.printStackTrace();
 		}
 		
+		initialiseSizes();
+//		System.out.println(screenSize);
 		PhotoAlbumEditScreen paes = new PhotoAlbumEditScreen();
-//		paes.setSize(screenSize);
-		paes.setVisible(true);
+//		paes.setLocationRelativeTo(null);
+//		screenSize=Toolkit.getDefaultToolkit().getScreenSize();
+//		System.out.println(screenSize);
+//		paes.setPreferredSize(screenSize);
 		
+//		paes.setBackground(Color.BLACK);
+		paes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Wenn man auf das X drückt wird das Programm beendet.
+		paes.setVisible(true);
 	}
 	
 	
