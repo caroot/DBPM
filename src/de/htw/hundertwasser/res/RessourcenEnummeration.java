@@ -55,7 +55,7 @@ public enum RessourcenEnummeration {
 			"TransferPhotoAlbum.dtd"), DTD_EXPORT_PHOTOBOX(
 			"TransferPhotoAlbum.dtd"), FONT_CALIBRI_BOLD("CALIBRIB.TTF"), FONT_CALIBRI(
 			"CALIBRI.TTF"), FONT_CALIBRI_ITALIC("CALIBRII.TTF"), FONT_CALIBRI_SCHRAEG(
-			"CALIBRIZ.TTF");
+			"CALIBRIZ.TTF"), EICHHORN_ICON("eich.jpg"),;
 
 	private static final String ERROR_NO_FONT = "Nur Fonts können angezeigt werden.";
 	private static final String ERROR_NO_DTD = "Diese Methode kann nur bei einer der vorhandenen DTDs angewendet werden.";
