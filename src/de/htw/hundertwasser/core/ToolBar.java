@@ -7,7 +7,6 @@
 package de.htw.hundertwasser.core;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -70,8 +69,8 @@ public class ToolBar extends JPanel{
 		setVisible(true);
 		setToolTipText("Tools");
 		
-		setPreferredSize(new Dimension(200, 400));
-		setMinimumSize(new Dimension(200, 400));
+//		setPreferredSize(new Dimension(200, 400));
+//		setMinimumSize(new Dimension(200, 400));
 		
 		FormLayout formLayout = new FormLayout(new ColumnSpec[] {
 				FormFactory.DEFAULT_COLSPEC,
@@ -104,7 +103,7 @@ public class ToolBar extends JPanel{
 		
 		JLabel lblTools = new JLabel("Tools");
 		lblTools.setBackground(Color.WHITE);
-		lblTools.setFont(new Font("Calibri", Font.PLAIN, 14));
+		lblTools.setFont(new Font("Arial", Font.BOLD, 14));
 		lblTools.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblTools, "3, 2, 1, 2");
 		
@@ -115,7 +114,7 @@ public class ToolBar extends JPanel{
 		
 		JButton btnRename = new JButton(" Rename       ");
 		btnRename.setBackground(Color.WHITE);
-		btnRename.setFont(new Font("Calibri", Font.PLAIN, 12));
+		btnRename.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnRename.setToolTipText("Rename");
 		btnRename.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/rename.png")));
 		add(btnRename, "3, 6");
@@ -125,7 +124,7 @@ public class ToolBar extends JPanel{
 				
 		JButton btnZoom = new JButton(" Zoom           ");
 		btnZoom.setBackground(Color.WHITE);
-		btnZoom.setFont(new Font("Calibri", Font.PLAIN, 12));
+		btnZoom.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnZoom.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_zoom_clean.png")));
 		btnZoom.setToolTipText("Zoom");
 		add(btnZoom, "3, 8");
@@ -135,7 +134,7 @@ public class ToolBar extends JPanel{
 		
 		JButton btnCut = new JButton("Cut               ");
 		btnCut.setBackground(Color.WHITE);
-		btnCut.setFont(new Font("Calibri", Font.PLAIN, 12));
+		btnCut.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCut.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_cut_clean.png")));
 		btnCut.setToolTipText("Cut");
 		add(btnCut, "3, 10");
@@ -146,7 +145,7 @@ public class ToolBar extends JPanel{
 		
 		JButton btnDelete = new JButton("Delete          ");
 		btnDelete.setBackground(Color.WHITE);
-		btnDelete.setFont(new Font("Calibri", Font.PLAIN, 12));
+		btnDelete.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnDelete.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/delete.png")));
 		btnDelete.setToolTipText("Delete");
 		add(btnDelete, "3, 12");
@@ -157,7 +156,7 @@ public class ToolBar extends JPanel{
 		JButton btnPrint = new JButton("Print            ");
 		btnPrint.setBackground(Color.WHITE);
 		btnPrint.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_print_clean.png")));
-		btnPrint.setFont(new Font("Calibri", Font.PLAIN, 12));
+		btnPrint.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnPrint.setToolTipText("Print");
 		add(btnPrint, "3, 14");
 		btnPrint.addActionListener(printListener);
@@ -167,7 +166,7 @@ public class ToolBar extends JPanel{
 		JButton btnFullscreen = new JButton("Fullscreen");
 		btnFullscreen.setBackground(Color.WHITE);
 		btnFullscreen.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_fullscreen_clean.png")));
-		btnFullscreen.setFont(new Font("Calibri", Font.PLAIN, 12));
+		btnFullscreen.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnFullscreen.setToolTipText("Fullscreen");
 		add(btnFullscreen, "3, 16");
 		btnFullscreen.addActionListener(FullScreenListener);
@@ -178,7 +177,7 @@ public class ToolBar extends JPanel{
 		JButton btnBlackwhite = new JButton("  Black/White");
 		btnBlackwhite.setBackground(Color.WHITE);		
 		btnBlackwhite.setIcon(new ImageIcon(ToolBar.class.getResource("/de/htw/hundertwasser/res/tool_blackwhite_clean.png")));
-		btnBlackwhite.setFont(new Font("Calibri", Font.PLAIN, 12));
+		btnBlackwhite.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnBlackwhite.setToolTipText("Black/White");
 		add(btnBlackwhite, "3, 18");
 		btnBlackwhite.addActionListener(BlackWhiteListener);
@@ -318,6 +317,8 @@ public class ToolBar extends JPanel{
 			else {
 				PhotoAlbumFullScreen pafs = new PhotoAlbumFullScreen();
 				pafs.main(null);
+//				pafs.add(getParent());
+//				pafs.repaint();
 			}
 		}
 	};

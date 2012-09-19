@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import de.htw.hundertwasser.core.ImageViewer;
 import de.htw.hundertwasser.core.Infobar;
 import de.htw.hundertwasser.core.NavigationBar;
 import de.htw.hundertwasser.core.ThumbnailBar;
@@ -50,7 +51,8 @@ public class EditScreen extends JFrame implements WindowListener {
 	protected JButton next;
 	protected ToolBar toolBar;
 	protected Infobar infoBar;
-	private ImagePanel imgPanel;
+	protected ImagePanel imgPanel;
+	protected ImageViewer imgViewer;
 
 	public EditScreen() {
 		getContentPane().setBackground(Color.WHITE);
@@ -58,6 +60,7 @@ public class EditScreen extends JFrame implements WindowListener {
 		setPreferredSize(screenSize);
 		setResizable(true);
 		setTitle(DBPM);
+		setMinimumSize(new Dimension(900,700));
 		addWindowListener(this);
 
 		// Create Elements
@@ -67,22 +70,25 @@ public class EditScreen extends JFrame implements WindowListener {
 		toolBar = new ToolBar(); // Toolbar Rechts Unten
 		thumbnailBar = new ThumbnailBar(); // Thumbnail Unten
 		imgPanel = new ImagePanel();
+		imgViewer = new ImageViewer();
 
 		// title = new JLabel(DBPM, JLabel.CENTER);
 		navigationBar = new NavigationBar();
 		infoBar.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, null, null, null));
+		infoBar.setPreferredSize(subSystemSize);
 		toolBar.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, null, null, null));
+		toolBar.setPreferredSize(subSystemSize);
 		thumbnailBar = new ThumbnailBar();
 
 		// Panel, die den PictureViewer beinhaltet
 		centralPanel = new JPanel();
 		centralPanel.setBackground(Color.WHITE);
-		centralPanel.setLayout(new BorderLayout(10, 10)); // und LayoutManager
+		centralPanel.setLayout(new BorderLayout(0, 0)); // und LayoutManager
 															// hinzufügen
 		// Panel, der die NavigationBar beinhaltet
 		controlPanel = new JPanel();
 		controlPanel.setBackground(Color.WHITE);
-		controlPanel.setLayout(new BorderLayout(10, 10)); // und LayoutManager
+		controlPanel.setLayout(new BorderLayout(0, 0)); // und LayoutManager
 															// hinzufügen
 		// Panels, die die Buttons beinhaltet
 		buttonPanelleft = new JPanel(new GridLayout(10, 0));
@@ -93,12 +99,16 @@ public class EditScreen extends JFrame implements WindowListener {
 		// Hinzufügen von INFOBAR und TOOLBAR in den CONTROLPANEL
 		controlPanel.add(infoBar, BorderLayout.NORTH);
 		controlPanel.add(toolBar, BorderLayout.CENTER);
+		
 		// Hinzufügen der beiden Panels für Buttons
 		centralPanel.add(buttonPanelleft, BorderLayout.EAST);
 		centralPanel.add(buttonPanelright, BorderLayout.WEST);
 		centralPanel.add(imgPanel, BorderLayout.CENTER);
 		
 		centralPanel.add(thumbnailBar, BorderLayout.SOUTH);
+		
+		imgPanel.add(imgViewer, BorderLayout.CENTER);
+		
 		// Jeder Richtung etwas zuweisen
 		getContentPane().setLayout(new BorderLayout(10, 10));
 
