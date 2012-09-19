@@ -9,10 +9,7 @@ package de.htw.hundertwasser.core;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
-import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -22,6 +19,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+import java.awt.Font;
 
 
 
@@ -44,7 +42,7 @@ public class Infobar extends JPanel {
 		photo=new Photo("TestBild", absolutePath);
 		photo.setComment(photo.getName());
 		
-		setPreferredSize(new Dimension(250,200));
+		setPreferredSize(new Dimension(250, 223));
 		setMaximumSize(new Dimension(250,200));
 		setMinimumSize(new Dimension(250,200));
 		
@@ -80,47 +78,43 @@ public class Infobar extends JPanel {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
-		
-
 		JLabel lblInfo = new JLabel("Info");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblInfo, "4, 2, 3, 1");
+		lblInfo.setFont(new Font("Arial", Font.BOLD, 14));
+		add(lblInfo, "2, 2, 9, 1");
+		
+		JLabel lblInfo_1 = new JLabel("Info");
+		lblInfo_1.setFont(new Font("Calibri", Font.BOLD, 14));
+		lblInfo_1.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblInfo_1, "2, 4, 9, 1");
 		
 		JLabel lblSize = new JLabel("Size:");
+		lblSize.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblSize, "2, 6");
 		
-		JTextField txtSize = new JTextField();
-		txtSize.setBackground(Color.WHITE);
-		txtSize.setEditable(false);
-		add(txtSize, "6, 6, fill, default");
-		txtSize.setColumns(10);
+		JLabel lblSize_filled = new JLabel("");
+		add(lblSize_filled, "6, 6");
 		
 		JLabel lblPixel = new JLabel("Pixel:");
+		lblPixel.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblPixel, "2, 10");
 		
-		JTextField txtPixel = new JTextField();
-		txtPixel.setBackground(Color.WHITE);
-		txtPixel.setEditable(false);
-		add(txtPixel, "6, 10, fill, default");
-		txtPixel.setColumns(10);
+		JLabel lblPixel_filled = new JLabel("");
+		add(lblPixel_filled, "6, 10");
 		
 		JLabel lblCreated = new JLabel("Created:");
+		lblCreated.setFont(new Font("Calibri", Font.BOLD, 12));
 		add(lblCreated, "2, 14");
 		
-		JTextField txtCreated = new JTextField();
-		txtCreated.setBackground(Color.WHITE);
-		txtCreated.setEditable(false);
-		add(txtCreated, "6, 14, fill, default");
-		txtCreated.setColumns(10);
+		JLabel lblCreated_filled = new JLabel("");
+		add(lblCreated_filled, "6, 14");
 		
 		JLabel lblComment = new JLabel("Comment:");
+		lblComment.setFont(new Font("Calibri", Font.BOLD, 12));
 		add(lblComment, "2, 18");
 		
-		JTextField txtComment = new JTextField(photo.getComment());
-		txtComment.setBackground(Color.WHITE);
-		txtComment.setEditable(false);
-		add(txtComment, "6, 18, fill, default");
-		txtComment.setColumns(5);
+		JLabel lblComment_filled = new JLabel("");
+		add(lblComment_filled, "6, 18");
 	}	
 	
 }

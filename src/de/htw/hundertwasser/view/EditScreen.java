@@ -49,9 +49,7 @@ public class EditScreen extends JFrame implements WindowListener {
 	protected JButton previous;
 	protected JButton next;
 	protected ToolBar toolBar;
-	private ToolBar toolBar_1;
 	protected Infobar infoBar;
-	private Infobar infoBar_1;
 	private ImagePanel imgPanel;
 
 	public EditScreen() {
@@ -72,10 +70,8 @@ public class EditScreen extends JFrame implements WindowListener {
 
 		// title = new JLabel(DBPM, JLabel.CENTER);
 		navigationBar = new NavigationBar();
-		infoBar_1 = new Infobar();
-		infoBar_1.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, null, null, null));
-		toolBar_1 = new ToolBar();
-		toolBar_1.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, null, null, null));
+		infoBar.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, null, null, null));
+		toolBar.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, null, null, null));
 		thumbnailBar = new ThumbnailBar();
 
 		// Panel, die den PictureViewer beinhaltet
@@ -95,13 +91,14 @@ public class EditScreen extends JFrame implements WindowListener {
 		buttonPanelright.setBackground(Color.WHITE);
 
 		// Hinzufügen von INFOBAR und TOOLBAR in den CONTROLPANEL
-		controlPanel.add(infoBar_1, BorderLayout.NORTH);
-		controlPanel.add(toolBar_1, BorderLayout.CENTER);
+		controlPanel.add(infoBar, BorderLayout.NORTH);
+		controlPanel.add(toolBar, BorderLayout.CENTER);
 		// Hinzufügen der beiden Panels für Buttons
 		centralPanel.add(buttonPanelleft, BorderLayout.EAST);
 		centralPanel.add(buttonPanelright, BorderLayout.WEST);
 		centralPanel.add(imgPanel, BorderLayout.CENTER);
-
+		
+		centralPanel.add(thumbnailBar, BorderLayout.SOUTH);
 		// Jeder Richtung etwas zuweisen
 		getContentPane().setLayout(new BorderLayout(10, 10));
 
@@ -161,8 +158,8 @@ public class EditScreen extends JFrame implements WindowListener {
 
 		// ContentPane haelt standardmaeßig ein BorderLayout
 		// Hinzufuegen der Buttons zum Content Pane des JFrames
-		controlPanel.add(infoBar_1, BorderLayout.NORTH);
-		controlPanel.add(toolBar_1, BorderLayout.CENTER);
+		controlPanel.add(infoBar, BorderLayout.NORTH);
+		controlPanel.add(toolBar, BorderLayout.CENTER);
 
 		pack();
 
