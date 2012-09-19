@@ -1,6 +1,7 @@
 package de.htw.test;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 
 public class ImageZoom implements ImageObserver {
@@ -11,7 +12,7 @@ public class ImageZoom implements ImageObserver {
 	private static final long serialVersionUID = 1L;
 	
 	
-	public Image ZoomIn(Image img) {
+	public Image ZoomIn(BufferedImage img) {
 		    
 		    Image outImg = null;
 		    int[] rgbOutput = null;
@@ -26,7 +27,7 @@ public class ImageZoom implements ImageObserver {
 		        outImg  = Image.createImage(height,width);
 		        int rgbInput[]=new int[width*height];
 		        rgbOutput = new int[width*height];
-		        img.getRGB(rgbInput,0,width,0,0,width,height);
+		        img.getRGB(0,width,0,0,rgbInput,width,height);
 		        
 		        int i,j,k,l;
 		        k=0;

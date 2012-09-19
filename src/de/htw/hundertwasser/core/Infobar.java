@@ -8,8 +8,8 @@
 package de.htw.hundertwasser.core;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -91,9 +91,12 @@ public class Infobar extends JPanel {
 		lblSize.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblSize, "2, 6");
 		
-		JLabel lblSize_filled = new JLabel();
+		JLabel lblSize_filled = new JLabel(new Long(getFileSize()).toString());
 		lblSize_filled.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblSize_filled, "6, 6");
+		
+		JLabel lblKb = new JLabel("KB");
+		add(lblKb, "8, 6");
 		
 		JLabel lblPixel = new JLabel("Pixel:");
 		lblPixel.setFont(new Font("Arial", Font.BOLD, 12));
@@ -165,5 +168,13 @@ public class Infobar extends JPanel {
 		
 		
 		return sb.toString();
+	}
+	
+	
+	private long getFileSize(){
+		
+		File file = new File(photo.getPathToFile());
+		
+		return (file.length()/1000);
 	}
 }
