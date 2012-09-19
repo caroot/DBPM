@@ -65,7 +65,7 @@ public class StartScreen extends JFrame{
 	public StartScreen() {
 		super(DBPM);
 		setBackground(Color.BLACK);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Wenn man auf das X drückt wird das Programm beendet.
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Wenn man auf das X drückt wird das Programm komplett beendet.
 		setSize(screenSize);
 
 		setLocationRelativeTo(null); //Setzt das Fenster in die Mitte
