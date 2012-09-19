@@ -57,7 +57,7 @@ public class Infobar extends JPanel {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
+				FormFactory.MIN_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -80,12 +80,21 @@ public class Infobar extends JPanel {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
-		JLabel lblInfo = new JLabel("Info");
+		JLabel lblInfo = new JLabel("    Info");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setFont(new Font("Arial", Font.BOLD, 14));
 		add(lblInfo, "2, 2, 9, 1");
+		
+		JLabel label_1 = new JLabel("---------------");
+		label_1.setVerticalAlignment(SwingConstants.TOP);
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		add(label_1, "4, 4, 5, 1");
 		
 		JLabel lblSize = new JLabel("Size:");
 		lblSize.setFont(new Font("Arial", Font.BOLD, 12));
@@ -104,7 +113,7 @@ public class Infobar extends JPanel {
 		
 		JLabel lblPixel_filled = new JLabel(getPixel());
 		lblPixel_filled.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblPixel_filled, "6, 10");
+		add(lblPixel_filled, "6, 10, 3, 1");
 		
 		JLabel lblCreated = new JLabel("Created:");
 		lblCreated.setFont(new Font("Arial", Font.BOLD, 12));
@@ -119,8 +128,11 @@ public class Infobar extends JPanel {
 		
 		JLabel lblComment_filled = new JLabel(photo.getComment());
 		lblComment_filled.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblComment_filled.setHorizontalAlignment(SwingConstants.CENTER);
+		lblComment_filled.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblComment_filled, "6, 18");
+		
+		JLabel label = new JLabel("");
+		add(label, "2, 20, 8, 3");
 	}	
 	
 	
