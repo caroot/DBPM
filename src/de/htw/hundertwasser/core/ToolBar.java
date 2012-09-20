@@ -52,7 +52,7 @@ public class ToolBar extends JPanel{
 	private static final String SUCCESS ="Success";
 	
 //	private String name = "TestBild";
-	private String absolutePath = "C:/Eevee.jpg";
+	private String absolutePath = "AGV.jpg";
 	private EditScreen editScreen = null;
 	
 	private boolean inPhotoBox;
