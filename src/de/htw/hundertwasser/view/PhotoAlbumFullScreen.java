@@ -4,6 +4,8 @@ package de.htw.hundertwasser.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 
 
@@ -17,6 +19,7 @@ public class PhotoAlbumFullScreen extends FullScreen {
 	
 	public PhotoAlbumFullScreen (){
 		super();
+		getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{leftArrow, exitButton, rightArrow}));
 		exitButton.addActionListener(getExitButtonListener());
 		leftArrow.addActionListener(getLeftArrowListener());
 		rightArrow.addActionListener(getRightArrowListener());

@@ -7,6 +7,9 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -17,6 +20,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import de.htw.hundertwasser.core.ImageViewer;
+import de.htw.hundertwasser.core.Photo;
+import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
+import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 /**
  * Klasse die zum anzeigen des ausgewählten Photos im Fullscreenmodus zu zeigen
@@ -58,11 +64,14 @@ public abstract class FullScreen extends JFrame {
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel Viewerpanel = new JPanel();
+		ImageViewer iviewer = new ImageViewer();
 		Viewerpanel.setLayout(new BorderLayout());
 		Viewerpanel.add(iv, BorderLayout.CENTER);
 		Viewerpanel.setBackground(Color.WHITE);
 		Viewerpanel.setForeground(Color.WHITE);
 		getContentPane().add(Viewerpanel, BorderLayout.CENTER);
+		Viewerpanel.add(iviewer, BorderLayout.CENTER);
+		
 		
 		// set settings Toolbarpanel
 		
@@ -102,16 +111,6 @@ public abstract class FullScreen extends JFrame {
 	public abstract ActionListener getRightArrowListener();
 	
 	public abstract ActionListener getLeftArrowListener();
-	
-
-        // main method
-	
-	//public static void main(String[] args) {
-		//FullScreen fs = new FullScreen();
-		//fs.setVisible(true);
-	//}
-	
 		
-	
 }
 
