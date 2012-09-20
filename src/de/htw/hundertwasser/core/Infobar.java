@@ -57,22 +57,18 @@ public class Infobar extends JPanel {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(15dlu;min)"),
+				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.PREF_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
+				RowSpec.decode("max(7dlu;default)"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -89,13 +85,13 @@ public class Infobar extends JPanel {
 		JLabel lblInfo = new JLabel("          Info");
 		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.setFont(new Font("Arial", Font.BOLD, 14));
-		add(lblInfo, "2, 2, 9, 1");
+		add(lblInfo, "2, 2, 11, 1");
 		
-		JLabel label_1 = new JLabel("             ------------");
+		JLabel label_1 = new JLabel("             -------------------------");
 		label_1.setFont(new Font("Arial", Font.PLAIN, 12));
 		label_1.setVerticalAlignment(SwingConstants.TOP);
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label_1, "2, 4, 9, 1");
+		add(label_1, "2, 3, 11, 2, center, default");
 		
 		JLabel lblSize = new JLabel("Size:");
 		lblSize.setFont(new Font("Arial", Font.BOLD, 12));
@@ -103,37 +99,37 @@ public class Infobar extends JPanel {
 		
 		JLabel lblSize_filled = new JLabel(new Long(getFileSize()).toString());
 		lblSize_filled.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblSize_filled, "4, 6, 3, 1");
+		add(lblSize_filled, "4, 6, 5, 1, center, default");
 		
 		JLabel lblKb = new JLabel("KB");
-		add(lblKb, "8, 6");
+		add(lblKb, "10, 6");
 		
 		JLabel lblPixel = new JLabel("Pixel:");
 		lblPixel.setFont(new Font("Arial", Font.BOLD, 12));
-		add(lblPixel, "2, 10");
+		add(lblPixel, "2, 8");
 		
 		JLabel lblPixel_filled = new JLabel(getPixel());
 		lblPixel_filled.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblPixel_filled, "5, 10, 5, 1");
+		add(lblPixel_filled, "6, 8, 6, 1, center, default");
 		
 		JLabel lblCreated = new JLabel("Created:");
 		lblCreated.setFont(new Font("Arial", Font.BOLD, 12));
-		add(lblCreated, "2, 14");
+		add(lblCreated, "2, 10");
 		
 		JLabel lblCreated_filled = new JLabel("");
-		add(lblCreated_filled, "6, 14");
+		add(lblCreated_filled, "6, 10, 5, 1, center, default");
 		
 		JLabel lblComment = new JLabel("Comment:");
 		lblComment.setFont(new Font("Arial", Font.BOLD, 12));
-		add(lblComment, "2, 18");
+		add(lblComment, "2, 12");
 		
 		JLabel lblComment_filled = new JLabel(photo.getComment());
 		lblComment_filled.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblComment_filled.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(lblComment_filled, "6, 18, 3, 1");
+		add(lblComment_filled, "6, 12, 5, 1, center, default");
 		
 		JLabel label = new JLabel("");
-		add(label, "2, 20, 8, 3");
+		add(label, "2, 14, 10, 3");
 	}	
 	
 	

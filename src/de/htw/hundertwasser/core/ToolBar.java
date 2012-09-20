@@ -105,12 +105,11 @@ public class ToolBar extends JPanel{
 		lblTools.setBackground(Color.WHITE);
 		lblTools.setFont(new Font("Arial", Font.BOLD, 14));
 		lblTools.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblTools, "3, 2, 1, 2");
+		add(lblTools, "3, 2");
 		
-		JLabel label = new JLabel("---------------");
-		label.setVerticalAlignment(SwingConstants.TOP);
+		JLabel label = new JLabel("-------------------------");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label, "3, 4");
+		add(label, "3, 3, 1, 2");
 		
 		JButton btnRename = new JButton(" Rename       ");
 		btnRename.setBackground(Color.WHITE);
