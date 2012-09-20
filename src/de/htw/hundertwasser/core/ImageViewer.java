@@ -7,75 +7,81 @@ import java.awt.Image;
 import javax.swing.JComponent;
 
 /**
- * Der ImageViewer erlaubt die Dastellung von Bilddateien.
+ * This class shows the Pictures
+ * 
  * @author daniel
  * @version 1.0
  * @since 04.09.2012
  */
-public class ImageViewer extends JComponent{
+public class ImageViewer extends JComponent {
 
 	/**
-	 * Version ID der aktuellen Komponente
+	 * Version ID from the current Component
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	/**
-	 * Fehlermeldung wenn das Image nicht vorhanden ist.
+	 * Error if the Image is not available
 	 */
-	private static final String ERROR_NO_IMAGE="Image kann nicht null sein.";
+	private static final String ERROR_NO_IMAGE = "Image kann nicht null sein.";
+
 	/**
-	 * TAG der auf den Namen der Klasse verweist.
+	 * TAG that the Class name relegates
 	 */
 	private static String TAG;
 	/**
-	 * Member Image-Objekt.
+	 * Member Image-Object.
 	 */
 	private Image m_img;
-	
+
 	/**
-	 * Konstruktor
+	 * Constructor
 	 */
-	public ImageViewer()
-	{
+	public ImageViewer() {
 		TAG = this.getClass().getSimpleName();
 	}
-	
+
 	/**
-	 * Legt das Bild, dass angezeigt werden soll fest.
-	 * @param image, Bilddatei.
-	 * @throws IllegalArgumentException, wenn das Bild null ist.
+	 * Specifies the fixed Image that has to be shown
+	 * 
+	 * @param image Picture
+	 * @throws IllegalArgumentException if the Picture null is.
 	 */
-	public void setImage(Image image) throws IllegalArgumentException
-	{
-		if (image == null) throw new IllegalArgumentException(ERROR_NO_IMAGE,new Throwable(TAG+"."+"setImage()"));
+	public void setImage(Image image) throws IllegalArgumentException {
+		if (image == null)
+			throw new IllegalArgumentException(ERROR_NO_IMAGE, new Throwable(
+					TAG + "." + "setImage()"));
 		m_img = image;
-		setPreferredSize(new Dimension(m_img.getWidth(this),m_img.getHeight(this)));
-		setMinimumSize(new Dimension(m_img.getWidth(this),m_img.getHeight(this)));
+		setPreferredSize(new Dimension(m_img.getWidth(this),
+				m_img.getHeight(this)));
+		setMinimumSize(new Dimension(m_img.getWidth(this),
+				m_img.getHeight(this)));
 		repaint();
 	}
-	
+
 	@Override
 	protected void paintComponent(Graphics g) {
-//		super.paintComponent(g);
-		if (m_img!=null)
-		{
-		g.drawImage(m_img, 0, 0, this);
+		// super.paintComponent(g);
+		if (m_img != null) {
+			g.drawImage(m_img, 0, 0, this);
 		}
 	}
+
 	/**
-	 * Setzt das Bild auf leer.
+	 * Set the Picture of null.
 	 */
-	public void removeImage()
-	{
+	public void removeImage() {
 		m_img = null;
 	}
-	
+
 	/**
-	 * Gibt an, ob dieser Komponente ein Image zugeordnet wurde.
-	 * @return
+	 * Specifies if an Picture was assigned
+	 * 
+	 * @return true if m_img is null, otherwise true
 	 */
-	public boolean isEmpty()
-	{
-		if (m_img==null) return true;
+	public boolean isEmpty() {
+		if (m_img == null)
+			return true;
 		return false;
 	}
 }

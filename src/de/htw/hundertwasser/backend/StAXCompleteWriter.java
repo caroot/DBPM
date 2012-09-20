@@ -14,6 +14,10 @@ import de.htw.hundertwasser.core.PhotoAlbumEntry;
 import de.htw.hundertwasser.core.PhotoBox;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
+/*
+ * This class writes the data into an XML file.
+ * @author daniel rhein
+ */
 public class StAXCompleteWriter {
 
 	private static final String ERROR_NO_PATH_TO_FILE = "Sie haben keinen Pfad zur XML-Datei angebenen. Dieser muss zum Speichern angebeen werden.";

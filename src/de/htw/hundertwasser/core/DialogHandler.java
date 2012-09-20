@@ -14,6 +14,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import de.htw.hundertwasser.view.StartScreen;
 
+/*
+ * Class that creates the DialogHandlers
+ * @author fabian hewer
+ */
 public class DialogHandler {
 
 	/**

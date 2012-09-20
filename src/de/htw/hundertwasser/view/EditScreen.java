@@ -56,6 +56,9 @@ public class EditScreen extends JFrame implements WindowListener {
 	protected ImagePanel imgPanel;
 	protected ImageViewer imgViewer;
 
+	/*
+	 * Konstruktor für den EditScreen 
+	 */
 	public EditScreen() {
 		getContentPane().setBackground(Color.WHITE);
 
