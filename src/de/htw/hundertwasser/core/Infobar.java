@@ -1,3 +1,9 @@
+/*
+ * @author: Dominic Holz
+ * @version: 0.1
+ * @date: 20.09.12
+ */
+
 package de.htw.hundertwasser.core;
 
 import java.awt.Color;
@@ -5,6 +11,9 @@ import java.awt.Font;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,22 +26,27 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
 
-/*
- * @author: Dominic Holz
- * @version: 0.1
- * @date: 12.09.12
- */
 public class Infobar extends JPanel {
 
-	// Constans
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	
+	
+	
+	/*
+	 * Variablen
+	 */
+
 	private Photo photo;
 	// private String absolutePath = "C:/Temp/universe.jpg";
 	private String absolutePath = "C:/Users/Dominic/Pictures/pics/bild.jpg";
 
+	
 	/*
-	 * Class that the Infobar creates
+	 * 
+	 * 
 	 */
 	public Infobar() {
 
@@ -108,7 +122,7 @@ public class Infobar extends JPanel {
 		lblCreated.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblCreated, "2, 10");
 
-		JLabel lblCreated_filled = new JLabel("");
+		JLabel lblCreated_filled = new JLabel(formatDate());
 		add(lblCreated_filled, "6, 10, 5, 1, center, default");
 
 		JLabel lblComment = new JLabel("Comment:");
@@ -124,9 +138,9 @@ public class Infobar extends JPanel {
 		add(label, "2, 14, 10, 3");
 	}
 
+	
 	/*
-	 * Class that determined the Height of a Picture
-	 * @return height of a Picture
+	 * 
 	 */
 	private int getPhotoHeight() {
 		int height = 0;
@@ -147,9 +161,9 @@ public class Infobar extends JPanel {
 		return height;
 	}
 
-	/**
-	 * Class that determined the Widht of a Picture
-	 * @return width of a Picture
+	
+	/*
+	 * 
 	 */
 	private int getPhotoWidth() {
 		int width = 0;
@@ -169,9 +183,9 @@ public class Infobar extends JPanel {
 		return width;
 	}
 
+	
 	/*
-	 * Function that shows the Width and Height of a Picture
-	 * @return sb Width and Height of a Picture
+	 * 
 	 */
 	private String getPixel() {
 
@@ -183,13 +197,37 @@ public class Infobar extends JPanel {
 	}
 
 	/*
-	 * Function that determined the Size of a File
-	 * @return file Size of the file
+	 * 
 	 */
 	private long getFileSize() {
 
 		File file = new File(photo.getPathToFile());
 
 		return (file.length() / 1000);
+	}
+
+	/*
+	 * 
+	 */
+	private Date getModifiedDate() {
+
+		File file = new File(photo.getPathToFile());
+		long tmp = file.lastModified();
+
+		Date modified = new Date(tmp);
+
+		return modified;
+	}
+
+	/*
+	 * 
+	 */
+	private String formatDate() {
+		DateFormat formatter;
+		formatter = new SimpleDateFormat("dd.MM.yy");
+
+		String s = formatter.format(getModifiedDate());
+
+		return s;
 	}
 }
