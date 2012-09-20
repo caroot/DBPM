@@ -41,7 +41,7 @@ public class Infobar extends JPanel {
 
 	private Photo photo;
 	// private String absolutePath = "C:/Temp/universe.jpg";
-	private String absolutePath = "C:/Users/Dominic/Pictures/pics/bild.jpg";
+	private String absolutePath = "C:/Eevee.jpg";
 
 	
 	/*
@@ -50,7 +50,7 @@ public class Infobar extends JPanel {
 	 */
 	public Infobar() {
 
-		photo = new Photo("TestBild", absolutePath);
+		photo = new Photo("12345678", absolutePath);
 		photo.setComment(photo.getName());
 
 		// setPreferredSize(new Dimension(250, 223));

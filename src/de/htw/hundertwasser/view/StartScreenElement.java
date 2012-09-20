@@ -2,21 +2,15 @@ package de.htw.hundertwasser.view;
 
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FontFormatException;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.URL;
 
 import javax.naming.OperationNotSupportedException;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -33,6 +27,7 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
  *
  */
 public class StartScreenElement extends JPanel {
+	private static final long serialVersionUID = 1L;
 	//Konstanten
 	public static final int ELEMENT = 0;
 	public static final int ADDITION = 1;
@@ -46,7 +41,6 @@ public class StartScreenElement extends JPanel {
 	//variablen
 
 	private static StartScreenToolPanel chosenElementToolPanel = null;
-	private URL buttonImg = null;
 	private int elementTyp;
 	private JPanel parentPanel = null;
 	private JButton elementButton = null;

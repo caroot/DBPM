@@ -20,7 +20,7 @@ public class PhotoAlbumEditScreen extends EditScreen{
 
 
 	public PhotoAlbumEditScreen() {
-		
+		//TODO Laden des Photoalbums
 			
 		super();
 		try {
@@ -43,7 +43,8 @@ public class PhotoAlbumEditScreen extends EditScreen{
 	}
 	
 	
-	protected ImageViewer getImgViewer(){
+	public ImageViewer getImgViewer(){
+		//TODO PhotoAlbumView in imageViewer umwandeln
 		return imgViewer;
 	}
 	

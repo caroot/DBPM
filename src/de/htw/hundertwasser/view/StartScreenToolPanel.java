@@ -1,29 +1,25 @@
 package de.htw.hundertwasser.view;
 
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.URL;
 
 import javax.naming.OperationNotSupportedException;
-import javax.swing.BorderFactory;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import de.htw.hundertwasser.core.DialogHandler;
+import de.htw.hundertwasser.core.PhotoBox;
 import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
-import de.htw.hundertwasser.core.DialogHandler;
 
 /**
  * klasse die die einzelnen Tools f�r die Photoboxen und Alben azeigt (�ffnen, umbenennen, senden und l�schen)
@@ -32,6 +28,7 @@ import de.htw.hundertwasser.core.DialogHandler;
  */
 public class StartScreenToolPanel extends JPanel {
 	
+	private static final long serialVersionUID = 1L;
 	//Variablen
 	JPanel subElements = null;
 	
@@ -87,8 +84,12 @@ public class StartScreenToolPanel extends JPanel {
 					StartScreenElement parentElement = ((StartScreenElement) getParent());
 					 if (parentElement.getTyp() == StartScreenElement.ALBUM) { //TODO Open PAES
 //						new PhotoAlbumEditScreen((PhotoAlbum) parentElement.getElement());
+						 PhotoAlbumEditScreen albumScreen = new PhotoAlbumEditScreen();
+						 albumScreen.setVisible(true);
 					} else { //TODO Open PBES
-//						new PhotoBoxEditScreen((PhotoBox) parentElement.getElement());
+						PhotoBoxEditScreen photoScreen = new PhotoBoxEditScreen((PhotoBox) parentElement.getElement());
+						photoScreen.setVisible(true);
+						
 					}
 					//TODO open Photobre... (geht ja noch nit so wirklich...)/TODO open Photobre... (geht ja noch nit so wirklich...)
 				}

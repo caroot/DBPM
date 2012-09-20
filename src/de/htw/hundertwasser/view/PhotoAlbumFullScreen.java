@@ -4,8 +4,8 @@ package de.htw.hundertwasser.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-import java.awt.Component;
+
+import de.htw.hundertwasser.core.ImageViewer;
 
 
 
@@ -16,13 +16,16 @@ import java.awt.Component;
  */
 
 public class PhotoAlbumFullScreen extends FullScreen {
-	
-	public PhotoAlbumFullScreen (){
-		super();
-		getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{leftArrow, exitButton, rightArrow}));
+
+	private static final long serialVersionUID = 1L;
+
+	public PhotoAlbumFullScreen(ImageViewer imgViewer){
+		super(imgViewer);
+//		getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{leftArrow, exitButton, rightArrow}));
 		exitButton.addActionListener(getExitButtonListener());
 		leftArrow.addActionListener(getLeftArrowListener());
 		rightArrow.addActionListener(getRightArrowListener());
+		setVisible(true);
 		
 	}
 	
@@ -50,8 +53,8 @@ public class PhotoAlbumFullScreen extends FullScreen {
 	
 	// main method
 	 
-	public static void main(String[] args) {
-		PhotoAlbumFullScreen fsnew = new PhotoAlbumFullScreen();
-		fsnew.setVisible(true);
-  }
+//	public static void main(String[] args) {
+//		PhotoAlbumFullScreen fsnew = new PhotoAlbumFullScreen();
+//		fsnew.setVisible(true);
+//  }
 }

@@ -2,12 +2,8 @@ package de.htw.hundertwasser.view;
 
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -18,6 +14,7 @@ import javax.swing.JScrollPane;
  */
 public class StartScreenSubPanel extends JPanel {
 	
+	private static final long serialVersionUID = 1L;
 	//Variablen
 	JPanel subElements = null;
 	

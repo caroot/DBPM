@@ -3,16 +3,9 @@ public package de.htw.hundertwasser.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.SystemColor;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,9 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import de.htw.hundertwasser.core.ImageViewer;
-import de.htw.hundertwasser.core.Photo;
-import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
-import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 /**
  * Klasse die zum anzeigen des ausgewählten Photos im Fullscreenmodus zu zeigen
@@ -32,6 +22,8 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 public abstract class FullScreen extends JFrame {
 	
+	private static final long serialVersionUID = 1L;
+
 	ImageViewer iv = new ImageViewer();
 	
 	// boolean variables
@@ -50,7 +42,7 @@ public abstract class FullScreen extends JFrame {
 	protected JButton exitButton;
 
 	
-	public FullScreen() {
+	public FullScreen(ImageViewer img) {
 
 		// set settings ViewerPanel
 		
@@ -64,13 +56,14 @@ public abstract class FullScreen extends JFrame {
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel Viewerpanel = new JPanel();
-		ImageViewer iviewer = new ImageViewer();
+//		ImageViewer iviewer = img;
+		iv = img;
 		Viewerpanel.setLayout(new BorderLayout());
 		Viewerpanel.add(iv, BorderLayout.CENTER);
 		Viewerpanel.setBackground(Color.WHITE);
 		Viewerpanel.setForeground(Color.WHITE);
 		getContentPane().add(Viewerpanel, BorderLayout.CENTER);
-		Viewerpanel.add(iviewer, BorderLayout.CENTER);
+//		Viewerpanel.add(iviewer, BorderLayout.CENTER);
 		
 		
 		// set settings Toolbarpanel

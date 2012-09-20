@@ -31,6 +31,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
+import de.htw.hundertwasser.view.EditScreen;
 import de.htw.hundertwasser.view.PhotoAlbumFullScreen;
 import de.htw.hundertwasser.view.PhotoBoxFullScreen;
 import de.htw.test.MouseListener;
@@ -51,7 +52,8 @@ public class ToolBar extends JPanel{
 	private static final String SUCCESS ="Success";
 	
 //	private String name = "TestBild";
-	private String absolutePath = "C:/Users/Dominic/Pictures/pics/bild.jpg";
+	private String absolutePath = "C:/Eevee.jpg";
+	private EditScreen editScreen = null;
 	
 	private boolean inPhotoBox;
 
@@ -60,10 +62,10 @@ public class ToolBar extends JPanel{
 	/*
 	 * 
 	 */
-	public ToolBar() {
+	public ToolBar(EditScreen editScreen) {
+		this.editScreen = editScreen;
 		
 		photo=new Photo("TestBild", absolutePath);
-		
 		setBackground(Color.WHITE);
 //		setUndecorated(true);
 		setVisible(true);
@@ -310,14 +312,12 @@ public class ToolBar extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			if (inPhotoBox == true){
-				PhotoBoxFullScreen pbfs = new PhotoBoxFullScreen();
-				pbfs.main(null);
+				PhotoBoxFullScreen pbfs = new PhotoBoxFullScreen(editScreen.getImgViewer());
 		}
 			else {
-				PhotoAlbumFullScreen pafs = new PhotoAlbumFullScreen();
-				pafs.main(null);
+				PhotoAlbumFullScreen pafs = new PhotoAlbumFullScreen(editScreen.getImgViewer());
 //				pafs.add(getParent());
-//				pafs.repaint();
+				pafs.repaint();
 			}
 		}
 	};

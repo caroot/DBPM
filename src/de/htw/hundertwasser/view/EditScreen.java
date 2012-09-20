@@ -53,7 +53,7 @@ public class EditScreen extends JFrame implements WindowListener {
 	protected JButton next;
 	protected ToolBar toolBar;
 	protected Infobar infoBar;
-	protected ImagePanel imgPanel;
+	protected JPanel imgPanel;
 	protected ImageViewer imgViewer;
 
 	/*
@@ -61,7 +61,6 @@ public class EditScreen extends JFrame implements WindowListener {
 	 */
 	public EditScreen() {
 		getContentPane().setBackground(Color.WHITE);
-
 		setPreferredSize(screenSize);
 		setResizable(true);
 		setTitle(DBPM);
@@ -79,9 +78,9 @@ public class EditScreen extends JFrame implements WindowListener {
 
 		navigationBar = new NavigationBar(); // Navigation Links
 		infoBar = new Infobar(); // Information Rechts Oben
-		toolBar = new ToolBar(); // Toolbar Rechts Unten
+		toolBar = new ToolBar(this); // Toolbar Rechts Unten
 		thumbnailBar = new ThumbnailBar(); // Thumbnail Unten
-		imgPanel = new ImagePanel();
+		imgPanel = new JPanel();
 		imgViewer = new ImageViewer();
 
 		// title = new JLabel(DBPM, JLabel.CENTER);
@@ -264,5 +263,9 @@ public class EditScreen extends JFrame implements WindowListener {
 	public void windowOpened(WindowEvent arg0) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public ImageViewer getImgViewer() {
+		return null;
 	}
 }

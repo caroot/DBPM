@@ -1,33 +1,23 @@
 package de.htw.hundertwasser.view;
 
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.io.IOException;
-import java.io.Serializable;
-import java.net.URL;
-import java.util.Locale;
 
 import javax.naming.OperationNotSupportedException;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.UIManager.LookAndFeelInfo;
 
 import de.htw.hundertwasser.res.RessourcenEnummeration;
-import de.htw.hundertwasser.res.RessourcenEnummeration.*;
 
 /**
  * Klasse die den StartScreen des DBPM anzeigt.
@@ -37,6 +27,7 @@ import de.htw.hundertwasser.res.RessourcenEnummeration.*;
  */
 
 public class StartScreen extends JFrame{
+	private static final long serialVersionUID = 1L;
 	//Konstanten
 	public static final String DBPM = "Dunkelbunt Photo Manager";
 	public static final String PBOXES = "Your Photo Boxes";
@@ -97,13 +88,20 @@ public class StartScreen extends JFrame{
 			e.printStackTrace();
 		}
 		initialiseSizes();
-		mainScreen = new StartScreen(); 
+		mainScreen = new StartScreen();
 		mainScreen.add(initialisePhotoBoxes());
-		mainScreen.add(initialisePhotoAlbums());
+		mainScreen.add(initialisePhotoAlbums()); 
+		loadPreInitialised();
 		mainScreen.setVisible(true);
 		
 	}
 	
+	private static void loadPreInitialised() {
+		//TODO Auslesen vom FolderManger -> PhotoBoxes
+		//TODO Auslesen vom XMLParser -> PhotoAlben
+		
+	}
+
 	/**
 	 * Methode die das SubPanel f�r die Photoalben erstellt.
 	 */

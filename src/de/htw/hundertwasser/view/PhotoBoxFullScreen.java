@@ -14,6 +14,8 @@ package de.htw.hundertwasser.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import de.htw.hundertwasser.core.ImageViewer;
+
 
 
 /**
@@ -24,8 +26,11 @@ import java.awt.event.ActionListener;
 
 public class PhotoBoxFullScreen extends FullScreen {
 	
-	public PhotoBoxFullScreen (){
-		super();
+
+	private static final long serialVersionUID = 1L;
+
+	public PhotoBoxFullScreen (ImageViewer iv){
+		super(iv);
 		exitButton.addActionListener(getExitButtonListener());
 		leftArrow.addActionListener(getLeftArrowListener());
 		rightArrow.addActionListener(getRightArrowListener());
@@ -53,12 +58,5 @@ public class PhotoBoxFullScreen extends FullScreen {
 		
 		return null;
 	}
-	
-	// main method
-	 
-	public static void main(String[] args) {
-		PhotoBoxFullScreen fsnew = new PhotoBoxFullScreen();
-		fsnew.setVisible(true);
-  }
 }
 
