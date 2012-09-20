@@ -43,7 +43,7 @@ public class NavigationBar extends JPanel{
 		panel.add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblYourPhotoAlbums = new JLabel("      Your photo boxes");
+		JLabel lblYourPhotoAlbums = new JLabel("     Your photo boxes");
 		lblYourPhotoAlbums.setVerticalAlignment(SwingConstants.TOP);
 		lblYourPhotoAlbums.setFont(new Font("Calibri", Font.PLAIN, 13));
 		panel_1.add(lblYourPhotoAlbums);

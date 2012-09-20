@@ -116,9 +116,6 @@ public class EditScreen extends JFrame implements WindowListener {
 		centralPanel.add(buttonPanelleft, BorderLayout.EAST);
 		centralPanel.add(buttonPanelright, BorderLayout.WEST);
 		centralPanel.add(imgPanel, BorderLayout.CENTER);
-		
-		centralPanel.add(thumbnailBar, BorderLayout.SOUTH);
-		
 		imgPanel.add(imgViewer, BorderLayout.CENTER);
 		
 		// Jeder Richtung etwas zuweisen
@@ -129,6 +126,7 @@ public class EditScreen extends JFrame implements WindowListener {
 		// getContentPane().add(title, BorderLayout.NORTH);
 		// Thumbnailbar muss noch implementiert werden
 		add(thumbnailBar,BorderLayout.SOUTH);
+		
 		getContentPane().add(controlPanel, BorderLayout.EAST);
 		getContentPane().add(centralPanel, BorderLayout.CENTER);
 
