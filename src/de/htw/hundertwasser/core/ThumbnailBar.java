@@ -41,6 +41,8 @@ public class ThumbnailBar extends JPanel {
 
 	
 	public ThumbnailBar() {
+		// set dimension
+		setPreferredSize(new Dimension(1100, 160));
 		
 		setFonts();
 		for (int i=0; i<buttons.length; i++) {

@@ -124,12 +124,11 @@ public class EditScreen extends JFrame implements WindowListener {
 		// Jeder Richtung etwas zuweisen
 		getContentPane().setLayout(new BorderLayout(10, 10));
 
-		// add(navigationBar,BorderLayout.WEST);
+		add(navigationBar,BorderLayout.WEST);
 
 		// getContentPane().add(title, BorderLayout.NORTH);
-		// add(navigationBar,BorderLayout.WEST);
 		// Thumbnailbar muss noch implementiert werden
-		// add(thumbnailbar,BorderLayout.SOUTH);
+		add(thumbnailBar,BorderLayout.SOUTH);
 		getContentPane().add(controlPanel, BorderLayout.EAST);
 		getContentPane().add(centralPanel, BorderLayout.CENTER);
 
