@@ -41,7 +41,7 @@ public class Infobar extends JPanel {
 
 	private Photo photo;
 	// private String absolutePath = "C:/Temp/universe.jpg";
-	private String absolutePath = "C:/Eevee.jpg";
+	private String absolutePath = "AGV.jpg";
 
 	
 	/*
