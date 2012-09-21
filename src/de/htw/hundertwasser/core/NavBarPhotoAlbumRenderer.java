@@ -13,6 +13,10 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 public class NavBarPhotoAlbumRenderer extends JPanel implements TreeCellRenderer{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel lblText;
 	private ImageViewer iv;
 	
@@ -37,7 +41,7 @@ public class NavBarPhotoAlbumRenderer extends JPanel implements TreeCellRenderer
 		{
 			lblText.setText((String) value);
 		}
-		return null;
+		return this;
 	}
 
 }

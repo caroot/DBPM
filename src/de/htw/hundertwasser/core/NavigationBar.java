@@ -43,6 +43,7 @@ public class NavigationBar extends JPanel {
 		rendererPhotoAlbum = new NavBarPhotoAlbumRenderer();
 		
 		jtreePhotoAlbum.setModel(modelPhotoAlbum);
+		jtreePhotoAlbum.setCellRenderer(rendererPhotoAlbum);
 		modelPhotoAlbum.addTreeModelListener(getPhotoAlbumListener());
 		fillPhotoAlbumTest();
 		
