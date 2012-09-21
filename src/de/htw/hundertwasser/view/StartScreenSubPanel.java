@@ -7,6 +7,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
+
 /**
  * Klasse die zum Anzeigen aller Photoboxen und Photoalben genutzt wird.
  * @author Fabian
@@ -15,7 +17,12 @@ import javax.swing.JScrollPane;
 public class StartScreenSubPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
-	//Variablen
+	//Error Constants
+	public static final String ERROR_TITLE = "StartScreenSubPanel Error";
+	public static final String ELEMENTS_NULL = "Oh no, the panel is gone, that shouldnt happen.";
+
+	
+	//Variable
 	JPanel subElements = null;
 	
 	public StartScreenSubPanel() {
@@ -23,13 +30,13 @@ public class StartScreenSubPanel extends JPanel {
 	}
 	
 	/**
-	 * Methode die einen Hinzuf�gen Knopf und das Scrollpane initialisiert
-	 * @param subPanel JPanel: Panel in dem die einzelnen Elemente Sp�ter angezeigt werden sollen
-	 * @param typ int: Typ des Panels. M�glichkeiten: StartScreenElement.ALBUM, StartScreenElement.BOX.
+	 * This Method initializes the Scrollpane and adds the Add Button.
+	 * @param subPanel JPanel: Here will the elements be inserted.
+	 * @param typ int: Type of panel: StartScreenElement.ALBUM, StartScreenElement.BOX.
 	 */
 	public void initialiseElements(JPanel subPanel, int typ) {
 		if(subElements != null) {
-			//TODO Fehlerausgabe, wenn so iss...
+		ErrorMessageDialog.showMessage(null, ELEMENTS_NULL, ERROR_TITLE);
 			return;
 		}
 		JPanel mainSubPanel = new JPanel();
@@ -38,7 +45,6 @@ public class StartScreenSubPanel extends JPanel {
 		subElements.setBackground(StartScreen.getBGColor());
 		JScrollPane elementScrollPane = new JScrollPane(subElements, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		elementScrollPane.setBorder(BorderFactory.createEmptyBorder());
-//		Dimension scrollSize = new Dimension(1002, 300);
 		elementScrollPane.setPreferredSize(StartScreen.getScrollSize());
 		mainSubPanel.add(elementScrollPane);
 		if(typ == StartScreenElement.ALBUM)
