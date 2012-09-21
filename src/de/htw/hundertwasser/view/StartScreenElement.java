@@ -155,7 +155,6 @@ public class StartScreenElement extends JPanel {
 						FolderManager manager = new FolderManager();
 							element = manager.importPhotoBox(name, path);
 						//TODO fill Photobox with Photos, (Folder Manager s-times)
-						((PhotoBox) element).setName(name);
 						StartScreen.noOfBoxes++;
 						StartScreen.retextBox();
 							Thread.sleep(3000);
