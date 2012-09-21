@@ -196,9 +196,10 @@ public class ThumbnailBar extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				displayThumbnails.setLayout(new GridLayout(2, 4, 10, 10));
 				displayThumbnails.removeAll();
-				for (int i=0; i<8; i++) {
+				for (int i=0; i<7; i++) {
 					displayThumbnails.add(buttons[i]);
 				}
+				displayThumbnails.add(buttons[15]);
 				displayThumbnails.setSize(getMaximumSize());
 				displayThumbnails.repaint();
 				displayThumbnails.revalidate();
@@ -217,7 +218,7 @@ public class ThumbnailBar extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				displayThumbnails.setLayout(new GridLayout(2, 8, 2, 2));
 				displayThumbnails.removeAll();
-				for (int i=0; i<16; i++) {
+				for (int i=0; i<buttons.length; i++) {
 					displayThumbnails.add(buttons[i]);
 				}
 				displayThumbnails.setSize(getMaximumSize());
@@ -255,13 +256,15 @@ public class ThumbnailBar extends JPanel {
 		scrollBar.setUnitIncrement(scrollBar.getVisibleAmount());
 		panel.add(scrollBar, BorderLayout.SOUTH);
 		
-		for (int i=0; i<8;i++) {
-			if (i!=7)
+		for (int i=0; i<buttons.length;i++) {
+			if (i!=15)
 				buttons[i].setText(""+(i+1));
 			else
 				buttons[i].setText("+");
-			displayThumbnails.add(buttons[i]);
+			if (i<7)
+				displayThumbnails.add(buttons[i]);
 		}
+		displayThumbnails.add(buttons[15]);
 		
 		scrollBar.addAdjustmentListener(new AdjustmentListener() {			
 			@Override
