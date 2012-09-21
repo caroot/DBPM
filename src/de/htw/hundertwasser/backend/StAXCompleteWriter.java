@@ -14,11 +14,15 @@ import de.htw.hundertwasser.core.PhotoAlbumEntry;
 import de.htw.hundertwasser.core.PhotoBox;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
+/*
+ * Class that save the data into an XML file
+ * @author daniel rhein
+ */
 public class StAXCompleteWriter {
 
-	private static final String ERROR_NO_PATH_TO_FILE = "Sie haben keinen Pfad zur XML-Datei angebenen. Dieser muss zum Speichern angebeen werden.";
-	private static final String ERROR_NO_PHOTOALBUM = "Sie haben kein Photoalbum angegeben. Diese muss zum Speichern angebeen werden.";
-	private static final String ERROR_NO_PHOTOBOX = "Sie haben keine Photobox angegeben. Diese muss zum Speichern angebeen werden.";
+	private static final String ERROR_NO_PATH_TO_FILE = "You did not specify a path to the XML file. This must be specified for saving.";
+	private static final String ERROR_NO_PHOTOALBUM = "This must be specified for saving photo album. This must be specified for saving.";
+	private static final String ERROR_NO_PHOTOBOX = "This must be specified for saving the photo box . This must be specified for saving.";
 	private RessourcenEnummeration ressource;
 
 	public StAXCompleteWriter() {
@@ -60,9 +64,12 @@ public class StAXCompleteWriter {
 					writer.writeAttribute("id", String.valueOf(i));
 					if (entry.getPhoto() != null) {
 						writer.writeEmptyElement("Photo");
-						writer.writeAttribute("src", entry.getPhoto().getPathToFile());
-						writer.writeAttribute("name", entry.getPhoto().getName());
-						writer.writeAttribute("comment", entry.getPhoto().getComment());
+						writer.writeAttribute("src", entry.getPhoto()
+								.getPathToFile());
+						writer.writeAttribute("name", entry.getPhoto()
+								.getName());
+						writer.writeAttribute("comment", entry.getPhoto()
+								.getComment());
 					}
 					if (entry.getText() != null) {
 						writer.writeEmptyElement("Text");
@@ -85,9 +92,11 @@ public class StAXCompleteWriter {
 					String.valueOf(photoBox.getCount()));
 			for (int i = 0; i < photoBox.getCount(); i++) {
 				writer.writeStartElement("Photo");
-				writer.writeAttribute("src", photoBox.getPhoto(i).getPathToFile());
+				writer.writeAttribute("src", photoBox.getPhoto(i)
+						.getPathToFile());
 				writer.writeAttribute("name", photoBox.getPhoto(i).getName());
-				writer.writeAttribute("comment", photoBox.getPhoto(i).getComment());
+				writer.writeAttribute("comment", photoBox.getPhoto(i)
+						.getComment());
 				writer.writeEndElement();
 
 			}
