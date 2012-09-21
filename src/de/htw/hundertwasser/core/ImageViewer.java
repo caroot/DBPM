@@ -9,7 +9,7 @@ import javax.swing.JComponent;
 /**
  * This class shows the Pictures
  * 
- * @author daniel
+ * @author daniel rhein
  * @version 1.0
  * @since 04.09.2012
  */
@@ -19,7 +19,7 @@ public class ImageViewer extends JComponent {
 	 * Version ID from the current Component
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Error if the Image is not available
 	 */
@@ -44,8 +44,10 @@ public class ImageViewer extends JComponent {
 	/**
 	 * Specifies the fixed Image that has to be shown
 	 * 
-	 * @param image Picture
-	 * @throws IllegalArgumentException if the Picture null is.
+	 * @param image
+	 *            Picture
+	 * @throws IllegalArgumentException
+	 *             if the Picture null is.
 	 */
 	public void setImage(Image image) throws IllegalArgumentException {
 		if (image == null)
