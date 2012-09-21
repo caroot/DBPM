@@ -353,7 +353,7 @@ public class ThumbnailBar extends JPanel {
 	 * Function to get the Action
 	 * 
 	 * @return action performed
-	 *//
+	 */
 	private AdjustmentListener getScroolBarAdjustmentListener() {
 		return new AdjustmentListener() {
 			
