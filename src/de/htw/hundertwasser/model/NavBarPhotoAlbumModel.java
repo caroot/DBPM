@@ -8,7 +8,11 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 import de.htw.hundertwasser.core.PhotoAlbum;
-
+/**
+ * The navigationbar use this model to show the current PhotoAlbum
+ * @author daniel
+ *
+ */
 public class NavBarPhotoAlbumModel implements TreeModel {
 
 	ArrayList<TreeModelListener> treeModelListener = null;
