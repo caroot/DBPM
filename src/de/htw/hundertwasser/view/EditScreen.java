@@ -58,7 +58,7 @@ public class EditScreen extends JFrame implements WindowListener {
 //	protected JPanel imgPanel;
 	protected ImageViewer imgViewer;
 
-	/*
+	/**
 	 * Konstruktor für den EditScreen 
 	 */
 	public EditScreen() {
@@ -215,8 +215,8 @@ public class EditScreen extends JFrame implements WindowListener {
 		ed.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
-	/*
-	 * Methoden um die Displaygrï¿½ï¿½e herauszufinden
+	/**
+	 * Methoden um die Displaygröße herauszufinden
 	 * 
 	 * @return screenSize
 	 */
@@ -265,7 +265,7 @@ public class EditScreen extends JFrame implements WindowListener {
 		// TODO Auto-generated method stub
 
 	}
-	/*
+	/**
 	 * Function that returns the Image
 	 * 
 	 */

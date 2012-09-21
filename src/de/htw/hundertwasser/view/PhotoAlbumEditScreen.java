@@ -14,7 +14,7 @@ import de.htw.hundertwasser.core.ImageViewer;
 import de.htw.hundertwasser.core.PhotoAlbum;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
-/*
+/**
  * Class for the PhotoAlbumEditScreen
  */
 public class PhotoAlbumEditScreen extends EditScreen {
@@ -44,7 +44,7 @@ public class PhotoAlbumEditScreen extends EditScreen {
 		setState(Frame.MAXIMIZED_BOTH);
 	}
 
-	/*
+	/**
 	 * @see de.htw.hundertwasser.view.EditScreen#getImgViewer()
 	 */
 	public ImageViewer getImgViewer() {

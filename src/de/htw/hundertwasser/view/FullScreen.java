@@ -40,7 +40,7 @@ public abstract class FullScreen extends JFrame {
 	protected JButton rightArrow;
 	protected JButton exitButton;
 
-	/*
+	/**
 	 * Constructor for the Fullscreen
 	 * @param img Picture
 	 */
