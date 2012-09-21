@@ -9,9 +9,15 @@ import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JComponent;
 import javax.swing.JScrollBar;
+
+import de.htw.hundertwasser.core.interfaces.ThumbNailBarObserver;
+import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
+import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 
 /**
  * This class shows the Pictures
@@ -20,7 +26,7 @@ import javax.swing.JScrollBar;
  * @version 1.0
  * @since 04.09.2012
  */
-public class ImageViewer extends JComponent implements MouseWheelListener,ComponentListener,ContainerListener  {
+public class ImageViewer extends JComponent implements MouseWheelListener,ComponentListener,ContainerListener,ThumbNailBarObserver  {
 
 	/**
 	 * Version ID from the current Component
@@ -140,6 +146,24 @@ public class ImageViewer extends JComponent implements MouseWheelListener,Compon
 	@Override
 	public void componentRemoved(ContainerEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPhoto(Photo photo) {
+		try {
+			this.m_img = photo.getImage();
+			repaint();
+		} catch (FileNotFoundException e) {
+			ErrorMessageDialog.showMessage(this,e.getMessage(),"Error",e.getStackTrace().toString());
+			e.printStackTrace();
+		} catch (IOException e) {
+			ErrorMessageDialog.showMessage(this,e.getMessage(),"Error",e.getStackTrace().toString());
+			e.printStackTrace();
+		} catch (InsufficientPrivilegesException e) {
+			ErrorMessageDialog.showMessage(this,e.getMessage(),"Error",e.getStackTrace().toString());
+			e.printStackTrace();
+		}
 		
 	}
 }
