@@ -85,17 +85,47 @@ public class NavBarPhotoAlbumModel implements TreeModel {
 		}
 	}
 
+	public void addPhotoAlbum(PhotoAlbum photoalbum)
+	{
+		photoAlbumList.add(photoalbum);
+		sentListChanged();
+	}
+	
+	public PhotoAlbum getPhotoAlbum(int index)
+	{
+		return photoAlbumList.get(index);
+	}
+	
+	public void removePhotoAlbum(PhotoAlbum photoalbum)
+	{
+		photoAlbumList.remove(photoalbum);
+		sentListChanged();
+	}
+	
+	public void clear()
+	{
+		photoAlbumList.clear();
+		sentListChanged();
+	}
 	@Override
 	public void removeTreeModelListener(TreeModelListener arg0) {
 		treeModelListener.remove(arg0);
+		sentListChanged();
 	}
 
 	@Override
 	public void valueForPathChanged(TreePath path, Object newValue) {
 		TreeModelEvent event = new TreeModelEvent(newValue, path);
-	    for (TreeModelListener listener : treeModelListener) {
+		for (TreeModelListener listener : treeModelListener) {
 	        listener.treeStructureChanged(event);
 	    }
 	}
 
+	
+	private void sentListChanged()
+	{
+	    for (TreeModelListener listener : treeModelListener) {
+	        listener.treeStructureChanged(null);
+	    }
+	}
 }

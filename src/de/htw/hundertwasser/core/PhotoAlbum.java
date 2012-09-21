@@ -14,13 +14,16 @@ public class PhotoAlbum {
 	private static final String ERROR_NO_STICKER = "The Sticker can't be null.";
 	private static final String ERROR_NO_PHOTO = "Das Photo can't be null.";
 	private String name = "";
+	private String path = "";
 	private HashMap<Integer, PhotoAlbumEntry> hashPhotoAlbumEntry;
 
 	/**
 	 * Constructor
 	 */
-	public PhotoAlbum() {
+	public PhotoAlbum(String name, String path) throws IllegalArgumentException {
 		hashPhotoAlbumEntry = new HashMap<Integer, PhotoAlbumEntry>();
+		this.name = name;
+		this.path = path;
 	}
 
 	/**
