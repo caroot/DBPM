@@ -1,4 +1,4 @@
-package de.htw.hundertwasser.core;
+package de.htw.hundertwasser.model;
 
 import javax.swing.AbstractListModel;
 
