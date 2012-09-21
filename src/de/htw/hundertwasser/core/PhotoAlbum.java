@@ -20,10 +20,9 @@ public class PhotoAlbum {
 	/**
 	 * Constructor
 	 */
-	public PhotoAlbum(String name, String path) throws IllegalArgumentException {
+	public PhotoAlbum(String name) throws IllegalArgumentException {
 		hashPhotoAlbumEntry = new HashMap<Integer, PhotoAlbumEntry>();
 		this.name = name;
-		this.path = path;
 	}
 
 	/**
