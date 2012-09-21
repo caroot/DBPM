@@ -102,6 +102,7 @@ public class ImageViewer extends JComponent implements MouseWheelListener,Compon
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		
+		
 	}
 
 	@Override
@@ -127,7 +128,7 @@ public class ImageViewer extends JComponent implements MouseWheelListener,Compon
 
 	@Override
 	public void componentShown(ComponentEvent e) {
-//		 sthChanged(); 
+		repaint();
 	}
 
 	@Override
