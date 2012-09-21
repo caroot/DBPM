@@ -13,7 +13,7 @@ import de.htw.hundertwasser.custom.error.ChoosenFileNotAFolderException;
 /**
  * This class will manage the Folders of the current Project
  * 
- * @author daniel
+ * @author daniel rhein
  *
  */
 public class FolderManager {
@@ -36,7 +36,7 @@ public class FolderManager {
 	}
 	/**
 	 * Show the Application path
-	 * @return
+	 * @return returns the Application Path
 	 */
 	public String getApplicationPath()
 	{
@@ -104,7 +104,7 @@ public class FolderManager {
 	/**
 	 * This method will create the directories
 	 * @param path
-	 * @return
+	 * @return 
 	 */
 	private boolean createDirectories(String path) throws IllegalArgumentException
 	{
