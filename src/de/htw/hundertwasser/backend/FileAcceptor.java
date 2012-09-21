@@ -7,7 +7,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
  * Constructor that the Format pretends
- * @return Datei die ausgewählt wurde 
+ * @author daniel rhein
+ * @return File that was selected 
  */
 public class FileAcceptor extends FileFilter implements FilenameFilter {
 	private static FileNameExtensionFilter filter = new FileNameExtensionFilter(
