@@ -23,6 +23,7 @@ import de.htw.hundertwasser.core.Infobar;
 import de.htw.hundertwasser.core.NavigationBar;
 import de.htw.hundertwasser.core.ThumbnailBar;
 import de.htw.hundertwasser.core.ToolBar;
+import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 /**
@@ -79,8 +80,14 @@ public class EditScreen extends JFrame implements WindowListener {
 		addWindowListener(this);
 
 		// Create Elements
-
+		try
+		{
 		navigationBar = new NavigationBar(); // Navigation Links
+		}
+		catch(IOException ioException)
+		{
+			ErrorMessageDialog.showMessage(this, ioException.getMessage());
+		}
 		infoBar = new Infobar(); // Information Rechts Oben
 		toolBar = new ToolBar(this); // Toolbar Rechts Unten
 		thumbnailBar = new ThumbnailBar(); // Thumbnail Unten
