@@ -19,7 +19,7 @@ public class NavBarPhotoAlbumRenderer extends JPanel implements TreeCellRenderer
 	
 	public NavBarPhotoAlbumRenderer() throws IOException
 	{
-		lblText=new JLabel("",RessourcenEnummeration.PHOTOALBUM.getIcon(),JLabel.WEST);
+		lblText=new JLabel("",RessourcenEnummeration.PHOTOALBUM.getIcon(),JLabel.LEADING);
 		ImageViewer iv = new ImageViewer();
 		setLayout(new BorderLayout(10,10));
 		add(lblText,BorderLayout.CENTER);
