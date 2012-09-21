@@ -74,7 +74,7 @@ public class ImageViewer extends JComponent implements MouseWheelListener,Compon
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		// super.paintComponent(g);
+		 super.paintComponent(g);
 		if (m_img != null) {
 //			g.drawImage(m_img, 0, 0, this);
 			g.drawImage(m_img,0,0,this.getWidth(),this.getHeight(),this);
