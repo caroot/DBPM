@@ -26,27 +26,20 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
 
+/*
+ * Class that creates the Infobar
+ */
 public class Infobar extends JPanel {
 
-	/**
-	 * 
-	 */
+	// Constants
 	private static final long serialVersionUID = 1L;
-	
-	
-	
-	/*
-	 * Variablen
-	 */
-
+	// Variables
 	private Photo photo;
 	// private String absolutePath = "C:/Temp/universe.jpg";
 	private String absolutePath = "AGV.jpg";
 
-	
 	/*
-	 * 
-	 * 
+	 * Constructor
 	 */
 	public Infobar() {
 
@@ -138,9 +131,10 @@ public class Infobar extends JPanel {
 		add(label, "2, 14, 10, 3");
 	}
 
-	
 	/*
+	 * Function that returns the Photo height
 	 * 
+	 * @return Height of the photo
 	 */
 	private int getPhotoHeight() {
 		int height = 0;
@@ -161,9 +155,10 @@ public class Infobar extends JPanel {
 		return height;
 	}
 
-	
 	/*
+	 * Function that returns the Photo width
 	 * 
+	 * @return Width of the photo
 	 */
 	private int getPhotoWidth() {
 		int width = 0;
@@ -183,9 +178,9 @@ public class Infobar extends JPanel {
 		return width;
 	}
 
-	
 	/*
-	 * 
+	 * Function that returns the Photo display size
+	 *  @return display size of the photo
 	 */
 	private String getPixel() {
 
@@ -197,7 +192,8 @@ public class Infobar extends JPanel {
 	}
 
 	/*
-	 * 
+	 * Function that returns the Photo size
+	 *  @return Size of the photo
 	 */
 	private long getFileSize() {
 
@@ -207,7 +203,8 @@ public class Infobar extends JPanel {
 	}
 
 	/*
-	 * 
+	 * Function that returns the Photo date
+	 *  @return Date of the photo
 	 */
 	private Date getModifiedDate() {
 
@@ -220,7 +217,8 @@ public class Infobar extends JPanel {
 	}
 
 	/*
-	 * 
+	 * Function that formats the Date
+	 * @return Date 
 	 */
 	private String formatDate() {
 		DateFormat formatter;
