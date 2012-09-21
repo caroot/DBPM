@@ -27,7 +27,7 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
 /**
  * Klasse die den EditScreen anzeigt
  * 
- * @author RAMIS SABRI
+ * @author RAMIS SABRI, Dominic, Tim
  * 
  */
 public class EditScreen extends JFrame implements WindowListener {
@@ -132,7 +132,7 @@ public class EditScreen extends JFrame implements WindowListener {
 
 		// Button NEXT ( Rechts )
 		next = new JButton();
-		next.setToolTipText("Next");
+		next.setToolTipText("Go to next Photo");
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(Color.WHITE);
 		buttonPanelleft.add(panel_4);
@@ -153,7 +153,7 @@ public class EditScreen extends JFrame implements WindowListener {
 
 		// Button Previous ( Links )
 		previous = new JButton();
-		previous.setToolTipText("Back");
+		previous.setToolTipText("Go to previous Photo");
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		buttonPanelright.add(panel);
