@@ -29,7 +29,7 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
 /**
  * Klasse die den EditScreen anzeigt
  * 
- * @author RAMIS SABRI, Dominic, Tim
+ * @author RAMIS SABRI, Dominic Holz, Tim Schlosser
  * 
  */
 public class EditScreen extends JFrame implements WindowListener {
@@ -59,7 +59,7 @@ public class EditScreen extends JFrame implements WindowListener {
 	protected ImageViewer imgViewer;
 
 	/*
-	 * Konstruktor fï¿½r den EditScreen 
+	 * Konstruktor für den EditScreen 
 	 */
 	public EditScreen() {
 		getContentPane().setBackground(Color.WHITE);
@@ -265,7 +265,10 @@ public class EditScreen extends JFrame implements WindowListener {
 		// TODO Auto-generated method stub
 
 	}
-	
+	/*
+	 * Function that returns the Image
+	 * 
+	 */
 	public ImageViewer getImgViewer() {
 		return null;
 	}

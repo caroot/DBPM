@@ -23,26 +23,27 @@ import de.htw.hundertwasser.core.ImageViewer;
 
 public abstract class FullScreen extends JFrame {
 	
+	// Constants
 	private static final long serialVersionUID = 1L;
 
 	ImageViewer iv = new ImageViewer();
 	
 	// boolean variables
-	
 	public boolean actionListener0 = false;
 	public boolean actionListener1 = false;
 	public boolean actionListener2 = false;
-	
 	private static int MAX_WIDTH=640;
 	private static int MAX_HEIGHT=480;
 	
 	// protected buttons
-	
 	protected JButton leftArrow;
 	protected JButton rightArrow;
 	protected JButton exitButton;
 
-	
+	/*
+	 * Constructor for the Fullscreen
+	 * @param img Picture
+	 */
 	public FullScreen(ImageViewer img) {
 
 		// set settings ViewerPanel
