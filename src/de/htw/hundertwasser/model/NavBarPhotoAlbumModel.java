@@ -8,10 +8,12 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 import de.htw.hundertwasser.core.PhotoAlbum;
+
 /**
  * The navigationbar use this model to show the current PhotoAlbum
- * @author daniel
- *
+ * 
+ * @author daniel rhein
+ * 
  */
 public class NavBarPhotoAlbumModel implements TreeModel {
 
@@ -52,14 +54,18 @@ public class NavBarPhotoAlbumModel implements TreeModel {
 	@Override
 	public int getIndexOfChild(Object objParent, Object objChild) {
 		if (objParent instanceof String) {
-			if (objChild instanceof PhotoAlbum)
-			{
-				return getIndexOfChild((PhotoAlbum)objChild);
+			if (objChild instanceof PhotoAlbum) {
+				return getIndexOfChild((PhotoAlbum) objChild);
 			}
 		}
 		return 0;
 	}
 
+	/*
+	 * Function to get the IndexofChild
+	 * 
+	 * @param photoAlbumChild
+	 */
 	private int getIndexOfChild(PhotoAlbum photoAlbumChild) {
 		int i = 0;
 		for (PhotoAlbum photoAlbumObj : photoAlbumList) {
@@ -85,28 +91,43 @@ public class NavBarPhotoAlbumModel implements TreeModel {
 		}
 	}
 
-	public void addPhotoAlbum(PhotoAlbum photoalbum)
-	{
+	/*
+	 * Function to add a Photoalbum
+	 * 
+	 * @param photoalbum
+	 */
+	public void addPhotoAlbum(PhotoAlbum photoalbum) {
 		photoAlbumList.add(photoalbum);
 		sentListChanged();
 	}
-	
-	public PhotoAlbum getPhotoAlbum(int index)
-	{
+
+	/*
+	 * Function to get the index
+	 * 
+	 * @param index
+	 */
+	public PhotoAlbum getPhotoAlbum(int index) {
 		return photoAlbumList.get(index);
 	}
-	
-	public void removePhotoAlbum(PhotoAlbum photoalbum)
-	{
+
+	/*
+	 * Function to remove the PhotoAlbum
+	 * 
+	 * @param photoalbum
+	 */
+	public void removePhotoAlbum(PhotoAlbum photoalbum) {
 		photoAlbumList.remove(photoalbum);
 		sentListChanged();
 	}
-	
-	public void clear()
-	{
+
+	/*
+	 * Function to clear the Album list.
+	 */
+	public void clear() {
 		photoAlbumList.clear();
 		sentListChanged();
 	}
+
 	@Override
 	public void removeTreeModelListener(TreeModelListener arg0) {
 		treeModelListener.remove(arg0);
@@ -117,15 +138,16 @@ public class NavBarPhotoAlbumModel implements TreeModel {
 	public void valueForPathChanged(TreePath path, Object newValue) {
 		TreeModelEvent event = new TreeModelEvent(newValue, path);
 		for (TreeModelListener listener : treeModelListener) {
-	        listener.treeStructureChanged(event);
-	    }
+			listener.treeStructureChanged(event);
+		}
 	}
 
-	
-	private void sentListChanged()
-	{
-	    for (TreeModelListener listener : treeModelListener) {
-	        listener.treeStructureChanged(null);
-	    }
+	/*
+	 * Function to sent the Changes list
+	 */
+	private void sentListChanged() {
+		for (TreeModelListener listener : treeModelListener) {
+			listener.treeStructureChanged(null);
+		}
 	}
 }
