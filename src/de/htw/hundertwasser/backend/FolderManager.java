@@ -181,8 +181,9 @@ public class FolderManager {
 	 * @param name Name of the Photobox
 	 * @param pathtoFile this is a ImageFile or a Directory
 	 * @return The created Photobox
+	 * @throws FileNotFoundException 
 	 */
-	public PhotoBox importPhotoBox(String name,String pathtoFile) 
+	public PhotoBox importPhotoBox(String name,String pathtoFile) throws FileNotFoundException 
 	{
 		checkPath(pathtoFile);
 		if (name.trim().isEmpty()) throw new IllegalArgumentException(ERROR_NAME_EMPTY);
@@ -199,7 +200,7 @@ public class FolderManager {
 		{
 			throw new FileNotFoundException("File " + file.getName() +" won't exists." );
 		}
-		PhotoBox photobox = new PhotoBox(pathToFile);
+		PhotoBox photobox = new PhotoBox(pathtoFile);
 		return null;
 	}
 	
