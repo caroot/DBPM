@@ -1,28 +1,26 @@
 package de.htw.hundertwasser.core;
 
-import javax.naming.OperationNotSupportedException;
-import javax.swing.JPanel;
-import javax.swing.border.MatteBorder;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FontFormatException;
-
-import javax.swing.JButton;
 import java.awt.Font;
-import java.awt.event.ActionListener;
+import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
-import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.naming.OperationNotSupportedException;
+import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JScrollBar;
+import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
-import javax.swing.JScrollPane;
+import javax.swing.border.MatteBorder;
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
 
 import de.htw.hundertwasser.model.NavBarPhotoAlbumModel;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
-import de.htw.hundertwasser.view.StartScreenElement;
 
 /*
  * Class that creates the NavigationBar
@@ -45,7 +43,9 @@ public class NavigationBar extends JPanel {
 		rendererPhotoAlbum = new NavBarPhotoAlbumRenderer();
 		
 		jtreePhotoAlbum.setModel(modelPhotoAlbum);
+		modelPhotoAlbum.addTreeModelListener(getPhotoAlbumListener());
 		fillPhotoAlbumTest();
+		
 		setBackground(Color.WHITE);
 		setLayout(null);
 		setPreferredSize(new Dimension(150, 803));
@@ -67,7 +67,7 @@ public class NavigationBar extends JPanel {
 		JLabel lblYourPhotoAlbums = new JLabel("     Your photo boxes");
 		lblYourPhotoAlbums.setVerticalAlignment(SwingConstants.TOP);
 		lblYourPhotoAlbums.setFont(new Font("Calibri", Font.PLAIN, 13));
-		panel_1.add(jtreePhotoAlbum); //lblYourPhotoAlbums
+		panel_1.add(lblYourPhotoAlbums); //lblYourPhotoAlbums
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new MatteBorder(1, 1, 1, 1,
@@ -77,7 +77,7 @@ public class NavigationBar extends JPanel {
 		panel_2.setLayout(new BorderLayout(0, 0));
 
 		JLabel lblYourPhotoAlbums_1 = new JLabel("     Your photo albums");
-		panel_2.add(lblYourPhotoAlbums_1, BorderLayout.CENTER);
+		panel_2.add(jtreePhotoAlbum, BorderLayout.CENTER);
 		lblYourPhotoAlbums_1.setVerticalAlignment(SwingConstants.TOP);
 		lblYourPhotoAlbums_1.setFont(new Font("Calibri", Font.PLAIN, 13));
 
@@ -123,5 +123,34 @@ public class NavigationBar extends JPanel {
 			PhotoAlbum album = new PhotoAlbum("Mein " + i + ".tes PhotoAlbum");
 			modelPhotoAlbum.addPhotoAlbum(album);
 		}
+	}
+	
+	private TreeModelListener getPhotoAlbumListener()
+	{
+		return new TreeModelListener()
+		{
+
+			@Override
+			public void treeNodesChanged(TreeModelEvent e) {
+				jtreePhotoAlbum.revalidate();
+			}
+
+			@Override
+			public void treeNodesInserted(TreeModelEvent e) {
+				jtreePhotoAlbum.revalidate();
+			}
+
+			@Override
+			public void treeNodesRemoved(TreeModelEvent e) {
+				jtreePhotoAlbum.revalidate();
+			}
+
+			@Override
+			public void treeStructureChanged(TreeModelEvent e) {
+				jtreePhotoAlbum.repaint();
+				jtreePhotoAlbum.revalidate();
+			}
+			
+		};
 	}
 }
