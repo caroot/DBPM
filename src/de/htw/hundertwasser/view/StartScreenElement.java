@@ -114,6 +114,9 @@ public class StartScreenElement extends JPanel {
 			JButton addButton = new JButton(addIcon);
 			
 			addButton.setBackground(StartScreen.getBGColor());
+			
+			// TEST
+			addButton.setToolTipText("Hier ist der Toopltip!");
 		
 		ActionListener addListen = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
