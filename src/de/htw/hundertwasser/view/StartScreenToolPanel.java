@@ -22,8 +22,8 @@ import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 /**
- * klasse die die einzelnen Tools f�r die Photoboxen und Alben azeigt (�ffnen, umbenennen, senden und l�schen)
- * @author Fabian
+ * This Class shows the Startscreen Toolbar icons (open, rename and delete)
+ * @author Fabian, Tim
  *
  */
 public class StartScreenToolPanel extends JPanel {
@@ -45,6 +45,7 @@ public class StartScreenToolPanel extends JPanel {
 			openButton.setHorizontalTextPosition(SwingConstants.CENTER);
 			openButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 			openButton.setFont(buttonFont);
+			openButton.setToolTipText("Switch to Edit Mode");
 //			openButton.setBackground(StartScreen.getBGColor());
 			add(openButton);
 			//------ rename Button -----//
@@ -53,6 +54,7 @@ public class StartScreenToolPanel extends JPanel {
 			renameButton.setHorizontalTextPosition(SwingConstants.CENTER);
 			renameButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 			renameButton.setFont(buttonFont);
+			renameButton.setToolTipText("Change the name");
 //			renameButton.setBackground(StartScreen.getBGColor());
 			add(renameButton);
 //			//------ Send Button ------//
@@ -72,6 +74,7 @@ public class StartScreenToolPanel extends JPanel {
 			deleteButton.setHorizontalTextPosition(SwingConstants.CENTER);
 			deleteButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 			deleteButton.setFont(buttonFont);
+			deleteButton.setToolTipText("Remove from hard disk");
 //			deleteButton.setBackground(StartScreen.getBGColor());
 			add(deleteButton);
 			//------ All buttons in ------//
