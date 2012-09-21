@@ -4,6 +4,10 @@ import javax.swing.AbstractListModel;
 
 import org.w3c.dom.views.AbstractView;
 
+/*
+ * Class that creates the PhotoBoxList
+ * @autor Daniel Rhein
+ */
 public class PhotoBoxListModel extends AbstractListModel {
 
 	@Override
