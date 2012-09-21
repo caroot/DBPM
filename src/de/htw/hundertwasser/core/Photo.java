@@ -155,7 +155,7 @@ public class Photo {
 	/**
 	 * This determine if the image is already read from the HDD.
 	 * 
-	 * @return
+	 * @return Null if there's not an Image set,  otherwise true
 	 */
 	public boolean isImageSet() {
 		return m_image == null;
