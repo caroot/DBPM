@@ -17,27 +17,32 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 /**
  * This Class shows the Startscreen of DBPM
  * 
  * @author Fabian, Tim
- * @version 9.9.12
+ * @version 21.9.'12
  */
 
 public class StartScreen extends JFrame{
 	private static final long serialVersionUID = 1L;
-	//Konstanten
+	//Constants
 	public static final String DBPM = "Dunkelbunt Photo Manager";
 	public static final String PBOXES = "Your Photo Boxes";
 	public static final String PALBUMS = "Your Photo Albums";
+	//Errorconstants
+	public static final String ERROR_TITLE = "Start Screen error Message";
+	public static final String ICON_AWAY = "Oh no, the Squirrel icon is not where it should be.";
+	public static final String SOMETHING_FISHY_LAF = "Ups, something bad happend with the Nimbus!";
 	
-	//Variablen
+	//Variables
 	private static JFrame mainScreen;
 	private static StartScreenSubPanel photoBoxes;
 	private static StartScreenSubPanel photoAlbums;
-	private static Color backgroundColor = Color.WHITE; //Hintergrundfarbe des StartScreens
+	private static Color backgroundColor = Color.WHITE; //Background Color of the Startscreen
 	//TODO in PhotoBox/-Album einfuegen
 	public static int noOfAlbums = 0;
 	public static int noOfBoxes = 0;
@@ -56,16 +61,14 @@ public class StartScreen extends JFrame{
 	public StartScreen() {
 		super(DBPM);
 		setBackground(Color.BLACK);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Wenn man auf das X drückt wird das Programm komplett beendet.
-		setSize(screenSize);
-		setExtendedState(MAXIMIZED_BOTH);
-
-		setLocationRelativeTo(null); //Setzt das Fenster in die Mitte
-		setLayout( new GridLayout(0, 1, 0, 1)); //Anzahl der Spalten, Zeilen, Frewwwwwiraum(L/R), Freiraum(O/U)
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //If the close Button iss pressed, the programm terminates
+		setSize(screenSize); //Sets Size to maximum Screen Size
+		setExtendedState(MAXIMIZED_BOTH); //Window starts maximized
+		setLayout( new GridLayout(0, 1, 0, 1)); //No of columns, Rows, Gaps(columns), Gaps(row)
 		try {
 			setIconImage(RessourcenEnummeration.EICHHORN_ICON.getImage());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			ErrorMessageDialog.showMessage(null, ICON_AWAY);
 			e.printStackTrace();
 		}
 	}
@@ -81,68 +84,63 @@ public class StartScreen extends JFrame{
 			"com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel"
 //			"com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel"
 			);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (ClassNotFoundException cnfe) {
+			ErrorMessageDialog.showMessage(null, SOMETHING_FISHY_LAF, ERROR_TITLE, cnfe.getStackTrace().toString());
+		} catch (InstantiationException ie) {
+			ErrorMessageDialog.showMessage(null, SOMETHING_FISHY_LAF, ERROR_TITLE, ie.getStackTrace().toString());
+		} catch (IllegalAccessException iae) {
+			ErrorMessageDialog.showMessage(null, SOMETHING_FISHY_LAF, ERROR_TITLE, iae.getStackTrace().toString());
+		} catch (UnsupportedLookAndFeelException ulafe) {
+			ErrorMessageDialog.showMessage(null, SOMETHING_FISHY_LAF, ERROR_TITLE, ulafe.getStackTrace().toString());
 		}
 		initialiseSizes();
 		mainScreen = new StartScreen();
 		mainScreen.add(initialisePhotoBoxes());
-		mainScreen.add(initialisePhotoAlbums()); 
-		loadPreInitialised();
+		mainScreen.add(initializePhotoAlbums()); 
+		loadPreInitialized();
 		mainScreen.setVisible(true);
 		
 	}
 	
-	private static void loadPreInitialised() {
-		//TODO Auslesen vom FolderManger -> PhotoBoxes
-		//TODO Auslesen vom XMLParser -> PhotoAlben
+	/**
+	 * This method loads saved Photoboxes and Photoalbums (hopefully)
+	 */
+	private static void loadPreInitialized() {
+		//TODO Read FolderManger -> PhotoBoxes
+		//TODO Read XMLParser -> PhotoAlbums
 		
 	}
 
 	/**
-	 * Methode die das SubPanel fï¿½r die Photoalben erstellt.
+	 * This Method initializes the Sub Panel for PhotoAlbums
 	 */
-	private static JPanel initialisePhotoAlbums() {
+	private static JPanel initializePhotoAlbums() {
 		photoAlbums = new StartScreenSubPanel();
-		photoAlbums.setBackground(getBGColor());  //Hintergrundfarbe einstellen
-		albumTextLabel = new JLabel(albumText, JLabel.CENTER); //Text erstellen
-		albumTextLabel.setForeground(Color.BLACK); //Textfarbe einstellenFont boxFont;
+		photoAlbums.setBackground(getBGColor());  //Set Background color
+		albumTextLabel = new JLabel(albumText, JLabel.CENTER); //Create Text
+		albumTextLabel.setForeground(Color.BLACK); //Set Color of Text
 		albumTextLabel.setPreferredSize(textSize);
 		Font albumFont;
 		try {
 			albumFont = RessourcenEnummeration.FONT_CALIBRI_BOLD.getFont().deriveFont(40f);
-//			albumText.setFont(new Font("Calibri", 1, 40)); //Hier wird schriftart und größe bestimmt... Globalisieren?
 			albumTextLabel.setFont(albumFont);
-			photoAlbums.add(albumTextLabel, BorderLayout.NORTH);  //Text in das GUI einfügen
+			photoAlbums.add(albumTextLabel, BorderLayout.NORTH);  //Text added to GUI
 			JPanel albumMainPanel = new JPanel();
-			photoAlbums.initialiseElements(albumMainPanel, StartScreenElement.ALBUM); //SubPanel wird hier erstellt
+			photoAlbums.initialiseElements(albumMainPanel, StartScreenElement.ALBUM); //SubPanel created here
 
-		} catch (OperationNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FontFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (OperationNotSupportedException onse) {
+			ErrorMessageDialog.showMessage(null, onse.getMessage(), ERROR_TITLE, onse.getStackTrace().toString());
+		} catch (IOException ioe) {
+			ErrorMessageDialog.showMessage(null, ioe.getMessage(), ERROR_TITLE, ioe.getStackTrace().toString());
+		} catch (FontFormatException ffe) {
+			ErrorMessageDialog.showMessage(null, ffe.getMessage(), ERROR_TITLE, ffe.getStackTrace().toString());
 		}
 		photoAlbums.setPreferredSize(subSystemSize);
 		return photoAlbums;
 	}
 
 	/**
-	 * Methode die das SubPanel fï¿½r die Photoboxen erstellt.
+	 * This method initializes the Sub Panel for PhotoBoxes
 	 */
 	private static JPanel initialisePhotoBoxes() {
 		photoBoxes = new StartScreenSubPanel();
@@ -154,34 +152,33 @@ public class StartScreen extends JFrame{
 		
 		try {
 			boxFont = RessourcenEnummeration.FONT_CALIBRI_BOLD.getFont().deriveFont(40f);
-//			boxText.setFont(new Font("Calibri", 1, 40)); //Hier wird schriftart und größe bestimmt... Globalisieren?
 			boxTextLabel.setFont(boxFont);
 			photoBoxes.add(boxTextLabel, BorderLayout.NORTH);
 			JPanel boxMainPanel = new JPanel();
 			photoBoxes.initialiseElements(boxMainPanel, StartScreenElement.BOX);
 
-		} catch (OperationNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FontFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (OperationNotSupportedException onse) {
+			ErrorMessageDialog.showMessage(null, onse.getMessage(), ERROR_TITLE, onse.getStackTrace().toString());
+		} catch (IOException ioe) {
+			ErrorMessageDialog.showMessage(null, ioe.getMessage(), ERROR_TITLE, ioe.getStackTrace().toString());
+		} catch (FontFormatException ffe) {
+			ErrorMessageDialog.showMessage(null, ffe.getMessage(), ERROR_TITLE, ffe.getStackTrace().toString());
 		}
 		return photoBoxes;
 	}
 	
 	/**
-	 * Methode die eine Farbe zurï¿½ckliefert.
-	 * sollte benutztwerdne um eine einheitliche Hintergrundfarbe zu verwenden.
-	 * @return Color: Farbe, die in backGroundColor steht
+	 * This method returns a set Color.
+	 * Should be used to get a single background color for all screens
+	 * @return Color: Color, that is defined in BGColor
 	 */
 	public static Color getBGColor() {
 		return backgroundColor;
 	}
 	
+	/**
+	 * This method sets the size of the StartScreen elements at the start of the program, depending on the screen size.
+	 */
 	public static void initialiseSizes() {
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		textSize = new Dimension(screenSize.width, 100);
@@ -191,12 +188,18 @@ public class StartScreen extends JFrame{
 		
 	}
 	
+	/**
+	 * this method changes the title text for the PhotoAlbums
+	 */
 	public static void retextAlbum() {
 		albumText = PALBUMS + " (" + noOfAlbums + ")";
 		albumTextLabel.setText(albumText);
 		albumTextLabel.repaint();
 	}
-
+	
+	/**
+	 * this method changes the title text for the PhotoBoxes
+	 */
 	public static void retextBox() {
 		boxText = PBOXES +  " (" + noOfBoxes + ")";
 		boxTextLabel.setText(boxText);

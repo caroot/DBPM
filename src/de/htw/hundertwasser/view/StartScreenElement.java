@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import de.htw.hundertwasser.core.DialogHandler;
 import de.htw.hundertwasser.core.PhotoAlbum;
 import de.htw.hundertwasser.core.PhotoBox;
+import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 /**
@@ -28,7 +29,7 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
  */
 public class StartScreenElement extends JPanel {
 	private static final long serialVersionUID = 1L;
-	//Konstanten
+	//Constants
 	public static final int ELEMENT = 0;
 	public static final int ADDITION = 1;
 	public static final int ALBUM = 0;
@@ -38,13 +39,17 @@ public class StartScreenElement extends JPanel {
 	public static final String DEFAULT_NAME_ALBUM = "New Photoalbum";
 	public static final String DEFAULT_NAME_BOX = "New Photobox";
 	
-	//variablen
-
+	//Error Constants
+	public static final String ERROR_TITLE = "StartScreenElement Error";
+	public static final String FAILURE_TITLE = "Nya... that was wrong!";
+	public static final String NAME_EMPTY = "The name can not be empty!";
+	
+	//Variables
 	private static StartScreenToolPanel chosenElementToolPanel = null;
 	private int elementTyp;
 	private JPanel parentPanel = null;
 	private JButton elementButton = null;
-	private Object element = null; //<-- Ein Album oder eine Box, je nachdem was elementTyp ist.
+	private Object element = null; //<-- ONE Album or Box, depending on parameter.
 	private String elementName = null;
 	public StartScreenElement(int elementTyp, int panelTyp, JPanel parentPanel, String name) {
 		elementName = name;
@@ -61,27 +66,26 @@ public class StartScreenElement extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * This method builds the main button for an StartScreen element.
+	 * That button opens the toolpanel.
+	 */
 	private void makeElementButton() {
 		try {
 			if(elementTyp == ALBUM) {
-				if(elementName == null)
-					elementName = DEFAULT_NAME_ALBUM;
-				Icon elementIcon;
-					elementIcon = RessourcenEnummeration.PHOTOALBUM_NEU.getIcon();
+				Icon elementIcon = RessourcenEnummeration.PHOTOALBUM_NEU.getIcon();
 				elementButton = new JButton(elementName, elementIcon);
 			} else {
-				if(elementName == null)
-					elementName = DEFAULT_NAME_BOX; 
 				Icon elementIcon = RessourcenEnummeration.PHOTOBOX_NEU.getIcon();
 				elementButton = new JButton(elementName, elementIcon);
 			}
 			elementButton.setHorizontalTextPosition(SwingConstants.CENTER);
 			elementButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-			elementButton.setFont(RessourcenEnummeration.FONT_CALIBRI.getFont().deriveFont(14f));
+			elementButton.setFont(RessourcenEnummeration.FONT_CALIBRI.getFont().deriveFont(14f)); //Loads and resizes font
 			ActionListener addListen = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					openToolPanel();
-					elementButton.setBackground(Color.LIGHT_GRAY);
+					elementButton.setBackground(Color.LIGHT_GRAY); //Changes Button background when pressed, to shop, that it is.
 					parentPanel.validate();
 					parentPanel.repaint();
 				}
@@ -91,19 +95,18 @@ public class StartScreenElement extends JPanel {
 			elementButton.setBackground(StartScreen.getBGColor());
 			
 			add(elementButton);
-		} catch (IOException e1) {
-			// TODO Ausgabe des Fehlers
-			e1.printStackTrace();
-		} catch (OperationNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FontFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (IOException ioe) {
+			ErrorMessageDialog.showMessage(null, ioe.getMessage(), ERROR_TITLE, ioe.getStackTrace().toString());
+		} catch (OperationNotSupportedException onse) {
+			ErrorMessageDialog.showMessage(null, onse.getMessage(), ERROR_TITLE, onse.getStackTrace().toString());
+		} catch (FontFormatException ffe) {
+			ErrorMessageDialog.showMessage(null, ffe.getMessage(), ERROR_TITLE, ffe.getStackTrace().toString());
 		}
 	}
 
-	// added Tooltipps (tim)
+	/**
+	 * This method creates a StartScreenElement with the add button to create new StartScreenElements.
+	 */
 	private void makeAddButton() {
 		Icon addIcon;
 		String helpAddButton;
@@ -127,6 +130,10 @@ public class StartScreenElement extends JPanel {
 					name = DialogHandler.inputDialog("Insert name here", "New PhotoBox");
 					if(name == null)
 						return; //cancel if no Name was inserted
+					if(name.trim().isEmpty()) {
+						ErrorMessageDialog.showMessage(null, NAME_EMPTY, FAILURE_TITLE); //Cancel if Name is empty
+						return;
+					}
 					element = new PhotoAlbum();
 //					((PhotoAlbum) element).setName(name);
 					StartScreen.noOfAlbums++;
@@ -135,20 +142,23 @@ public class StartScreenElement extends JPanel {
 					name = DialogHandler.inputDialog("Insert name here", "New PhotoBox");
 					if(name == null)
 						return; //cancel if no Name was inserted
+					if(name.trim().isEmpty()) {
+						ErrorMessageDialog.showMessage(null, NAME_EMPTY, FAILURE_TITLE); //Cancel if Name is empty
+						return;
+					}
 					String path = DialogHandler.chooseSource();
 					if(path == null)
 						return; //cancel if no Path was chosen
 					JProgressBar progress = DialogHandler.showProgressBar();
 					element = new PhotoBox(path);
-					//TODO Photobox mit Photos füllen, (Folder Manager i-wan)
+					//TODO fill Photobox with Photos, (Folder Manager s-times)
 					((PhotoBox) element).setName(name);
 					StartScreen.noOfBoxes++;
 					StartScreen.retextBox();
 					try {
 						Thread.sleep(3000);
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					} catch (InterruptedException ie) {
+						ErrorMessageDialog.showMessage(null, ie.getMessage(), ERROR_TITLE, ie.getStackTrace().toString());
 					}
 					((Window) progress.getParent().getParent().getParent().getParent()).dispose();
 				}
@@ -159,14 +169,15 @@ public class StartScreenElement extends JPanel {
 		};
 		addButton.addActionListener(addListen);
 		add(addButton);
-		} catch (IOException e1) {
-			// TODO Ausgabe des Fehlers
-			e1.printStackTrace();
+		} catch (IOException ioe) {
+			ErrorMessageDialog.showMessage(null, ioe.getMessage(), ERROR_TITLE, ioe.getStackTrace().toString());
 		}
 	}
 	
 	
-	
+	/**
+	 * This Method shows the tool panel below the ElementButton
+	 */
 	private void openToolPanel() {
 		StartScreenElement chosenElement;
 		if(chosenElementToolPanel != null) {
@@ -182,6 +193,10 @@ public class StartScreenElement extends JPanel {
 		parentPanel.repaint();
 	}
 
+	/**
+	 * This method changes the name of the Photoalbum/-box
+	 * @param newName: the new name of the Photoalbum/-box
+	 */
 	public void changeName(String newName) {
 		elementButton.setText(newName);
 		repaint();
@@ -189,14 +204,14 @@ public class StartScreenElement extends JPanel {
 	}
 
 	/**
-	 * Methode, die das Element aus dem System Lï¿½scht, bzw die relevanten Buttons von der Oberflï¿½che.
+	 * This method deletes an element
 	 */
 	public void delete() {
 		JPanel parent = (JPanel) getParent();
 		parent.remove(this);
 		parent.repaint();
 		parent.validate();
-		if(elementTyp == ALBUM) { //TODO Löschen der boxen und alben
+		if(elementTyp == ALBUM) { //TODO delete Boxes and Albums
 //			((PhotoAlbum) element).destroy();
 			StartScreen.noOfAlbums--;
 			StartScreen.retextAlbum();
@@ -205,7 +220,7 @@ public class StartScreenElement extends JPanel {
 			StartScreen.noOfBoxes--;
 			StartScreen.retextBox();
 		}
-		parent.setSize(0,0); //Reset der grï¿½ï¿½e des Panels
+		parent.setSize(0,0); //Reset of the panel size, to prevent graphical errors.
 	}
 	
 	public int getTyp() {
@@ -213,8 +228,8 @@ public class StartScreenElement extends JPanel {
 	}
 	
 	/**
-	 * Methode, that returns the assosiated Photo Box or Album
-	 * @return PhotoBox or PhotoAlbum, depends on the Typ.
+	 * This method returns the associated Photo Box or Album
+	 * @return PhotoBox or PhotoAlbum, depends on the type.
 	 */
 	public Object getElement() {
 		return element;

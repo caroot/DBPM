@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import de.htw.hundertwasser.core.DialogHandler;
+import de.htw.hundertwasser.core.PhotoAlbum;
 import de.htw.hundertwasser.core.PhotoBox;
 import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
@@ -29,8 +30,13 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
 public class StartScreenToolPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
-	//Variablen
-	JPanel subElements = null;
+	
+	//Error Constants
+	public static final String ERROR_TITLE = "StartScreenToolPanel Error";
+	private static final String NO_ICON = "Could not find the Icon";
+	private static final String NO_FONT = "Font not where it belongs";
+
+	private static final String SOMETHING_FISHY = "Something bad happend. That shouldn't happen";
 	
 	public StartScreenToolPanel() {
 		setLayout(new GridLayout(0, 3, 1, 5));
@@ -38,7 +44,6 @@ public class StartScreenToolPanel extends JPanel {
 		Icon addIcon;
 		try {
 			Font buttonFont = RessourcenEnummeration.FONT_CALIBRI_BOLD.getFont().deriveFont(14f);
-//			Font buttonFont = new Font("Arial", 0, 10);
 			//------ Open Button ------//
 			addIcon = RessourcenEnummeration.OEFFNEN.getIcon();
 			JButton openButton = new JButton("Open", addIcon);
@@ -46,7 +51,6 @@ public class StartScreenToolPanel extends JPanel {
 			openButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 			openButton.setFont(buttonFont);
 			openButton.setToolTipText("Switch to Edit Mode");
-//			openButton.setBackground(StartScreen.getBGColor());
 			add(openButton);
 			//------ rename Button -----//
 			addIcon = RessourcenEnummeration.UMBENENNEN.getIcon();
@@ -55,7 +59,6 @@ public class StartScreenToolPanel extends JPanel {
 			renameButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 			renameButton.setFont(buttonFont);
 			renameButton.setToolTipText("Change the name");
-//			renameButton.setBackground(StartScreen.getBGColor());
 			add(renameButton);
 //			//------ Send Button ------//
 //			addIcon = RessourcenEnummeration.SENDEN.getIcon();
@@ -63,38 +66,30 @@ public class StartScreenToolPanel extends JPanel {
 //			sendButton.setHorizontalTextPosition(SwingConstants.CENTER);
 //			sendButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 //			sendButton.setFont(buttonFont);
-//			sendButton.setBackground(StartScreen.getBGColor());
 //			add(sendButton);
 			//------ Delete Button ------//
-//			URL path = ClassLoader.getSystemResource("de/htw/test/380.gif");
-//			System.out.println(path);
-//			addIcon = new ImageIcon(path);
 			addIcon = RessourcenEnummeration.LOESCHEN.getIcon();
 			JButton deleteButton = new JButton("Delete", addIcon);
 			deleteButton.setHorizontalTextPosition(SwingConstants.CENTER);
 			deleteButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 			deleteButton.setFont(buttonFont);
 			deleteButton.setToolTipText("Remove from hard disk");
-//			deleteButton.setBackground(StartScreen.getBGColor());
 			add(deleteButton);
 			//------ All buttons in ------//
-			JPanel emptyPanel = new JPanel(); // used to make an gap between the buttons and the bottom.s
+			JPanel emptyPanel = new JPanel(); // used to make an gap between the buttons and the bottom.
 			emptyPanel.setBackground(StartScreen.getBGColor());
 			add(emptyPanel);
 			
 			ActionListener openListen = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					StartScreenElement parentElement = ((StartScreenElement) getParent());
-					 if (parentElement.getTyp() == StartScreenElement.ALBUM) { //TODO Open PAES
-//						new PhotoAlbumEditScreen((PhotoAlbum) parentElement.getElement());
-						 PhotoAlbumEditScreen albumScreen = new PhotoAlbumEditScreen();
+					 if (parentElement.getTyp() == StartScreenElement.ALBUM) {;
+						 PhotoAlbumEditScreen albumScreen = new PhotoAlbumEditScreen((PhotoAlbum) parentElement.getElement()); //Loads and displays the Photalbum in an PAES.
 						 albumScreen.setVisible(true);
-					} else { //TODO Open PBES
-						PhotoBoxEditScreen photoScreen = new PhotoBoxEditScreen((PhotoBox) parentElement.getElement());
+					} else {
+						PhotoBoxEditScreen photoScreen = new PhotoBoxEditScreen((PhotoBox) parentElement.getElement()); //Loads and displays the Photbox in an PBES.
 						photoScreen.setVisible(true);
-						
 					}
-					//TODO open Photobre... (geht ja noch nit so wirklich...)/TODO open Photobre... (geht ja noch nit so wirklich...)
 				}
 			};
 			
@@ -102,14 +97,14 @@ public class StartScreenToolPanel extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					String newName = DialogHandler.inputDialog("Insert new name:", "rename");
 					if(newName == null)
-						return; //Dann wurde Abbrechen gedr�ckt.
+						return; //Cancel was pressed
 					((StartScreenElement) getParent()).changeName(newName);
 				}
 			};
 			
 //			ActionListener sendListen = new ActionListener() {
 //				public void actionPerformed(ActionEvent e) {
-//					//TODO Senden des ged�ns
+//					//Send all the things, should be here...
 //				}
 //			};
 			
@@ -127,13 +122,13 @@ public class StartScreenToolPanel extends JPanel {
 			deleteButton.addActionListener(deleteListen);
 			
 		} catch (IOException ioe) {
-			ErrorMessageDialog.showMessage(null, "Could not find the Icon", "Oh no", ioe.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(null, NO_ICON, ERROR_TITLE, ioe.getStackTrace().toString());
 			ioe.printStackTrace();
 		} catch (FontFormatException ffe) {
-			ErrorMessageDialog.showMessage(null, "Font not where it belongs", "Oh no", ffe.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(null, NO_FONT, ERROR_TITLE, ffe.getStackTrace().toString());
 			ffe.printStackTrace();
 		} catch (OperationNotSupportedException onse) {
-			ErrorMessageDialog.showMessage(null, "Something bad happend", "Oh no", onse.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(null, SOMETHING_FISHY, ERROR_TITLE, onse.getStackTrace().toString());
 			onse.printStackTrace();
 		}
 	}
