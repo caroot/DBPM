@@ -134,8 +134,7 @@ public class StartScreenElement extends JPanel {
 						ErrorMessageDialog.showMessage(null, NAME_EMPTY, FAILURE_TITLE); //Cancel if Name is empty
 						return;
 					}
-					element = new PhotoAlbum();
-//					((PhotoAlbum) element).setName(name);
+					element = new PhotoAlbum(name);
 					StartScreen.noOfAlbums++;
 					StartScreen.retextAlbum();
 				} else {
