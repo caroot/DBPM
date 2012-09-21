@@ -3,6 +3,7 @@ package de.htw.hundertwasser.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
@@ -57,12 +58,15 @@ public class EditScreen extends JFrame implements WindowListener {
 	protected ImageViewer imgViewer;
 
 	/*
-	 * Konstruktor für den EditScreen 
+	 * Konstruktor fï¿½r den EditScreen 
 	 */
 	public EditScreen() {
 		getContentPane().setBackground(Color.WHITE);
+		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setPreferredSize(screenSize);
-		setResizable(true);
+		setMaximumSize(screenSize);
+		setExtendedState(Frame.MAXIMIZED_BOTH);
+//		setResizable(false);
 		setTitle(DBPM);
 //		setMinimumSize(new Dimension(900,700));
 		try {
@@ -94,23 +98,23 @@ public class EditScreen extends JFrame implements WindowListener {
 		centralPanel = new JPanel();
 		centralPanel.setBackground(Color.WHITE);
 		centralPanel.setLayout(new BorderLayout(0, 0)); // und LayoutManager
-															// hinzufügen
+															// hinzufï¿½gen
 		// Panel, der die NavigationBar beinhaltet
 		controlPanel = new JPanel();
 		controlPanel.setBackground(Color.WHITE);
 		controlPanel.setLayout(new BorderLayout(0, 0)); // und LayoutManager
-															// hinzufügen
+															// hinzufï¿½gen
 		// Panels, die die Buttons beinhaltet
 		buttonPanelleft = new JPanel(new GridLayout(10, 0));
 		buttonPanelleft.setBackground(Color.WHITE);
 		buttonPanelright = new JPanel(new GridLayout(10, 0));
 		buttonPanelright.setBackground(Color.WHITE);
 
-		// Hinzufügen von INFOBAR und TOOLBAR in den CONTROLPANEL
+		// Hinzufï¿½gen von INFOBAR und TOOLBAR in den CONTROLPANEL
 		controlPanel.add(infoBar, BorderLayout.NORTH);
 		controlPanel.add(toolBar, BorderLayout.CENTER);
 		
-		// Hinzufügen der beiden Panels für Buttons
+		// Hinzufï¿½gen der beiden Panels fï¿½r Buttons
 		centralPanel.add(buttonPanelleft, BorderLayout.EAST);
 		centralPanel.add(buttonPanelright, BorderLayout.WEST);
 		centralPanel.add(imgPanel, BorderLayout.CENTER);
@@ -146,7 +150,7 @@ public class EditScreen extends JFrame implements WindowListener {
 		panel_7.setBackground(Color.WHITE);
 		buttonPanelleft.add(panel_7);
 		buttonPanelleft.add(next);
-		// centralPanel.add(next, BorderLayout.EAST); // auf Panel hinzufügen
+		// centralPanel.add(next, BorderLayout.EAST); // auf Panel hinzufï¿½gen
 		// Button mit Pfeil versehen
 		next.setIcon(new ImageIcon(EditScreen.class
 				.getResource("/de/htw/hundertwasser/res/arrow_right.png")));
@@ -168,12 +172,12 @@ public class EditScreen extends JFrame implements WindowListener {
 		buttonPanelright.add(panel_3);
 		buttonPanelright.add(previous);
 		// centralPanel.add(previous, BorderLayout.WEST); // auf Panel
-		// hinzufügen
+		// hinzufï¿½gen
 		// Button mit Pfeil versehen
 		previous.setIcon(new ImageIcon(EditScreen.class
 				.getResource("/de/htw/hundertwasser/res/arrow_left.png")));
 
-		// ContentPane haelt standardmaeßig ein BorderLayout
+		// ContentPane haelt standardmaeï¿½ig ein BorderLayout
 		// Hinzufuegen der Buttons zum Content Pane des JFrames
 		controlPanel.add(infoBar, BorderLayout.NORTH);
 		controlPanel.add(toolBar, BorderLayout.CENTER);
@@ -199,22 +203,13 @@ public class EditScreen extends JFrame implements WindowListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		initialiseSizes();
 		EditScreen ed = new EditScreen();
 		ed.setVisible(true);
 		ed.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	/*
-	 * Methode um die Displaygröße auszurechen
-	 */
-	public static void initialiseSizes() {
-		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-	}
-
-	/*
-	 * Methoden um die Displaygröße herauszufinden
+	 * Methoden um die Displaygrï¿½ï¿½e herauszufinden
 	 * 
 	 * @return screenSize
 	 */

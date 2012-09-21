@@ -3,6 +3,7 @@ package de.htw.hundertwasser.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 
@@ -39,7 +40,7 @@ public class PhotoAlbumEditScreen extends EditScreen{
 		centralPanel.add(mover, BorderLayout.NORTH);
 
 		imgPanel.add(imgViewer,BorderLayout.CENTER);
-
+		setState(Frame.MAXIMIZED_BOTH);
 	}
 	
 	
