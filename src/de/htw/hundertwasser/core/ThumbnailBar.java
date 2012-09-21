@@ -44,6 +44,10 @@ public class ThumbnailBar extends JPanel {
 	private JButton buttonRight;
 	private JScrollBar scrollBar;
 	private JPanel displayThumbnails;
+	private JButton button2;
+	private JButton button4;
+	private JButton button8;
+	private JButton button16;
 
 	
 	public ThumbnailBar() {
@@ -70,7 +74,7 @@ public class ThumbnailBar extends JPanel {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		setBackground(Color.WHITE);
 		
-		add(Box.createRigidArea(new Dimension(10, 0)));
+		add(Box.createRigidArea(new Dimension(150, 0)));
 		add(toolBar);
 		add(Box.createRigidArea(new Dimension(10, 0)));
 		add(buttonLeft);
@@ -78,22 +82,13 @@ public class ThumbnailBar extends JPanel {
 		add(panelThumbnails);
 		add(Box.createRigidArea(new Dimension(10, 0)));
 		add(buttonRight);
-		add(Box.createRigidArea(new Dimension(10, 0)));
+		add(Box.createRigidArea(new Dimension(150, 0)));
 		
-		buttonRight.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				scrollBar.setValue(scrollBar.getValue()+scrollBar.getUnitIncrement());				
-			}
-		});
+		buttonRight.addActionListener(getButtonRightActionListener());
 		
-		buttonLeft.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				scrollBar.setValue(scrollBar.getValue()-scrollBar.getUnitIncrement());				
-			}
-		});
+		buttonLeft.addActionListener(getButtonLeftActionListener());	
 		
+		buttons[15].setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/add_photo.png")));
 	}
 	
 	/**
@@ -131,33 +126,126 @@ public class ThumbnailBar extends JPanel {
 		label.setFont(fontB);
 		toolBar.add(label);
 		
-		final JButton button2 = new JButton("2");
+		button2 = new JButton("2");
 		button2.setBackground(Color.WHITE);
 		button2.setFont(font);
 		toolBar.add(button2);
 		
-		final JButton button4 = new JButton("4");
+		button4 = new JButton("4");
 		button4.setBackground(Color.WHITE);
 		button4.setFont(font);
 		toolBar.add(button4);
 		
-		final JButton button8 = new JButton("8");
+		button8 = new JButton("8");
 		button8.setBackground(Color.WHITE);
 		button8.setFont(fontB);
 		toolBar.add(button8);
 		
-		final JButton button16 = new JButton("16");
+		button16 = new JButton("16");
 		button16.setBackground(Color.WHITE);
 		button16.setFont(font);
 		toolBar.add(button16);
 		
-		button2.addActionListener(new ActionListener() {			
+		button2.addActionListener(getButton2ActionListener());
+		
+		button4.addActionListener(getButton4ActionListener());
+		
+		button8.addActionListener(getButton8ActionListener());
+		
+		button16.addActionListener(getButton16ActionListener());
+		
+		return toolBar;
+	}
+	
+	/**
+	 * 
+	 */
+	private JPanel initialiseThumbnails() {
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setLayout(new BorderLayout(0, 10));
+		panel.setAlignmentY(Component.CENTER_ALIGNMENT);
+		
+		displayThumbnails = new JPanel();
+		displayThumbnails.setBackground(Color.WHITE);
+		displayThumbnails.setLayout(new GridLayout(2, 4, 20, 5));
+		panel.add(displayThumbnails, BorderLayout.CENTER);
+		
+		scrollBar = new JScrollBar(Scrollbar.HORIZONTAL, 1, 8, 1, 16);
+		scrollBar.setBackground(Color.WHITE);
+		scrollBar.setUnitIncrement(scrollBar.getVisibleAmount());
+		panel.add(scrollBar, BorderLayout.SOUTH);
+		
+		for (int i=0; i<15;i++) {
+				buttons[i].setText(""+(i+1));
+			if (i<7)
+				displayThumbnails.add(buttons[i]);
+		}
+		displayThumbnails.add(buttons[15]);
+		
+		scrollBar.addAdjustmentListener(getScroolBarAdjustmentListener());
+		
+		return panel;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	private ActionListener getPlusButtonActionListener() {
+		return new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	private ActionListener getButtonLeftActionListener() {
+		return new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				scrollBar.setValue(scrollBar.getValue()-scrollBar.getUnitIncrement());				
+			}
+		};
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	private ActionListener getButtonRightActionListener() {
+		return new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				scrollBar.setValue(scrollBar.getValue()+scrollBar.getUnitIncrement());					
+			}
+		};
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	private ActionListener getButton2ActionListener() {
+		return new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				displayThumbnails.setLayout(new GridLayout(1, 2, 10, 10));
 				displayThumbnails.removeAll();
 				displayThumbnails.add(buttons[0]);
 				displayThumbnails.add(buttons[1]);
+				displayThumbnails.add(buttons[15]);
 				displayThumbnails.setSize(getMaximumSize());
 				displayThumbnails.repaint();
 				displayThumbnails.revalidate();
@@ -166,14 +254,21 @@ public class ThumbnailBar extends JPanel {
 				button8.setFont(font);
 				button16.setFont(font);
 				scrollBar.setVisibleAmount(2);
-				scrollBar.setUnitIncrement(2);
+				scrollBar.setUnitIncrement(2);					
 			}
-		});
-		
-		button4.addActionListener(new ActionListener() {			
+		};
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	private ActionListener getButton4ActionListener() {
+		return new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				displayThumbnails.setLayout(new GridLayout(2, 2, 10, 10));
+				displayThumbnails.setLayout(new GridLayout(1, 4, 10, 10));
 				displayThumbnails.removeAll();
 				for (int i=0; i<4; i++) {
 					displayThumbnails.add(buttons[i]);
@@ -186,15 +281,21 @@ public class ThumbnailBar extends JPanel {
 				button8.setFont(font);
 				button16.setFont(font);
 				scrollBar.setVisibleAmount(4);
-				scrollBar.setUnitIncrement(4);
+				scrollBar.setUnitIncrement(4);				
 			}
-		});
-		
-		button8.addActionListener(new ActionListener() {
+		};
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	private ActionListener getButton8ActionListener() {
+		return new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				displayThumbnails.setLayout(new GridLayout(2, 4, 10, 10));
+				displayThumbnails.setLayout(new GridLayout(2, 4, 20, 5));
 				displayThumbnails.removeAll();
 				for (int i=0; i<7; i++) {
 					displayThumbnails.add(buttons[i]);
@@ -209,10 +310,17 @@ public class ThumbnailBar extends JPanel {
 				button16.setFont(font);
 				scrollBar.setVisibleAmount(8);
 				scrollBar.setUnitIncrement(8);
+				
 			}
-		});
-		
-		button16.addActionListener(new ActionListener() {
+		};
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	private ActionListener getButton16ActionListener() {
+		return new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -230,50 +338,23 @@ public class ThumbnailBar extends JPanel {
 				button16.setFont(fontB);
 				scrollBar.setVisibleAmount(16);
 				scrollBar.setUnitIncrement(16);
+				
 			}
-		});
-		
-		return toolBar;
+		};
 	}
 	
 	/**
 	 * 
+	 * @return
 	 */
-	private JPanel initialiseThumbnails() {
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setLayout(new BorderLayout(0, 10));
-		panel.setAlignmentY(Component.CENTER_ALIGNMENT);
-		
-		displayThumbnails = new JPanel();
-		displayThumbnails.setBackground(Color.WHITE);
-		displayThumbnails.setLayout(new GridLayout(2, 4, 10, 10));
-		panel.add(displayThumbnails, BorderLayout.CENTER);
-		
-		scrollBar = new JScrollBar(Scrollbar.HORIZONTAL, 1, 8, 1, 16);
-		scrollBar.setBackground(Color.WHITE);
-		scrollBar.setUnitIncrement(scrollBar.getVisibleAmount());
-		panel.add(scrollBar, BorderLayout.SOUTH);
-		
-		for (int i=0; i<buttons.length;i++) {
-			if (i!=15)
-				buttons[i].setText(""+(i+1));
-			else
-				buttons[i].setText("+");
-			if (i<7)
-				displayThumbnails.add(buttons[i]);
-		}
-		displayThumbnails.add(buttons[15]);
-		
-		scrollBar.addAdjustmentListener(new AdjustmentListener() {			
+	private AdjustmentListener getScroolBarAdjustmentListener() {
+		return new AdjustmentListener() {
+			
 			@Override
-			public void adjustmentValueChanged(AdjustmentEvent arg0) {
+			public void adjustmentValueChanged(AdjustmentEvent e) {
 				// TODO Auto-generated method stub
 				
 			}
-		});
-		
-		return panel;
+		};
 	}
 }
