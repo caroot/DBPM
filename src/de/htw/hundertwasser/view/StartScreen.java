@@ -61,6 +61,12 @@ public class StartScreen extends JFrame{
 
 		setLocationRelativeTo(null); //Setzt das Fenster in die Mitte
 		setLayout( new GridLayout(0, 1, 0, 1)); //Anzahl der Spalten, Zeilen, Frewwwwwiraum(L/R), Freiraum(O/U)
+		try {
+			setIconImage(RessourcenEnummeration.EICHHORN_ICON.getImage());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void main(String[] args) {
