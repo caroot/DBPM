@@ -16,17 +16,24 @@ import de.htw.hundertwasser.core.Photo;
 import de.htw.hundertwasser.core.PhotoBox;
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
 
+/*
+ * Class that creates the EditScreen 
+ */
 public class PhotoBoxEditScreen extends EditScreen {
 
+	// Constants
 	private static final long serialVersionUID = 1L;
 
+	/*
+	 * Constructor
+	 */
 	public PhotoBoxEditScreen(PhotoBox photobox) {
-		
-		//TODO Auslesen der Photobox
+
+		// TODO Auslesen der Photobox
 		super();
 		try {
 			Photo photo = new Photo("Test", "AGV.jpg");
-			imgViewer.setImage(photo.getImage()); //TODO Auslesen hier
+			imgViewer.setImage(photo.getImage()); // TODO Auslesen hier
 		} catch (InsufficientPrivilegesException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,31 +47,31 @@ public class PhotoBoxEditScreen extends EditScreen {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		JPanel mover = new JPanel();
-		mover.setPreferredSize(new Dimension(0,100));
+		mover.setPreferredSize(new Dimension(0, 100));
 		mover.setBackground(Color.WHITE);
 		centralPanel.add(mover, BorderLayout.NORTH);
 
-//		imgPanel.add(imgViewer,BorderLayout.CENTER);
+		// imgPanel.add(imgViewer,BorderLayout.CENTER);
 
 	}
-	
-	
-	public ImageViewer getImgViewer(){
+
+	/*
+	 * 
+	 * @see de.htw.hundertwasser.view.EditScreen#getImgViewer()
+	 */
+	public ImageViewer getImgViewer() {
 		return imgViewer;
 	}
-	
+
 	@Override
 	public void windowClosed(WindowEvent arg0) {
-		JOptionPane.showConfirmDialog(this, "Would you like to save the current Project" , "Confirm Exit", JOptionPane.QUESTION_MESSAGE,JOptionPane.YES_NO_OPTION);
+		JOptionPane.showConfirmDialog(this,
+				"Would you like to save the current Project", "Confirm Exit",
+				JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
 		dispose();
-		
-		
+
 	}
-
-
-
-
 
 }
