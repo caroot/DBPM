@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.JComponent;
+import javax.swing.JScrollBar;
 
 /**
  * This class shows the Pictures
@@ -33,6 +34,8 @@ public class ImageViewer extends JComponent {
 	 * Member Image-Object.
 	 */
 	private Image m_img;
+	
+	private JScrollBar scrollbar;
 
 	/**
 	 * Constructor
