@@ -59,6 +59,10 @@ public class ThumbnailBar extends JPanel {
 			buttons[i].setBackground(Color.WHITE);
 		}
 		
+		for (int i=0; i<buttons.length-1;i++) {
+			buttons[i].addActionListener(getImageButtonsActionListener());
+		}
+		
 		toolBar = initialiseToolbar();		
 		panelThumbnails = initialiseThumbnails();
 		
@@ -90,6 +94,8 @@ public class ThumbnailBar extends JPanel {
 		buttonLeft.addActionListener(getButtonLeftActionListener());	
 		
 		buttons[15].setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/add_photo.png")));
+		buttons[15].setToolTipText("Add a photo");
+		buttons[15].addActionListener(getPlusButtonActionListener());
 	}
 	
 	/**
@@ -200,6 +206,7 @@ public class ThumbnailBar extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String path = DialogHandler.chooseSource();
 				// TODO Auto-generated method stub
 				
 			}
@@ -359,6 +366,21 @@ public class ThumbnailBar extends JPanel {
 			
 			@Override
 			public void adjustmentValueChanged(AdjustmentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		};		
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	private ActionListener getImageButtonsActionListener() {
+		return new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
 			}
