@@ -3,6 +3,7 @@ public package de.htw.hundertwasser.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 
@@ -15,7 +16,7 @@ import javax.swing.SwingConstants;
 import de.htw.hundertwasser.core.ImageViewer;
 
 /**
- * Klasse die zum anzeigen des ausgewŠhlten Photos im Fullscreenmodus zu zeigen
+ * Klasse die zum anzeigen des ausgewï¿½hlten Photos im Fullscreenmodus zu zeigen
  * @author johannesschramm
  *
  */
@@ -50,7 +51,7 @@ public abstract class FullScreen extends JFrame {
 		setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height-30 ));	
 		
 		setUndecorated(true);
-		setState(JFrame.MAXIMIZED_BOTH);
+		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setTitle("Fullscreen");
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(new BorderLayout(0, 0));
