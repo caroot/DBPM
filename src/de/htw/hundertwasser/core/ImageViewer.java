@@ -3,6 +3,12 @@ package de.htw.hundertwasser.core;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JComponent;
 import javax.swing.JScrollBar;
@@ -14,7 +20,7 @@ import javax.swing.JScrollBar;
  * @version 1.0
  * @since 04.09.2012
  */
-public class ImageViewer extends JComponent {
+public class ImageViewer extends JComponent implements MouseWheelListener,ComponentListener,ContainerListener  {
 
 	/**
 	 * Version ID from the current Component
@@ -34,7 +40,8 @@ public class ImageViewer extends JComponent {
 	 * Member Image-Object.
 	 */
 	private Image m_img;
-	
+	private int mywidth=0;
+	private int myheight=0;
 	private JScrollBar scrollbar;
 
 	/**
@@ -42,6 +49,7 @@ public class ImageViewer extends JComponent {
 	 */
 	public ImageViewer() {
 		TAG = this.getClass().getSimpleName();
+		this.addComponentListener(this);
 	}
 
 	/**
@@ -57,9 +65,9 @@ public class ImageViewer extends JComponent {
 			throw new IllegalArgumentException(ERROR_NO_IMAGE, new Throwable(
 					TAG + "." + "setImage()"));
 		m_img = image;
-		setPreferredSize(new Dimension(m_img.getWidth(this),
-				m_img.getHeight(this)));
-		setMinimumSize(new Dimension(m_img.getWidth(this),
+//		setPreferredSize(new Dimension(m_img.getWidth(this),
+//				m_img.getHeight(this)));
+		setMaximumSize(new Dimension(m_img.getWidth(this),
 				m_img.getHeight(this)));
 		repaint();
 	}
@@ -68,7 +76,8 @@ public class ImageViewer extends JComponent {
 	protected void paintComponent(Graphics g) {
 		// super.paintComponent(g);
 		if (m_img != null) {
-			g.drawImage(m_img, 0, 0, this);
+//			g.drawImage(m_img, 0, 0, this);
+			g.drawImage(m_img,0,0,this.getWidth(),this.getHeight(),this);
 		}
 	}
 
@@ -88,5 +97,48 @@ public class ImageViewer extends JComponent {
 		if (m_img == null)
 			return true;
 		return false;
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+//	private void sthChanged() {
+//        System.out.println("Something changed!  " + this.getWidth() + "  " + this.getHeight());
+//    }
+	
+	@Override
+	public void componentResized(ComponentEvent e) {
+//		 sthChanged(); 
+	}
+
+	@Override
+	public void componentShown(ComponentEvent e) {
+//		 sthChanged(); 
+	}
+
+	@Override
+	public void componentAdded(ContainerEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentRemoved(ContainerEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -54,7 +54,7 @@ public class EditScreen extends JFrame implements WindowListener {
 	protected JButton next;
 	protected ToolBar toolBar;
 	protected Infobar infoBar;
-	protected JPanel imgPanel;
+//	protected JPanel imgPanel;
 	protected ImageViewer imgViewer;
 
 	/*
@@ -84,7 +84,7 @@ public class EditScreen extends JFrame implements WindowListener {
 		infoBar = new Infobar(); // Information Rechts Oben
 		toolBar = new ToolBar(this); // Toolbar Rechts Unten
 		thumbnailBar = new ThumbnailBar(); // Thumbnail Unten
-		imgPanel = new JPanel();
+//		imgPanel = new JPanel();
 		imgViewer = new ImageViewer();
 		
 
@@ -117,8 +117,8 @@ public class EditScreen extends JFrame implements WindowListener {
 		// Hinzuf�gen der beiden Panels f�r Buttons
 		centralPanel.add(buttonPanelleft, BorderLayout.EAST);
 		centralPanel.add(buttonPanelright, BorderLayout.WEST);
-		centralPanel.add(imgPanel, BorderLayout.CENTER);
-		imgPanel.add(imgViewer, BorderLayout.CENTER);
+		centralPanel.add(imgViewer, BorderLayout.CENTER);
+//		imgPanel.add(imgViewer, BorderLayout.CENTER);
 		
 		// Jeder Richtung etwas zuweisen
 		getContentPane().setLayout(new BorderLayout(10, 10));
