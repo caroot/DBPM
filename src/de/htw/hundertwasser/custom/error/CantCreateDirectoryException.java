@@ -1,7 +1,7 @@
 package de.htw.hundertwasser.custom.error;
 
 /*
- * Exception Class
+ * This Exception appears when an Directory can't be created
  */
 public class CantCreateDirectoryException extends Throwable {
 
