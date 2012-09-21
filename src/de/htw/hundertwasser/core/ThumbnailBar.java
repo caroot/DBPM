@@ -128,7 +128,7 @@ public class ThumbnailBar extends JPanel {
 		
 		button2 = new JButton("2");
 		button2.setBackground(Color.WHITE);
-		button2.setFont(font);
+		button2.setFont(fontB);
 		toolBar.add(button2);
 		
 		button4 = new JButton("4");
@@ -138,7 +138,7 @@ public class ThumbnailBar extends JPanel {
 		
 		button8 = new JButton("8");
 		button8.setBackground(Color.WHITE);
-		button8.setFont(fontB);
+		button8.setFont(font);
 		toolBar.add(button8);
 		
 		button16 = new JButton("16");
@@ -169,7 +169,7 @@ public class ThumbnailBar extends JPanel {
 		
 		displayThumbnails = new JPanel();
 		displayThumbnails.setBackground(Color.WHITE);
-		displayThumbnails.setLayout(new GridLayout(2, 4, 20, 5));
+		displayThumbnails.setLayout(new GridLayout(1, 2, 10, 10));
 		panel.add(displayThumbnails, BorderLayout.CENTER);
 		
 		scrollBar = new JScrollBar(Scrollbar.HORIZONTAL, 1, 8, 1, 16);
@@ -179,7 +179,7 @@ public class ThumbnailBar extends JPanel {
 		
 		for (int i=0; i<15;i++) {
 				buttons[i].setText(""+(i+1));
-			if (i<7)
+			if (i<2)
 				displayThumbnails.add(buttons[i]);
 		}
 		displayThumbnails.add(buttons[15]);
@@ -270,9 +270,10 @@ public class ThumbnailBar extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				displayThumbnails.setLayout(new GridLayout(1, 4, 10, 10));
 				displayThumbnails.removeAll();
-				for (int i=0; i<4; i++) {
+				for (int i=0; i<3; i++) {
 					displayThumbnails.add(buttons[i]);
 				}
+				displayThumbnails.add(buttons[15]);
 				displayThumbnails.setSize(getMaximumSize());
 				displayThumbnails.repaint();
 				displayThumbnails.revalidate();
@@ -309,8 +310,7 @@ public class ThumbnailBar extends JPanel {
 				button8.setFont(fontB);
 				button16.setFont(font);
 				scrollBar.setVisibleAmount(8);
-				scrollBar.setUnitIncrement(8);
-				
+				scrollBar.setUnitIncrement(8);				
 			}
 		};
 	}
@@ -337,8 +337,7 @@ public class ThumbnailBar extends JPanel {
 				button8.setFont(font);
 				button16.setFont(fontB);
 				scrollBar.setVisibleAmount(16);
-				scrollBar.setUnitIncrement(16);
-				
+				scrollBar.setUnitIncrement(16);				
 			}
 		};
 	}
