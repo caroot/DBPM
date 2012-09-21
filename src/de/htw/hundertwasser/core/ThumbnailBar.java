@@ -8,6 +8,10 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GridLayout;
 import java.awt.Scrollbar;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.io.IOException;
 
 import javax.naming.OperationNotSupportedException;
@@ -31,18 +35,20 @@ public class ThumbnailBar extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private JButton[] buttons = new JButton[15];
+	private JButton[] buttons = new JButton[16];
 	private Font font;
 	private Font fontB;
 	private JToolBar toolBar;
 	private JPanel panelThumbnails;
 	private JButton buttonLeft;
 	private JButton buttonRight;
+	private JScrollBar scrollBar;
+	private JPanel displayThumbnails;
 
 	
 	public ThumbnailBar() {
 		// set dimension
-		setPreferredSize(new Dimension(1100, 160));
+//		setPreferredSize(new Dimension(1100, 160));
 		
 		setFonts();
 		for (int i=0; i<buttons.length; i++) {
@@ -51,7 +57,7 @@ public class ThumbnailBar extends JPanel {
 		}
 		
 		toolBar = initialiseToolbar();		
-		panelThumbnails = initaliseThumbnails();
+		panelThumbnails = initialiseThumbnails();
 		
 		buttonLeft = new JButton();
 		buttonLeft.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -76,6 +82,21 @@ public class ThumbnailBar extends JPanel {
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
 		panel.add(buttonRight);
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
+		add(panel);
+		
+		buttonRight.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				scrollBar.setValue(scrollBar.getValue()+scrollBar.getUnitIncrement());				
+			}
+		});
+		
+		buttonLeft.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				scrollBar.setValue(scrollBar.getValue()-scrollBar.getUnitIncrement());				
+			}
+		});
 		
 	}
 	
@@ -114,25 +135,106 @@ public class ThumbnailBar extends JPanel {
 		label.setFont(fontB);
 		toolBar.add(label);
 		
-		JButton button2 = new JButton("2");
+		final JButton button2 = new JButton("2");
 		button2.setBackground(Color.WHITE);
 		button2.setFont(font);
 		toolBar.add(button2);
 		
-		JButton button4 = new JButton("4");
+		final JButton button4 = new JButton("4");
 		button4.setBackground(Color.WHITE);
 		button4.setFont(font);
 		toolBar.add(button4);
 		
-		JButton button8 = new JButton("8");
+		final JButton button8 = new JButton("8");
 		button8.setBackground(Color.WHITE);
 		button8.setFont(fontB);
 		toolBar.add(button8);
 		
-		JButton button16 = new JButton("16");
+		final JButton button16 = new JButton("16");
 		button16.setBackground(Color.WHITE);
 		button16.setFont(font);
 		toolBar.add(button16);
+		
+		button2.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				displayThumbnails.setLayout(new GridLayout(1, 2, 10, 10));
+				displayThumbnails.removeAll();
+				displayThumbnails.add(buttons[0]);
+				displayThumbnails.add(buttons[1]);
+				displayThumbnails.setSize(getMaximumSize());
+				displayThumbnails.repaint();
+				displayThumbnails.revalidate();
+				button2.setFont(fontB);
+				button4.setFont(font);
+				button8.setFont(font);
+				button16.setFont(font);
+				scrollBar.setVisibleAmount(2);
+				scrollBar.setUnitIncrement(2);
+			}
+		});
+		
+		button4.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				displayThumbnails.setLayout(new GridLayout(2, 2, 10, 10));
+				displayThumbnails.removeAll();
+				for (int i=0; i<4; i++) {
+					displayThumbnails.add(buttons[i]);
+				}
+				displayThumbnails.setSize(getMaximumSize());
+				displayThumbnails.repaint();
+				displayThumbnails.revalidate();
+				button2.setFont(font);
+				button4.setFont(fontB);
+				button8.setFont(font);
+				button16.setFont(font);
+				scrollBar.setVisibleAmount(4);
+				scrollBar.setUnitIncrement(4);
+			}
+		});
+		
+		button8.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				displayThumbnails.setLayout(new GridLayout(2, 4, 10, 10));
+				displayThumbnails.removeAll();
+				for (int i=0; i<8; i++) {
+					displayThumbnails.add(buttons[i]);
+				}
+				displayThumbnails.setSize(getMaximumSize());
+				displayThumbnails.repaint();
+				displayThumbnails.revalidate();
+				button2.setFont(font);
+				button4.setFont(font);
+				button8.setFont(fontB);
+				button16.setFont(font);
+				scrollBar.setVisibleAmount(8);
+				scrollBar.setUnitIncrement(8);
+			}
+		});
+		
+		button16.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				displayThumbnails.setLayout(new GridLayout(2, 8, 2, 2));
+				displayThumbnails.removeAll();
+				for (int i=0; i<16; i++) {
+					displayThumbnails.add(buttons[i]);
+				}
+				displayThumbnails.setSize(getMaximumSize());
+				displayThumbnails.repaint();
+				displayThumbnails.revalidate();
+				button2.setFont(font);
+				button4.setFont(font);
+				button8.setFont(font);
+				button16.setFont(fontB);
+				scrollBar.setVisibleAmount(16);
+				scrollBar.setUnitIncrement(16);
+			}
+		});
 		
 		return toolBar;
 	}
@@ -140,19 +242,19 @@ public class ThumbnailBar extends JPanel {
 	/**
 	 * 
 	 */
-	private JPanel initaliseThumbnails() {
+	private JPanel initialiseThumbnails() {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setLayout(new BorderLayout(0, 10));
 		panel.setAlignmentY(Component.CENTER_ALIGNMENT);
 		
-		JPanel panel2 = new JPanel();
-		panel2.setBackground(Color.WHITE);
-		panel2.setLayout(new GridLayout(2, 4, 10, 10));
-		panel.add(panel2, BorderLayout.CENTER);
+		displayThumbnails = new JPanel();
+		displayThumbnails.setBackground(Color.WHITE);
+		displayThumbnails.setLayout(new GridLayout(2, 4, 10, 10));
+		panel.add(displayThumbnails, BorderLayout.CENTER);
 		
-		JScrollBar scrollBar = new JScrollBar(Scrollbar.HORIZONTAL, 1, 8, 1, 16);
+		scrollBar = new JScrollBar(Scrollbar.HORIZONTAL, 1, 8, 1, 16);
 		scrollBar.setBackground(Color.WHITE);
 		scrollBar.setUnitIncrement(scrollBar.getVisibleAmount());
 		panel.add(scrollBar, BorderLayout.SOUTH);
@@ -162,8 +264,16 @@ public class ThumbnailBar extends JPanel {
 				buttons[i].setText(""+(i+1));
 			else
 				buttons[i].setText("+");
-			panel2.add(buttons[i]);
+			displayThumbnails.add(buttons[i]);
 		}
+		
+		scrollBar.addAdjustmentListener(new AdjustmentListener() {			
+			@Override
+			public void adjustmentValueChanged(AdjustmentEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		return panel;
 	}
