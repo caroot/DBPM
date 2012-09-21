@@ -46,7 +46,7 @@ public class PhotoBoxEditScreen extends EditScreen {
 		mover.setBackground(Color.WHITE);
 		centralPanel.add(mover, BorderLayout.NORTH);
 
-		imgPanel.add(imgViewer,BorderLayout.CENTER);
+//		imgPanel.add(imgViewer,BorderLayout.CENTER);
 
 	}
 	
