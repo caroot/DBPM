@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.naming.OperationNotSupportedException;
@@ -16,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
+import de.htw.hundertwasser.backend.FolderManager;
 import de.htw.hundertwasser.core.DialogHandler;
 import de.htw.hundertwasser.core.PhotoAlbum;
 import de.htw.hundertwasser.core.PhotoBox;
@@ -125,45 +127,48 @@ public class StartScreenElement extends JPanel {
 		
 		ActionListener addListen = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String name;
-				if(elementTyp == StartScreenElement.ALBUM) {
-					name = DialogHandler.inputDialog("Insert name here", "New PhotoBox");
-					if(name == null)
-						return; //cancel if no Name was inserted
-					if(name.trim().isEmpty()) {
-						ErrorMessageDialog.showMessage(null, NAME_EMPTY, FAILURE_TITLE); //Cancel if Name is empty
-						return;
+				try {
+					String name;
+					if(elementTyp == StartScreenElement.ALBUM) {
+						name = DialogHandler.inputDialog("Insert name here", "New PhotoBox");
+						if(name == null)
+							return; //cancel if no Name was inserted
+						if(name.trim().isEmpty()) {
+							ErrorMessageDialog.showMessage(null, NAME_EMPTY, FAILURE_TITLE); //Cancel if Name is empty
+							return;
+						}
+						element = new PhotoAlbum(name);
+						StartScreen.noOfAlbums++;
+						StartScreen.retextAlbum();
+					} else {
+						name = DialogHandler.inputDialog("Insert name here", "New PhotoBox");
+						if(name == null)
+							return; //cancel if no Name was inserted
+						if(name.trim().isEmpty()) {
+							ErrorMessageDialog.showMessage(null, NAME_EMPTY, FAILURE_TITLE); //Cancel if Name is empty
+							return;
+						}
+						String path = DialogHandler.chooseSource();
+						if(path == null)
+							return; //cancel if no Path was chosen
+						JProgressBar progress = DialogHandler.showProgressBar();
+						FolderManager manager = new FolderManager();
+							element = manager.importPhotoBox(name, path);
+						//TODO fill Photobox with Photos, (Folder Manager s-times)
+						((PhotoBox) element).setName(name);
+						StartScreen.noOfBoxes++;
+						StartScreen.retextBox();
+							Thread.sleep(3000);
+						((Window) progress.getParent().getParent().getParent().getParent()).dispose();
 					}
-					element = new PhotoAlbum(name);
-					StartScreen.noOfAlbums++;
-					StartScreen.retextAlbum();
-				} else {
-					name = DialogHandler.inputDialog("Insert name here", "New PhotoBox");
-					if(name == null)
-						return; //cancel if no Name was inserted
-					if(name.trim().isEmpty()) {
-						ErrorMessageDialog.showMessage(null, NAME_EMPTY, FAILURE_TITLE); //Cancel if Name is empty
-						return;
-					}
-					String path = DialogHandler.chooseSource();
-					if(path == null)
-						return; //cancel if no Path was chosen
-					JProgressBar progress = DialogHandler.showProgressBar();
-					element = new PhotoBox(path);
-					//TODO fill Photobox with Photos, (Folder Manager s-times)
-					((PhotoBox) element).setName(name);
-					StartScreen.noOfBoxes++;
-					StartScreen.retextBox();
-					try {
-						Thread.sleep(3000);
-					} catch (InterruptedException ie) {
-						ErrorMessageDialog.showMessage(null, ie.getMessage(), ERROR_TITLE, ie.getStackTrace().toString());
-					}
-					((Window) progress.getParent().getParent().getParent().getParent()).dispose();
+					parentPanel.add(new StartScreenElement(elementTyp, ELEMENT, parentPanel, name));
+					parentPanel.getParent().validate();
+
+				} catch (FileNotFoundException fnfe) {
+					ErrorMessageDialog.showMessage(null, fnfe.getMessage(), ERROR_TITLE, fnfe.getStackTrace().toString());
+				} catch (InterruptedException ie) {
+					ErrorMessageDialog.showMessage(null, ie.getMessage(), ERROR_TITLE, ie.getStackTrace().toString());
 				}
-				parentPanel.add(new StartScreenElement(elementTyp, ELEMENT, parentPanel, name));
-				parentPanel.getParent().validate();
-				
 			}
 		};
 		addButton.addActionListener(addListen);
