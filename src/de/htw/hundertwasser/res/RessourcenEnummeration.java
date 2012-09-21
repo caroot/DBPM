@@ -23,7 +23,7 @@ public enum RessourcenEnummeration {
 	PHOTOALBUM_HINZUFUEGEN("add_photoalbum.png"), PHOTOALBUM_HINZUFUEGEN_NEU(
 			"add_photoalbum_new.png"), PHOTOBOX_HINZUFUEGEN(
 			"add_photobox.png"), PHOTOBOX_HINZUFUEGEN_NEU(
-			"add_photobox_neu.png"), ALBUM("album.png"), PFEIL_LINKS(
+			"add_photobox_neu.png"), PHOTO_HINZUFUEGEN("add_photo.png"), ALBUM("album.png"), PFEIL_LINKS(
 			"arrow_left.png"), PFEIL_RECHTS("arrow_right.png"), LOESCHEN(
 			"delete.png"), VOLLBILD_VERLASSEN("exit_fullscreen.png"), VOLLBILD_PFEIL_LINKS(
 			"fs_arrow_left.png"), VOLLBILD_PFEIL_RECHTS("fs_arrow_right.png"), VOLLBILD_VERLASSEN_KLEIN(
