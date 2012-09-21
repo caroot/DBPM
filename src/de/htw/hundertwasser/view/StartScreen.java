@@ -20,9 +20,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 /**
- * Klasse die den StartScreen des DBPM anzeigt.
+ * This Class shows the Startscreen of DBPM
  * 
- * @author Fabian
+ * @author Fabian, Tim
  * @version 9.9.12
  */
 

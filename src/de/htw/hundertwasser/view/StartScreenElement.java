@@ -23,7 +23,7 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 /**
  * Klasse die ein bestimmtes Photoalbum oder Photobox vom Startscrenn aus ansprechen kann. (Und der Hinzuf�gen Knopf)
- * @author Fabian
+ * @author Fabian, Tim
  *
  */
 public class StartScreenElement extends JPanel {
