@@ -4,7 +4,7 @@ package de.htw.hundertwasser.custom.error;
  * @author daniel
  *
  */
-public class ChoosenFileNotAFolder extends Throwable{
+public class ChoosenFileNotAFolderException extends Throwable{
 
 	/**
 	 * 
@@ -14,7 +14,7 @@ public class ChoosenFileNotAFolder extends Throwable{
 	/**
 	 * Constructor
 	 */
-	public ChoosenFileNotAFolder()
+	public ChoosenFileNotAFolderException()
 	{
 		super();
 	}
@@ -23,7 +23,7 @@ public class ChoosenFileNotAFolder extends Throwable{
 	 * Constructor with a certain message
 	 * @param message
 	 */
-	public ChoosenFileNotAFolder(String message)
+	public ChoosenFileNotAFolderException(String message)
 	{
 		super(message);
 	}
