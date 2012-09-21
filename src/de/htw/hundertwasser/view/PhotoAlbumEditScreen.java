@@ -39,7 +39,7 @@ public class PhotoAlbumEditScreen extends EditScreen{
 		mover.setBackground(Color.WHITE);
 		centralPanel.add(mover, BorderLayout.NORTH);
 
-		imgPanel.add(imgViewer,BorderLayout.CENTER);
+		
 		setState(Frame.MAXIMIZED_BOTH);
 	}
 	
