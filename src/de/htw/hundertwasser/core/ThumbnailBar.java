@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.naming.OperationNotSupportedException;
 import javax.swing.Box;
@@ -25,10 +26,16 @@ import javax.swing.JScrollBar;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
+import de.htw.hundertwasser.core.interfaces.ThumbNailBarObservable;
+import de.htw.hundertwasser.core.interfaces.ThumbNailBarObserver;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 import de.htw.hundertwasser.view.PhotoAlbumFullScreen;
-
-public class ThumbnailBar extends JPanel {
+/**
+ * 
+ * @author Steffen
+ *
+ */
+public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
 
 	// Constants
 	private static final long serialVersionUID = 1L;	
@@ -46,6 +53,8 @@ public class ThumbnailBar extends JPanel {
 	private JButton button4;
 	private JButton button8;
 	private JButton button16;
+	
+	private ArrayList<ThumbNailBarObserver>	observerList;
 
 
 	/*
@@ -96,6 +105,8 @@ public class ThumbnailBar extends JPanel {
 		buttons[15].setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/add_photo.png")));
 		buttons[15].setToolTipText("Add a photo");
 		buttons[15].addActionListener(getPlusButtonActionListener());
+		
+		observerList = new ArrayList<ThumbNailBarObserver>();
 	}
 	
 	/**
@@ -136,21 +147,25 @@ public class ThumbnailBar extends JPanel {
 		button2 = new JButton("2");
 		button2.setBackground(Color.WHITE);
 		button2.setFont(fontB);
+		button2.setToolTipText("");
 		toolBar.add(button2);
 		
 		button4 = new JButton("4");
 		button4.setBackground(Color.WHITE);
 		button4.setFont(font);
+		button4.setToolTipText("");
 		toolBar.add(button4);
 		
 		button8 = new JButton("8");
 		button8.setBackground(Color.WHITE);
 		button8.setFont(font);
+		button8.setToolTipText("");
 		toolBar.add(button8);
 		
 		button16 = new JButton("16");
 		button16.setBackground(Color.WHITE);
 		button16.setFont(font);
+		button16.setToolTipText("");
 		toolBar.add(button16);
 		
 		button2.addActionListener(getButton2ActionListener());
@@ -179,7 +194,7 @@ public class ThumbnailBar extends JPanel {
 		displayThumbnails.setLayout(new GridLayout(1, 2, 10, 10));
 		panel.add(displayThumbnails, BorderLayout.CENTER);
 		
-		scrollBar = new JScrollBar(Scrollbar.HORIZONTAL, 1, 8, 1, 16);
+		scrollBar = new JScrollBar(Scrollbar.HORIZONTAL, 1, 2, 1, 16);
 		scrollBar.setBackground(Color.WHITE);
 		scrollBar.setUnitIncrement(scrollBar.getVisibleAmount());
 		panel.add(scrollBar, BorderLayout.SOUTH);
@@ -373,6 +388,7 @@ public class ThumbnailBar extends JPanel {
 	}
 	
 	/**
+	 * Function to get the Action
 	 * 
 	 * @return
 	 */
@@ -385,5 +401,39 @@ public class ThumbnailBar extends JPanel {
 				
 			}
 		};
+	}
+
+	/**
+	 * Adds a ThumbNailBarObserver to the observerList
+	 * 
+	 * @param	observer that shall be added to the observerList
+	 */
+	@Override
+	public void addThumbNailBarObserver(ThumbNailBarObserver observer) {
+		observerList.add(observer);
+		
+	}
+
+	/**
+	 * Removes a ThumbNailBarObserver from the observerList
+	 * 
+	 *  @param	observer that shall be removed from the observerList
+	 */
+	@Override
+	public void removeThumbNailBarObserver(ThumbNailBarObserver observer) {
+		observerList.remove(observer);
+		
+	}
+
+	/**
+	 * Sends a message to all observer in the observerList
+	 * 
+	 * @param	photo the chosen photo
+	 */
+	@Override
+	public void sendMessage(Photo photo) {
+		for(ThumbNailBarObserver observer: observerList) {
+			observer.setPhoto(photo);
+		}		
 	}
 }

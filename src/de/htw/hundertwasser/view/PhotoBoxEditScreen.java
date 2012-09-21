@@ -76,10 +76,4 @@ public class PhotoBoxEditScreen extends EditScreen {
 
 	}
 
-	@Override
-	public void setPhoto(Photo photo) {
-		
-		
-	}
-
 }
