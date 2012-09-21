@@ -78,6 +78,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
 		
 		im = new ImageManager();
 		photo = new Photo("Titten", "Motivations Bild v2.jpg");
+		photo.setComment("Titten");
 
 		
 		toolBar = initialiseToolbar();		
