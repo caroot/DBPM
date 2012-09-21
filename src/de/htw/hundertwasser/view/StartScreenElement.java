@@ -103,20 +103,22 @@ public class StartScreenElement extends JPanel {
 		}
 	}
 
+	// added Tooltipps (tim)
 	private void makeAddButton() {
 		Icon addIcon;
+		String helpAddButton;
 		try {
 			if(elementTyp == ALBUM) {
 				addIcon = RessourcenEnummeration.PHOTOALBUM_HINZUFUEGEN_NEU.getIcon();
+				helpAddButton = "Add a new Photo Album";
 			} else {
 				addIcon = RessourcenEnummeration.PHOTOBOX_HINZUFUEGEN_NEU.getIcon();
+				helpAddButton = "Add a new Photo Box";
 			}	
 			JButton addButton = new JButton(addIcon);
 			
 			addButton.setBackground(StartScreen.getBGColor());
-			
-			// TEST
-			addButton.setToolTipText("Hier ist der Toopltip!");
+			addButton.setToolTipText( helpAddButton );
 		
 		ActionListener addListen = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
