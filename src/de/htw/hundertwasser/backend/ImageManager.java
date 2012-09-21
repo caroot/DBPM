@@ -1,6 +1,10 @@
 package de.htw.hundertwasser.backend;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,7 +20,7 @@ import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
  * @author daniel rhein
  * 
  */
-public class ImageManager {
+public class ImageManager implements ImageObserver{
 
 	private static final String ERROR_NO_FILE_PATH = "Der angegebene Pfad darf nicht null sein.";
 
@@ -54,6 +58,39 @@ public class ImageManager {
 	}
 
 	/**
+	 * Read the Picture from source
+	 * 
+	 * @param absouluteFile absolute path to the file
+	 * @return picture of the image.
+	 * @throws IOException thrown if the Picture was not found
+	 * @throws FileNotFoundException thrown if the Picture was not found
+	 * @throws IllegalArgumentException thrown if the File is null
+	 */
+	public BufferedImage getThumNailImage(String absoluteFile,int width,int height) throws IOException,
+			FileNotFoundException, InsufficientPrivilegesException {
+		if (absoluteFile == null)
+			throw new IllegalArgumentException(ERROR_NO_FILE_PATH);
+		if (absoluteFile.trim().isEmpty())
+			throw new IllegalArgumentException(
+					"The path of the file can't be emtpy.");
+		File file = new File(absoluteFile);
+		if (!file.exists())
+			throw new FileNotFoundException("File" + absoluteFile
+					+ " can't be found on your System.");
+		if (!file.canRead())
+			throw new InsufficientPrivilegesException(
+					"I'm not allowed to open the file" + absoluteFile);
+		BufferedImage bui = ImageIO.read(file);
+		BufferedImage thumbnail = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB );
+
+		 Graphics2D g2 = (Graphics2D)thumbnail.getGraphics();;
+		   g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+		                        RenderingHints.VALUE_ANTIALIAS_ON);
+		g2.drawImage(bui, 0, 0, width, height, this);
+		return thumbnail;
+	}
+	
+	/**
 	 * Returns an ArrayList of ImageFiles within the current directory
 	 * 
 	 * @param Path
@@ -82,5 +119,11 @@ public class ImageManager {
 			throw new FileNotFoundException("The file" + path
 					+ " doesn't exists.");
 		}
+	}
+
+	@Override
+	public boolean imageUpdate(Image arg0, int arg1, int arg2, int arg3,
+			int arg4, int arg5) {
+		return true;
 	}
 }
