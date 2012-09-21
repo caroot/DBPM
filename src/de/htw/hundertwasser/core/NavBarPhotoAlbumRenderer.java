@@ -22,11 +22,21 @@ public class NavBarPhotoAlbumRenderer extends JPanel implements TreeCellRenderer
 		lblText=new JLabel("",RessourcenEnummeration.PHOTOALBUM.getIcon(),JLabel.WEST);
 		ImageViewer iv = new ImageViewer();
 		setLayout(new BorderLayout(10,10));
+		add(lblText,BorderLayout.CENTER);
+		add(iv,BorderLayout.EAST);
 	}
 	@Override
 	public Component getTreeCellRendererComponent(JTree tree, Object value,
 			boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
-		
+		if (value instanceof PhotoAlbum)
+		{
+			PhotoAlbum photoalbum = (PhotoAlbum)value;
+			lblText.setText(photoalbum.getName());
+		}
+		if (value instanceof String)
+		{
+			lblText.setText((String) value);
+		}
 		return null;
 	}
 

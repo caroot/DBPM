@@ -16,9 +16,11 @@ import java.io.IOException;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollBar;
+import javax.swing.JTree;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 
+import de.htw.hundertwasser.model.NavBarPhotoAlbumModel;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 import de.htw.hundertwasser.view.StartScreenElement;
 
@@ -28,10 +30,22 @@ import de.htw.hundertwasser.view.StartScreenElement;
  */
 public class NavigationBar extends JPanel {
 	
+	NavBarPhotoAlbumModel modelPhotoAlbum;
+	NavBarPhotoAlbumRenderer rendererPhotoAlbum;
+	JTree jtreePhotoAlbum ;
+	JTree jtreePhotoBox;
 	/*
 	 * Constructor
 	 */
-	public NavigationBar() {
+	public NavigationBar() throws IOException {
+		jtreePhotoAlbum = new JTree();
+		jtreePhotoBox = new JTree();
+		
+		modelPhotoAlbum = new NavBarPhotoAlbumModel();
+		rendererPhotoAlbum = new NavBarPhotoAlbumRenderer();
+		
+		jtreePhotoAlbum.setModel(modelPhotoAlbum);
+		fillPhotoAlbumTest();
 		setBackground(Color.WHITE);
 		setLayout(null);
 		setPreferredSize(new Dimension(150, 803));
@@ -53,7 +67,7 @@ public class NavigationBar extends JPanel {
 		JLabel lblYourPhotoAlbums = new JLabel("     Your photo boxes");
 		lblYourPhotoAlbums.setVerticalAlignment(SwingConstants.TOP);
 		lblYourPhotoAlbums.setFont(new Font("Calibri", Font.PLAIN, 13));
-		panel_1.add(lblYourPhotoAlbums);
+		panel_1.add(jtreePhotoAlbum); //lblYourPhotoAlbums
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new MatteBorder(1, 1, 1, 1,
@@ -99,6 +113,15 @@ public class NavigationBar extends JPanel {
 		} catch (FontFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	private void fillPhotoAlbumTest()
+	{
+		for (int i=0;i<3;i++)
+		{
+			PhotoAlbum album = new PhotoAlbum("Mein " + i + ".tes PhotoAlbum","Test");
+			modelPhotoAlbum.addPhotoAlbum(album);
 		}
 	}
 }
