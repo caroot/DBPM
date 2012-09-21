@@ -120,7 +120,7 @@ public class NavigationBar extends JPanel {
 	{
 		for (int i=0;i<3;i++)
 		{
-			PhotoAlbum album = new PhotoAlbum("Mein " + i + ".tes PhotoAlbum","Test");
+			PhotoAlbum album = new PhotoAlbum("Mein " + i + ".tes PhotoAlbum");
 			modelPhotoAlbum.addPhotoAlbum(album);
 		}
 	}
