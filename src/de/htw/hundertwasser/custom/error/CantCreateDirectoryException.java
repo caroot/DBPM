@@ -1,26 +1,26 @@
 package de.htw.hundertwasser.custom.error;
 
-public class CantCreateDirectoryException extends Throwable{
-	
-	/**
-	 * 
-	 */
+/*
+ * This Exception appears when an Directory can't be created
+ */
+public class CantCreateDirectoryException extends Throwable {
+
+	// Constants
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Konstruktor
+	 * Constructor
 	 */
-	public CantCreateDirectoryException()
-	{
+	public CantCreateDirectoryException() {
 		super();
 	}
-	
+
 	/**
-	 * Konstruktor with message
+	 * Constructor with message
+	 * 
 	 * @param message
 	 */
-	public CantCreateDirectoryException(String message)
-	{
+	public CantCreateDirectoryException(String message) {
 		super(message);
 	}
 }

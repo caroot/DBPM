@@ -1,31 +1,30 @@
 package de.htw.hundertwasser.custom.error;
+
 /**
  * This exception occurs if a user chooses a File-Object that is not a directory
- * @author daniel
- *
+ * 
+ * @author daniel rhein
+ * 
  */
-public class ChoosenFileNotAFolderException extends Throwable{
+public class ChoosenFileNotAFolderException extends Throwable {
 
-	/**
-	 * 
-	 */
+	// Constants
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Constructor
 	 */
-	public ChoosenFileNotAFolderException()
-	{
+	public ChoosenFileNotAFolderException() {
 		super();
 	}
-	
+
 	/**
 	 * Constructor with a certain message
+	 * 
 	 * @param message
 	 */
-	public ChoosenFileNotAFolderException(String message)
-	{
+	public ChoosenFileNotAFolderException(String message) {
 		super(message);
 	}
-	
+
 }

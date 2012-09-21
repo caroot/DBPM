@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import de.htw.hundertwasser.core.ImageViewer;
+import de.htw.hundertwasser.core.PhotoAlbum;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 public class PhotoAlbumEditScreen extends EditScreen{
@@ -20,7 +21,7 @@ public class PhotoAlbumEditScreen extends EditScreen{
 
 
 
-	public PhotoAlbumEditScreen() {
+	public PhotoAlbumEditScreen(PhotoAlbum photoalbum) {
 		//TODO Laden des Photoalbums
 			
 		super();

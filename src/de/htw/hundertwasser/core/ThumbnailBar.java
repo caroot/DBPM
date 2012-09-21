@@ -30,12 +30,10 @@ import de.htw.hundertwasser.view.PhotoAlbumFullScreen;
 
 public class ThumbnailBar extends JPanel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+	// Constants
+	private static final long serialVersionUID = 1L;	
 	private JButton[] buttons = new JButton[16];
+	// Variables
 	private Font font;
 	private Font fontB;
 	private JToolBar toolBar;
@@ -49,7 +47,10 @@ public class ThumbnailBar extends JPanel {
 	private JButton button8;
 	private JButton button16;
 
-	
+
+	/*
+	 * Constructor
+	 */
 	public ThumbnailBar() {
 		
 		setFonts();
@@ -92,7 +93,7 @@ public class ThumbnailBar extends JPanel {
 	}
 	
 	/**
-	 * 
+	 * Function to set the Font
 	 */
 	private void setFonts() {
 		try {
@@ -111,7 +112,7 @@ public class ThumbnailBar extends JPanel {
 	}
 	
 	/**
-	 * 
+	 * Function to initialise the Toolbar
 	 */
 	private JToolBar initialiseToolbar() {
 		JToolBar toolBar = new JToolBar();
@@ -158,7 +159,7 @@ public class ThumbnailBar extends JPanel {
 	}
 	
 	/**
-	 * 
+	 * Function to initialise the Thumbnails
 	 */
 	private JPanel initialiseThumbnails() {
 		
@@ -190,8 +191,9 @@ public class ThumbnailBar extends JPanel {
 	}
 	
 	/**
+	 * Function to get the Action
 	 * 
-	 * @return
+	 * @return action performed
 	 */
 	private ActionListener getPlusButtonActionListener() {
 		return new ActionListener() {
@@ -205,8 +207,9 @@ public class ThumbnailBar extends JPanel {
 	}
 	
 	/**
+	 * Function to get the Action
 	 * 
-	 * @return
+	 * @return action performed
 	 */
 	private ActionListener getButtonLeftActionListener() {
 		return new ActionListener() {
@@ -233,8 +236,9 @@ public class ThumbnailBar extends JPanel {
 	}
 	
 	/**
+	 * Function to get the Action
 	 * 
-	 * @return
+	 * @return action performed
 	 */
 	private ActionListener getButton2ActionListener() {
 		return new ActionListener() {
@@ -260,8 +264,9 @@ public class ThumbnailBar extends JPanel {
 	}
 	
 	/**
+	 * Function to get the Action
 	 * 
-	 * @return
+	 * @return action performed
 	 */
 	private ActionListener getButton4ActionListener() {
 		return new ActionListener() {
@@ -288,8 +293,9 @@ public class ThumbnailBar extends JPanel {
 	}
 	
 	/**
+	 * Function to get the Action
 	 * 
-	 * @return
+	 * @return action performed
 	 */
 	private ActionListener getButton8ActionListener() {
 		return new ActionListener() {
@@ -316,8 +322,9 @@ public class ThumbnailBar extends JPanel {
 	}
 	
 	/**
+	 * Function to get the Action
 	 * 
-	 * @return
+	 * @return action performed
 	 */
 	private ActionListener getButton16ActionListener() {
 		return new ActionListener() {
@@ -343,8 +350,9 @@ public class ThumbnailBar extends JPanel {
 	}
 	
 	/**
+	 * Function to get the Action
 	 * 
-	 * @return
+	 * @return action performed
 	 */
 	private AdjustmentListener getScroolBarAdjustmentListener() {
 		return new AdjustmentListener() {
