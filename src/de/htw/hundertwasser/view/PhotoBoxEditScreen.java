@@ -16,7 +16,7 @@ import de.htw.hundertwasser.core.Photo;
 import de.htw.hundertwasser.core.PhotoBox;
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
 
-/*
+/**
  * Class that creates the EditScreen 
  */
 public class PhotoBoxEditScreen extends EditScreen {
@@ -24,7 +24,7 @@ public class PhotoBoxEditScreen extends EditScreen {
 	// Constants
 	private static final long serialVersionUID = 1L;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public PhotoBoxEditScreen(PhotoBox photobox) {
@@ -57,7 +57,7 @@ public class PhotoBoxEditScreen extends EditScreen {
 
 	}
 
-	/*
+	/**
 	 * 
 	 * @see de.htw.hundertwasser.view.EditScreen#getImgViewer()
 	 */
