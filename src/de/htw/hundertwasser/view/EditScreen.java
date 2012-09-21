@@ -82,14 +82,13 @@ public class EditScreen extends JFrame implements WindowListener {
 		thumbnailBar = new ThumbnailBar(); // Thumbnail Unten
 		imgPanel = new JPanel();
 		imgViewer = new ImageViewer();
+		
 
 		// title = new JLabel(DBPM, JLabel.CENTER);
-		navigationBar = new NavigationBar();
 		infoBar.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, null, null, null));
 		infoBar.setPreferredSize(subSystemSize);
 		toolBar.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, null, null, null));
 		toolBar.setPreferredSize(subSystemSize);
-		thumbnailBar = new ThumbnailBar();
 
 		// Panel, die den PictureViewer beinhaltet
 		centralPanel = new JPanel();

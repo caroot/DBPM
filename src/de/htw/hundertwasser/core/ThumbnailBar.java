@@ -47,8 +47,6 @@ public class ThumbnailBar extends JPanel {
 
 	
 	public ThumbnailBar() {
-		// set dimension
-//		setPreferredSize(new Dimension(1100, 160));
 		
 		setFonts();
 		for (int i=0; i<buttons.length; i++) {
@@ -69,20 +67,18 @@ public class ThumbnailBar extends JPanel {
 		buttonRight.setBackground(Color.WHITE);
 		buttonRight.setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/thumbnail_arrows_right.png")));
 
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		panel.setBackground(Color.WHITE);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		setBackground(Color.WHITE);
 		
-		panel.add(Box.createRigidArea(new Dimension(10, 0)));
-		panel.add(toolBar);
-		panel.add(Box.createRigidArea(new Dimension(10, 0)));
-		panel.add(buttonLeft);
-		panel.add(Box.createRigidArea(new Dimension(10, 0)));
-		panel.add(panelThumbnails);
-		panel.add(Box.createRigidArea(new Dimension(10, 0)));
-		panel.add(buttonRight);
-		panel.add(Box.createRigidArea(new Dimension(10, 0)));
-		add(panel);
+		add(Box.createRigidArea(new Dimension(10, 0)));
+		add(toolBar);
+		add(Box.createRigidArea(new Dimension(10, 0)));
+		add(buttonLeft);
+		add(Box.createRigidArea(new Dimension(10, 0)));
+		add(panelThumbnails);
+		add(Box.createRigidArea(new Dimension(10, 0)));
+		add(buttonRight);
+		add(Box.createRigidArea(new Dimension(10, 0)));
 		
 		buttonRight.addActionListener(new ActionListener() {			
 			@Override
