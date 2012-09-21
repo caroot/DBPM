@@ -58,6 +58,7 @@ public class StartScreen extends JFrame{
 		setBackground(Color.BLACK);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Wenn man auf das X drückt wird das Programm komplett beendet.
 		setSize(screenSize);
+		setExtendedState(MAXIMIZED_BOTH);
 
 		setLocationRelativeTo(null); //Setzt das Fenster in die Mitte
 		setLayout( new GridLayout(0, 1, 0, 1)); //Anzahl der Spalten, Zeilen, Frewwwwwiraum(L/R), Freiraum(O/U)
@@ -185,7 +186,7 @@ public class StartScreen extends JFrame{
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		textSize = new Dimension(screenSize.width, 100);
 		subSystemSize = new Dimension( screenSize.width*8/10, screenSize.height/2-20);
-		scrollSize = new Dimension(subSystemSize.width*3/4-20, subSystemSize.height-111);
+		scrollSize = new Dimension(subSystemSize.width*3/4-20, subSystemSize.height-90);
 		elementSize = new Dimension(scrollSize.width/3-7, scrollSize.height-10);
 		
 	}
