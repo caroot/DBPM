@@ -8,6 +8,7 @@ package de.htw.hundertwasser.core;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,12 +25,13 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
+import de.htw.hundertwasser.core.interfaces.ThumbNailBarObserver;
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
 
 /*
  * Class that creates the Infobar
  */
-public class Infobar extends JPanel {
+public class Infobar extends JPanel implements ThumbNailBarObserver {
 
 	// Constants
 	private static final long serialVersionUID = 1L;
@@ -38,6 +40,8 @@ public class Infobar extends JPanel {
 	// private String absolutePath = "C:/Temp/universe.jpg";
 	private String absolutePath = "AGV.jpg";
 
+	private JLabel lblComment_filled;
+	private JLabel lblPixel_filled;
 	/*
 	 * Constructor
 	 */
@@ -107,7 +111,7 @@ public class Infobar extends JPanel {
 		lblPixel.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblPixel, "2, 8");
 
-		JLabel lblPixel_filled = new JLabel(getPixel());
+		lblPixel_filled = new JLabel(getPixel());
 		lblPixel_filled.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblPixel_filled, "6, 8, 6, 1, center, default");
 
@@ -122,7 +126,7 @@ public class Infobar extends JPanel {
 		lblComment.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblComment, "2, 12");
 
-		JLabel lblComment_filled = new JLabel(photo.getComment());
+		lblComment_filled = new JLabel(photo.getComment());
 		lblComment_filled.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblComment_filled.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblComment_filled, "6, 12, 5, 1, center, default");
@@ -227,5 +231,26 @@ public class Infobar extends JPanel {
 		String s = formatter.format(getModifiedDate());
 
 		return s;
+	}
+
+	@Override
+	public void setPhoto(Photo photo) {
+		BufferedImage img;
+		try {
+			img = photo.getImage();
+			lblComment_filled.setText(photo.getComment());
+			lblPixel_filled.setText(img.getWidth() + " x " + img.getHeight());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InsufficientPrivilegesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 }
