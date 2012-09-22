@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
@@ -21,8 +22,10 @@ import javax.swing.border.BevelBorder;
 import de.htw.hundertwasser.core.ImageViewer;
 import de.htw.hundertwasser.core.Infobar;
 import de.htw.hundertwasser.core.NavigationBar;
+import de.htw.hundertwasser.core.Photo;
 import de.htw.hundertwasser.core.ThumbnailBar;
 import de.htw.hundertwasser.core.ToolBar;
+import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
 import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
@@ -58,10 +61,12 @@ public class EditScreen extends JFrame implements WindowListener {
 //	protected JPanel imgPanel;
 	protected ImageViewer imgViewer;
 
+	private Photo photo;
 	/**
 	 * Konstruktor für den EditScreen 
 	 */
 	public EditScreen() {
+		
 		getContentPane().setBackground(Color.WHITE);
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setPreferredSize(screenSize);
@@ -120,6 +125,29 @@ public class EditScreen extends JFrame implements WindowListener {
 		// Hinzufï¿½gen von INFOBAR und TOOLBAR in den CONTROLPANEL
 		controlPanel.add(infoBar, BorderLayout.NORTH);
 		controlPanel.add(toolBar, BorderLayout.CENTER);
+		
+		
+//		ADDS MOTIVATION PIC
+		
+		photo = new Photo("Motivation!", "Motivations Bild v2.jpg");
+		
+		try {
+			imgViewer.setImage(photo.getImage());
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InsufficientPrivilegesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+//		
 		
 		// Hinzufï¿½gen der beiden Panels fï¿½r Buttons
 		centralPanel.add(buttonPanelleft, BorderLayout.EAST);

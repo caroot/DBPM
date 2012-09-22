@@ -1,3 +1,9 @@
+/**
+ * @author Dominic Holz (template by Daniel Rhein)
+ *
+ */
+
+
 package de.htw.hundertwasser.core;
 
 import java.awt.BorderLayout;
@@ -9,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
 
-public class NavBarPhotoAlbumRenderer extends JPanel implements TreeCellRenderer{
+public class NavBarPhotoBoxRenderer extends JPanel implements TreeCellRenderer{
 
 	/**
 	 * 
@@ -19,9 +25,9 @@ public class NavBarPhotoAlbumRenderer extends JPanel implements TreeCellRenderer
 //	private ImageViewer iv;
 	
 	
-	public NavBarPhotoAlbumRenderer() throws IOException
+	public NavBarPhotoBoxRenderer() throws IOException
 	{
-//		lblText=new JLabel("",RessourcenEnummeration.PHOTOALBUM.getIcon(),JLabel.LEADING);
+//		lblText=new JLabel("",RessourcenEnummeration.PHOTOBOX.getIcon(),JLabel.LEADING);
 		lblText=new JLabel("");
 //		iv = new ImageViewer();
 		setLayout(new BorderLayout(10,10));
@@ -33,8 +39,8 @@ public class NavBarPhotoAlbumRenderer extends JPanel implements TreeCellRenderer
 			boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
 		if (value instanceof PhotoAlbum)
 		{
-			PhotoAlbum photoalbum = (PhotoAlbum)value;
-			lblText.setText(photoalbum.getName());
+			PhotoBox photobox = (PhotoBox)value;
+			lblText.setText(photobox.getName());
 		}
 		if (value instanceof String)
 		{

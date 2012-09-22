@@ -30,35 +30,38 @@ import de.htw.hundertwasser.core.interfaces.ThumbNailBarObserver;
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
 import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 
-/*
+/**
  * Class that creates the Infobar
  */
 public class Infobar extends JPanel implements ThumbNailBarObserver {
 
 	// Constants
 	private static final long serialVersionUID = 1L;
-	private static final long KBMINSIZE=1024;
-	private static final long MBMINSIZE=1048576;
-	private static final long GBMINSIZE=1073741824;
-	
+	private static final long KBMINSIZE = 1024;
+	private static final long MBMINSIZE = 1048576;
+	private static final long GBMINSIZE = 1073741824;
+
 	// Variables
 	private Photo photo;
 	// private String absolutePath = "C:/Temp/universe.jpg";
-	private String absolutePath = "AGV.jpg";
+	private String absolutePath = "Motivations Bild v2.jpg";
 
 	private JLabel lblComment_filled;
 	private JLabel lblPixel_filled;
 	private JLabel lblSize_filled;
 	private JLabel lblCreated_filled;
 	private JLabel lblKb;
-	/*
+	private JLabel lblName_filled;
+	private BufferedImage img;
+
+	/**
 	 * Constructor
 	 */
 	public Infobar() {
 
-		photo = new Photo("AGV-Image", absolutePath);
-		photo.setComment(photo.getName());
-	
+		photo = new Photo("Motivation!", absolutePath);
+		photo.setComment(":)");
+
 		// setPreferredSize(new Dimension(250, 223));
 		// setMaximumSize(new Dimension(250,200));
 		// setMinimumSize(new Dimension(250,200));
@@ -105,47 +108,55 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		add(label_1, "2, 3, 11, 2, center, default");
 
+		JLabel lblName = new JLabel("Name");
+		lblName.setFont(new Font("Arial", Font.BOLD, 12));
+		add(lblName, "2, 6");
+
+		lblName_filled = new JLabel("");
+		lblName_filled.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblName_filled, "8, 6");
+
 		JLabel lblSize = new JLabel("Size:");
 		lblSize.setFont(new Font("Arial", Font.BOLD, 12));
-		add(lblSize, "2, 6");
+		add(lblSize, "2, 8");
 
 		lblSize_filled = new JLabel("");
 		lblSize_filled.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblSize_filled, "4, 6, 5, 1, center, default");
+		add(lblSize_filled, "8, 8, center, default");
 
 		lblKb = new JLabel("KB");
-		add(lblKb, "10, 6");
+		add(lblKb, "10, 8");
 
 		JLabel lblPixel = new JLabel("Pixel:");
 		lblPixel.setFont(new Font("Arial", Font.BOLD, 12));
-		add(lblPixel, "2, 8");
+		add(lblPixel, "2, 10");
 
 		lblPixel_filled = new JLabel(getPixel());
 		lblPixel_filled.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblPixel_filled, "6, 8, 6, 1, center, default");
+		add(lblPixel_filled, "8, 10, center, default");
 
 		JLabel lblCreated = new JLabel("Created:");
 		lblCreated.setFont(new Font("Arial", Font.BOLD, 12));
-		add(lblCreated, "2, 10");
+		add(lblCreated, "2, 12");
 
 		lblCreated_filled = new JLabel("");
-		add(lblCreated_filled, "6, 10, 5, 1, center, default");
-
-		JLabel lblComment = new JLabel("Comment:");
-		lblComment.setFont(new Font("Arial", Font.BOLD, 12));
-		add(lblComment, "2, 12");
+		add(lblCreated_filled, "8, 12, center, default");
 
 		lblComment_filled = new JLabel(photo.getComment());
 		lblComment_filled.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblComment_filled.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(lblComment_filled, "6, 12, 5, 1, center, default");
+		add(lblComment_filled, "6, 14, 5, 1, center, default");
+
+		JLabel lblComment = new JLabel("Comment:");
+		lblComment.setFont(new Font("Arial", Font.BOLD, 12));
+		add(lblComment, "2, 14");
 
 		JLabel label = new JLabel("");
-		add(label, "2, 14, 10, 3");
+		add(label, "2, 16, 10, 1");
 		setPhoto(photo);
 	}
 
-	/*
+	/**
 	 * Function that returns the Photo height
 	 * 
 	 * @return Height of the photo
@@ -155,13 +166,16 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 		try {
 			height = photo.getImage().getHeight();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
+					"Error", e.getStackTrace().toString());
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
+					"Error", e.getStackTrace().toString());
 			e.printStackTrace();
 		} catch (InsufficientPrivilegesException e) {
-			// TODO Auto-generated catch block
+			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
+					"Error", e.getStackTrace().toString());
 			e.printStackTrace();
 		}
 
@@ -169,7 +183,7 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 		return height;
 	}
 
-	/*
+	/**
 	 * Function that returns the Photo width
 	 * 
 	 * @return Width of the photo
@@ -179,22 +193,26 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 		try {
 			width = photo.getImage().getWidth();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
+					"Error", e.getStackTrace().toString());
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
+					"Error", e.getStackTrace().toString());
 			e.printStackTrace();
 		} catch (InsufficientPrivilegesException e) {
-			// TODO Auto-generated catch block
+			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
+					"Error", e.getStackTrace().toString());
 			e.printStackTrace();
 		}
 		// System.out.println(width);
 		return width;
 	}
 
-	/*
+	/**
 	 * Function that returns the Photo display size
-	 *  @return display size of the photo
+	 * 
+	 * @return display size of the photo
 	 */
 	private String getPixel() {
 
@@ -207,23 +225,23 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 
 	/**
 	 * Function that returns the Photo size
-	 *  @return Size of the photo
-	 *  @throws FileNotFoundException,IllegalArgumentException
+	 * 
+	 * @return Size of the photo
+	 * @throws FileNotFoundException
+	 *             ,IllegalArgumentException
 	 */
-	private double getFileSize() throws FileNotFoundException, IllegalArgumentException {
+	private double getFileSize() throws FileNotFoundException,
+			IllegalArgumentException {
 
 		double size = photo.getSize(ImageManagerSize.BYTE);
-		if (size<=KBMINSIZE)
-		{
+		if (size <= KBMINSIZE) {
 			lblKb.setText(ImageManagerSize.BYTE.getSizeName());
 		}
-		if (size>KBMINSIZE && size <=MBMINSIZE)
-		{
+		if (size > KBMINSIZE && size <= MBMINSIZE) {
 			lblKb.setText(ImageManagerSize.KILOBYTE.getSizeName());
 			return (photo.getSize(ImageManagerSize.KILOBYTE));
 		}
-		if (size>MBMINSIZE&&size<=GBMINSIZE)
-		{
+		if (size > MBMINSIZE && size <= GBMINSIZE) {
 			lblKb.setText(ImageManagerSize.MEGABYTE.getSizeName());
 			return (photo.getSize(ImageManagerSize.MEGABYTE));
 		}
@@ -233,21 +251,25 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 
 	/**
 	 * Function that returns the Photo date
-	 *  @return Date of the photo
-	 *  @throws FileNotFoundException
-	 *  @throws IllegalArgumentException
+	 * 
+	 * @return Date of the photo
+	 * @throws FileNotFoundException
+	 * @throws IllegalArgumentException
 	 */
-	private Date getModifiedDate() throws FileNotFoundException, IllegalArgumentException {	
+	private Date getModifiedDate() throws FileNotFoundException,
+			IllegalArgumentException {
 		return photo.getLastModifiedDate();
 	}
 
 	/**
 	 * Function that formats the Date
-	 * @return Date 
-	 * @throws FileNotFoundException 
+	 * 
+	 * @return Date
+	 * @throws FileNotFoundException
 	 * @throws IllegalArgumentException
 	 */
-	private String formatDate() throws FileNotFoundException, IllegalArgumentException {
+	private String formatDate() throws FileNotFoundException,
+			IllegalArgumentException {
 		DateFormat formatter;
 		formatter = new SimpleDateFormat("dd.MM.yy");
 
@@ -256,31 +278,41 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 		return s;
 	}
 
-	private Component getComponent()
-	{
+	/**
+	 * 
+	 * @return
+	 */
+	private Component getComponent() {
 		return this;
 	}
-	
+
+	/**
+	 * 
+	 */
 	@Override
 	public void setPhoto(Photo photo) {
-		BufferedImage img;
+
 		try {
 			img = photo.getImage();
 			lblCreated_filled.setText(formatDate());
+			lblName_filled.setText(photo.getName());
 			lblSize_filled.setText(String.valueOf(getFileSize()));
 			lblPixel_filled.setText(getPixel());
 			lblComment_filled.setText(photo.getComment());
+			
 		} catch (FileNotFoundException e) {
-			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(), "Error", e.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
+					"Error", e.getStackTrace().toString());
 			e.printStackTrace();
 		} catch (IOException e) {
-			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(), "Error", e.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
+					"Error", e.getStackTrace().toString());
 			e.printStackTrace();
 		} catch (InsufficientPrivilegesException e) {
-			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(), "Error", e.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
+					"Error", e.getStackTrace().toString());
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 }

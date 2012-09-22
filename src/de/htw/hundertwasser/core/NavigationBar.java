@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import javax.naming.OperationNotSupportedException;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
@@ -20,92 +22,118 @@ import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 
 import de.htw.hundertwasser.model.NavBarPhotoAlbumModel;
+import de.htw.hundertwasser.model.NavBarPhotoBoxModel;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
-/*
+/**
  * Class that creates the NavigationBar
+ * 
  * @author Johannes Schramm
+ * @author Dominic Holz
+ * 
+ * @since 22.09.2012
+ * 
  */
+
 public class NavigationBar extends JPanel {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	NavBarPhotoAlbumModel modelPhotoAlbum;
-	NavBarPhotoAlbumRenderer rendererPhotoAlbum;
-	JTree jtreePhotoAlbum ;
-	JTree jtreePhotoBox;
-	/*
+	private NavBarPhotoAlbumModel modelPhotoAlbum;
+	private NavBarPhotoAlbumRenderer rendererPhotoAlbum;
+	
+	private NavBarPhotoBoxModel modelPhotoBox;
+	private NavBarPhotoBoxRenderer rendererPhotoBox;
+	private JTree jtreePhotoAlbum;
+
+	private JScrollPane scrlPhotoAlben;
+	private JScrollPane scrlPhotoBoxes;
+	private JTree jtreePhotoBox;
+	private Font font;
+
+	/**
 	 * Constructor
 	 */
 	public NavigationBar() throws IOException {
+
 		jtreePhotoAlbum = new JTree();
 		jtreePhotoBox = new JTree();
-		
+		scrlPhotoAlben = new JScrollPane();
+		scrlPhotoBoxes = new JScrollPane();
+
 		modelPhotoAlbum = new NavBarPhotoAlbumModel();
 		rendererPhotoAlbum = new NavBarPhotoAlbumRenderer();
+		modelPhotoBox = new NavBarPhotoBoxModel();
+		rendererPhotoBox = new NavBarPhotoBoxRenderer();
 		
 		jtreePhotoAlbum.setModel(modelPhotoAlbum);
 		jtreePhotoAlbum.setCellRenderer(rendererPhotoAlbum);
 		modelPhotoAlbum.addTreeModelListener(getPhotoAlbumListener());
-		fillPhotoAlbumTest();
+
+		jtreePhotoBox.setModel(modelPhotoBox);
+		jtreePhotoBox.setCellRenderer(rendererPhotoBox);
+		modelPhotoBox.addTreeModelListener(getPhotoBoxListener());
 		
+		
+		fillPhotoAlbumTest();
+
 		setBackground(Color.WHITE);
 		setLayout(null);
 		setPreferredSize(new Dimension(150, 803));
 
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		panel.setBounds(6, 6, 141, 575);
-		add(panel);
-		panel.setLayout(null);
+		JPanel pnlBackground = new JPanel();
+		pnlBackground.setBackground(Color.WHITE);
+		pnlBackground.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(
+				0, 0, 0)));
+		pnlBackground.setBounds(6, 6, 141, 575);
+		add(pnlBackground);
+		pnlBackground.setLayout(null);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new MatteBorder(1, 1, 1, 1,
-				(Color) new Color(0, 0, 0)));
-		panel_1.setBounds(6, 6, 129, 231);
-		panel.add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
+		JPanel pnlPhotoBox = new JPanel();
+		pnlPhotoBox.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0,
+				0, 0)));
+		pnlPhotoBox.setBounds(6, 6, 129, 231);
+		pnlBackground.add(pnlPhotoBox);
+		pnlPhotoBox.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblYourPhotoAlbums = new JLabel("     Your photo boxes");
-		lblYourPhotoAlbums.setVerticalAlignment(SwingConstants.TOP);
-		lblYourPhotoAlbums.setFont(new Font("Calibri", Font.PLAIN, 13));
-		panel_1.add(lblYourPhotoAlbums); //lblYourPhotoAlbums
+		pnlPhotoBox.add(scrlPhotoBoxes, BorderLayout.CENTER);
+		scrlPhotoBoxes.setViewportView(jtreePhotoBox);
 
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new MatteBorder(1, 1, 1, 1,
-				(Color) new Color(0, 0, 0)));
-		panel_2.setBounds(6, 285, 129, 246);
-		panel.add(panel_2);
-		panel_2.setLayout(new BorderLayout(0, 0));
+		// JLabel lblYourPhotoBoxes = new JLabel("     Your photo boxes");
+		// lblYourPhotoBoxes.setVerticalAlignment(SwingConstants.TOP);
+		// lblYourPhotoBoxes.setFont(new Font("Calibri", Font.PLAIN, 13));
+		// pnlPhotoBox.add(lblYourPhotoBoxes); // lblYourPhotoAlbums
 
-		JLabel lblYourPhotoAlbums_1 = new JLabel("     Your photo albums");
-		panel_2.add(jtreePhotoAlbum, BorderLayout.CENTER);
-		lblYourPhotoAlbums_1.setVerticalAlignment(SwingConstants.TOP);
-		lblYourPhotoAlbums_1.setFont(new Font("Calibri", Font.PLAIN, 13));
+		// JLabel lblYourPhotoAlbums = new JLabel("     Your albums");
+		// pnlPhotoAlbum.add(jtreePhotoAlbum, BorderLayout.CENTER);
+		// lblYourPhotoAlbums.setVerticalAlignment(SwingConstants.TOP);
+		// lblYourPhotoAlbums.setFont(new Font("Calibri", Font.PLAIN, 13));
 
-		JButton btnNewButton = new JButton("+new photobox");
-		btnNewButton.setFont(new Font("Calibri", Font.PLAIN, 12));
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnNewButton.setBounds(6, 249, 129, 24);
-		panel.add(btnNewButton);
+		JPanel pnlPhotoAlbum = new JPanel();
+		pnlPhotoAlbum.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(
+				0, 0, 0)));
+		pnlPhotoAlbum.setBounds(6, 285, 129, 246);
+		pnlBackground.add(pnlPhotoAlbum);
+		pnlPhotoAlbum.setLayout(new BorderLayout(0, 0));
+		pnlPhotoAlbum.add(scrlPhotoAlben, BorderLayout.CENTER);
+		scrlPhotoAlben.setViewportView(jtreePhotoAlbum);
 
-		JButton btnNewButton_1 = new JButton("+new photoalbum");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnNewButton_1.setBounds(6, 540, 129, 24);
-		panel.add(btnNewButton_1);
-		btnNewButton_1.setFont(new Font("Calibri", Font.PLAIN, 11));
+		JButton btnNewBox = new JButton("+new photobox");
+		btnNewBox.setFont(new Font("Calibri", Font.PLAIN, 12));
+		btnNewBox.addActionListener(btnBoxListener);
+		btnNewBox.setBounds(6, 249, 129, 24);
+		pnlBackground.add(btnNewBox);
+
+		JButton btnNewAlbum = new JButton("+new photoalbum");
+		btnNewAlbum.addActionListener(btnAlbumListener);
+		btnNewAlbum.setBounds(6, 540, 129, 24);
+		pnlBackground.add(btnNewAlbum);
+		btnNewAlbum.setFont(new Font("Calibri", Font.PLAIN, 11));
 
 		// Font
-		Font font;
+
 		try {
 			font = RessourcenEnummeration.FONT_CALIBRI.getFont()
 					.deriveFont(11f);
@@ -120,20 +148,42 @@ public class NavigationBar extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	
-	private void fillPhotoAlbumTest()
-	{
-		for (int i=0;i<3;i++)
-		{
+
+	/**
+	* 
+ 	*/
+	private void fillPhotoAlbumTest() {
+		for (int i = 0; i < 3; i++) {
 			PhotoAlbum album = new PhotoAlbum("Mein " + i + ".tes PhotoAlbum");
 			modelPhotoAlbum.addPhotoAlbum(album);
 		}
 	}
-	
-	private TreeModelListener getPhotoAlbumListener()
-	{
-		return new TreeModelListener()
-		{
+
+	/**
+	 * 
+	 * 
+	 */
+	ActionListener btnBoxListener = new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+		}
+	};
+
+	/**
+	 * 
+	 */
+
+	ActionListener btnAlbumListener = new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+
+		}
+	};
+
+	/**
+	 * 
+	 * @return TreeModelListener
+	 */
+	private TreeModelListener getPhotoAlbumListener() {
+		return new TreeModelListener() {
 
 			@Override
 			public void treeNodesChanged(TreeModelEvent e) {
@@ -155,7 +205,36 @@ public class NavigationBar extends JPanel {
 				jtreePhotoAlbum.repaint();
 				jtreePhotoAlbum.revalidate();
 			}
-			
+
 		};
 	}
+
+	
+	private TreeModelListener getPhotoBoxListener() {
+		return new TreeModelListener() {
+
+			@Override
+			public void treeNodesChanged(TreeModelEvent e) {
+				jtreePhotoBox.revalidate();
+			}
+
+			@Override
+			public void treeNodesInserted(TreeModelEvent e) {
+				jtreePhotoBox.revalidate();
+			}
+
+			@Override
+			public void treeNodesRemoved(TreeModelEvent e) {
+				jtreePhotoBox.revalidate();
+			}
+
+			@Override
+			public void treeStructureChanged(TreeModelEvent e) {
+				jtreePhotoBox.repaint();
+				jtreePhotoBox.revalidate();
+			}
+
+		};
+	}
+
 }

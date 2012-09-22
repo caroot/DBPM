@@ -50,7 +50,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 	private static final String NEW_NAME = "Enter new name: ";
 	private static final String NAME_SUCCESS = "Name successfully changed";
 	private static final String SUCCESS = "Success";
-	
+
 	// Variables
 	// private String name = "TestBild";
 	private String absolutePath = "AGV.jpg";
@@ -67,7 +67,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 	 * @param editScreen
 	 */
 	public ToolBar(EditScreen editScreen) {
-		this.editScreen = editScreen;
+		this.setEditScreen(editScreen);
 
 		photo = new Photo("TestBild", absolutePath);
 		setBackground(Color.WHITE);
@@ -192,65 +192,60 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 
 	}
 
+	public ActionListener getRenameListener() {
+		return new ActionListener() {
 
-public ActionListener getRenameListener()
-{
-	return new ActionListener()
-	{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String newName = JOptionPane.showInputDialog(null,
+							NEW_NAME, "rename", JOptionPane.QUESTION_MESSAGE);
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			try {
-				String newName = JOptionPane.showInputDialog(null, NEW_NAME,
-						"rename", JOptionPane.QUESTION_MESSAGE);
+					if (newName != null) {
+						if (photo != null) {
 
-				if (newName != null) {
-					if (photo != null) {
+							System.out.println(photo.getName());
+							photo.setName(newName);
 
-						System.out.println(photo.getName());
-						photo.setName(newName);
-
-						JOptionPane.showMessageDialog(null, NAME_SUCCESS,
-								SUCCESS, JOptionPane.INFORMATION_MESSAGE);
-						System.out.println(photo.getName());
-					} else {
-						JOptionPane.showMessageDialog(null, NO_PICTURE, ERROR,
-								JOptionPane.OK_OPTION);
+							JOptionPane.showMessageDialog(null, NAME_SUCCESS,
+									SUCCESS, JOptionPane.INFORMATION_MESSAGE);
+							System.out.println(photo.getName());
+						} else {
+							JOptionPane.showMessageDialog(null, NO_PICTURE,
+									ERROR, JOptionPane.OK_OPTION);
+						}
 					}
+
+				} catch (IllegalArgumentException illegalArg) {
+
+					JOptionPane.showMessageDialog(null,
+							illegalArg.getMessage(), ERROR,
+							JOptionPane.ERROR_MESSAGE);
+
 				}
 
-			} catch (IllegalArgumentException illegalArg) {
-
-				JOptionPane.showMessageDialog(null, illegalArg.getMessage(),
-						ERROR, JOptionPane.ERROR_MESSAGE);
-
 			}
-			
-		}
-		
-	};
-}
 
-private ActionListener getZoomListner() {
-	return new ActionListener()
-	{
-	public void actionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(null, ZOOM_VALUE, "Zoom",
-				JOptionPane.OK_OPTION);
-
-		// TODO: Zoom Implementierung
+		};
 	}
-	};
-}
 
-private ActionListener getCutListener()
-{
-	return new ActionListener()
-	{
+	private ActionListener getZoomListner() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, ZOOM_VALUE, "Zoom",
+						JOptionPane.OK_OPTION);
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
+				// TODO: Zoom Implementierung
+			}
+		};
+	}
+
+	private ActionListener getCutListener() {
+		return new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
 				// JOptionPane.showMessageDialog( null,
 				// ZOOM_VALUE,
 				// "Cut",
@@ -260,116 +255,110 @@ private ActionListener getCutListener()
 
 			}
 
-			
-	};
-}
-
-private ActionListener getDeleteListener()
-{
-	return  new ActionListener() {
-
-
-	public void actionPerformed(ActionEvent e) {
-		JOptionPane.showConfirmDialog(null, CONFIRM, "Confirm Delete",
-				JOptionPane.YES_NO_OPTION);
+		};
 	}
 
-	// TODO: DELETE Implementierung
-};
-}
-private ActionListener getPrintListener()
-{
- return new ActionListener()
- {
-		public void actionPerformed(ActionEvent e) {
-			try {
-				print();
-			} catch (PrinterException printexc) {
+	private ActionListener getDeleteListener() {
+		return new ActionListener() {
 
-				JOptionPane.showMessageDialog(null, printexc.getMessage(),
-						ERROR_PRINTING, JOptionPane.ERROR_MESSAGE);
-				printexc.printStackTrace(); // For debug purpose
-			} catch (FileNotFoundException fileexc) {
-				JOptionPane.showMessageDialog(null, fileexc.getMessage(),
-						ERROR_PRINTING, JOptionPane.ERROR_MESSAGE);
-				fileexc.printStackTrace();
-			} catch (IOException ioexc) {
-				JOptionPane.showMessageDialog(null, ioexc.getMessage(),
-						ERROR_PRINTING, JOptionPane.ERROR_MESSAGE);
-				ioexc.printStackTrace();
-			} catch (InsufficientPrivilegesException privexc) {
-				JOptionPane.showMessageDialog(null, privexc.getMessage(),
-						ERROR_PRINTING, JOptionPane.ERROR_MESSAGE);
-				privexc.printStackTrace();
-
-			} catch (NullPointerException nullpt) {
-				JOptionPane.showMessageDialog(null, nullpt.getMessage(),
-						ERROR_PRINTING, JOptionPane.ERROR_MESSAGE);
-				nullpt.printStackTrace();
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showConfirmDialog(null, CONFIRM, "Confirm Delete",
+						JOptionPane.YES_NO_OPTION);
 			}
-		}
-	};
 
- }
-
-private Component getComponent()
-{
-	return this;
-}
-
-private ActionListener getFullScreenListener()
-{
-	return new ActionListener()  {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-			try {
-			
-			if (inPhotoBox == true) {
-				PhotoBoxFullScreen pbfs = new PhotoBoxFullScreen(
-						photo.getImage());
-			} else {
-				PhotoAlbumFullScreen pafs;
-				
-					pafs = new PhotoAlbumFullScreen(
-							photo.getImage());
-				// pafs.add(getParent());
-				pafs.repaint();
-			}
-		} catch (FileNotFoundException e1) {
-			ErrorMessageDialog.showMessage(getComponent(), e1.getLocalizedMessage(), "Error", e1.getStackTrace().toString());
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			ErrorMessageDialog.showMessage(getComponent(), e1.getLocalizedMessage(), "Error", e1.getStackTrace().toString());
-			e1.printStackTrace();
-		} catch (InsufficientPrivilegesException e1) {
-			ErrorMessageDialog.showMessage(getComponent(), e1.getLocalizedMessage(), "Error", e1.getStackTrace().toString());
-			e1.printStackTrace();
-		}
-			
-		}
-	
-	};
-	
+			// TODO: DELETE Implementierung
+		};
 	}
 
-private ActionListener getBlackAndWhiteListener()
-{
-	return new ActionListener()
-	{
+	private ActionListener getPrintListener() {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					print();
+				} catch (PrinterException printexc) {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			JOptionPane.showMessageDialog(null, ZOOM_VALUE, "Black/White",
-					JOptionPane.OK_OPTION);
-		}
-		
-	};
-}
+					JOptionPane.showMessageDialog(null, printexc.getMessage(),
+							ERROR_PRINTING, JOptionPane.ERROR_MESSAGE);
+					printexc.printStackTrace(); // For debug purpose
+				} catch (FileNotFoundException fileexc) {
+					JOptionPane.showMessageDialog(null, fileexc.getMessage(),
+							ERROR_PRINTING, JOptionPane.ERROR_MESSAGE);
+					fileexc.printStackTrace();
+				} catch (IOException ioexc) {
+					JOptionPane.showMessageDialog(null, ioexc.getMessage(),
+							ERROR_PRINTING, JOptionPane.ERROR_MESSAGE);
+					ioexc.printStackTrace();
+				} catch (InsufficientPrivilegesException privexc) {
+					JOptionPane.showMessageDialog(null, privexc.getMessage(),
+							ERROR_PRINTING, JOptionPane.ERROR_MESSAGE);
+					privexc.printStackTrace();
 
+				} catch (NullPointerException nullpt) {
+					JOptionPane.showMessageDialog(null, nullpt.getMessage(),
+							ERROR_PRINTING, JOptionPane.ERROR_MESSAGE);
+					nullpt.printStackTrace();
+				}
+			}
+		};
 
+	}
 
+	private Component getComponent() {
+		return this;
+	}
+
+	private ActionListener getFullScreenListener() {
+		return new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+
+					if (inPhotoBox == true) {
+						PhotoBoxFullScreen pbfs = new PhotoBoxFullScreen(
+								photo.getImage());
+					} else {
+						PhotoAlbumFullScreen pafs;
+
+						pafs = new PhotoAlbumFullScreen(photo.getImage());
+						// pafs.add(getParent());
+						pafs.repaint();
+					}
+				} catch (FileNotFoundException e1) {
+					ErrorMessageDialog.showMessage(getComponent(), e1
+							.getLocalizedMessage(), "Error", e1.getStackTrace()
+							.toString());
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					ErrorMessageDialog.showMessage(getComponent(), e1
+							.getLocalizedMessage(), "Error", e1.getStackTrace()
+							.toString());
+					e1.printStackTrace();
+				} catch (InsufficientPrivilegesException e1) {
+					ErrorMessageDialog.showMessage(getComponent(), e1
+							.getLocalizedMessage(), "Error", e1.getStackTrace()
+							.toString());
+					e1.printStackTrace();
+				}
+
+			}
+
+		};
+
+	}
+
+	private ActionListener getBlackAndWhiteListener() {
+		return new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, ZOOM_VALUE, "Black/White",
+						JOptionPane.OK_OPTION);
+			}
+
+		};
+	}
 
 	private void print() throws PrinterException, FileNotFoundException,
 			IOException, InsufficientPrivilegesException {
@@ -405,6 +394,14 @@ private ActionListener getBlackAndWhiteListener()
 	public void setPhoto(Photo photo) {
 		// TODO Auto-generated method stub
 		this.photo = photo;
+	}
+
+	public EditScreen getEditScreen() {
+		return editScreen;
+	}
+
+	public void setEditScreen(EditScreen editScreen) {
+		this.editScreen = editScreen;
 	}
 
 	// main method
