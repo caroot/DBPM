@@ -2,6 +2,7 @@ package de.htw.hundertwasser.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 import de.htw.hundertwasser.core.ImageViewer;
 
@@ -16,8 +17,8 @@ public class PhotoAlbumFullScreen extends FullScreen {
 
 	private static final long serialVersionUID = 1L;
 
-	public PhotoAlbumFullScreen(ImageViewer imgViewer) {
-		super(imgViewer);
+	public PhotoAlbumFullScreen(BufferedImage image) {
+		super(image);
 		// getContentPane().setFocusTraversalPolicy(new
 		// FocusTraversalOnArray(new Component[]{leftArrow, exitButton,
 		// rightArrow}));

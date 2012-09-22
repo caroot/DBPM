@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -44,7 +45,7 @@ public abstract class FullScreen extends JFrame {
 	 * Constructor for the Fullscreen
 	 * @param img Picture
 	 */
-	public FullScreen(ImageViewer img) {
+	public FullScreen(BufferedImage image) {
 
 		// set settings ViewerPanel
 		
@@ -59,7 +60,7 @@ public abstract class FullScreen extends JFrame {
 		
 		JPanel Viewerpanel = new JPanel();
 //		ImageViewer iviewer = img;
-		iv = img;
+		iv.setImage(image);
 		Viewerpanel.setLayout(new BorderLayout());
 		Viewerpanel.add(iv, BorderLayout.CENTER);
 		Viewerpanel.setBackground(Color.WHITE);
