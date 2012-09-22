@@ -7,9 +7,9 @@
 package de.htw.hundertwasser.core;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -25,8 +25,10 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
+import de.htw.hundertwasser.backend.ImageManagerSize;
 import de.htw.hundertwasser.core.interfaces.ThumbNailBarObserver;
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
+import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 
 /*
  * Class that creates the Infobar
@@ -35,6 +37,10 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 
 	// Constants
 	private static final long serialVersionUID = 1L;
+	private static final long KBMINSIZE=1024;
+	private static final long MBMINSIZE=1048576;
+	private static final long GBMINSIZE=1073741824;
+	
 	// Variables
 	private Photo photo;
 	// private String absolutePath = "C:/Temp/universe.jpg";
@@ -42,14 +48,17 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 
 	private JLabel lblComment_filled;
 	private JLabel lblPixel_filled;
+	private JLabel lblSize_filled;
+	private JLabel lblCreated_filled;
+	private JLabel lblKb;
 	/*
 	 * Constructor
 	 */
 	public Infobar() {
 
-		photo = new Photo("12345678", absolutePath);
+		photo = new Photo("AGV-Image", absolutePath);
 		photo.setComment(photo.getName());
-
+	
 		// setPreferredSize(new Dimension(250, 223));
 		// setMaximumSize(new Dimension(250,200));
 		// setMinimumSize(new Dimension(250,200));
@@ -100,11 +109,11 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 		lblSize.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblSize, "2, 6");
 
-		JLabel lblSize_filled = new JLabel(new Long(getFileSize()).toString());
+		lblSize_filled = new JLabel("");
 		lblSize_filled.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblSize_filled, "4, 6, 5, 1, center, default");
 
-		JLabel lblKb = new JLabel("KB");
+		lblKb = new JLabel("KB");
 		add(lblKb, "10, 6");
 
 		JLabel lblPixel = new JLabel("Pixel:");
@@ -119,7 +128,7 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 		lblCreated.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblCreated, "2, 10");
 
-		JLabel lblCreated_filled = new JLabel(formatDate());
+		lblCreated_filled = new JLabel("");
 		add(lblCreated_filled, "6, 10, 5, 1, center, default");
 
 		JLabel lblComment = new JLabel("Comment:");
@@ -133,6 +142,7 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 
 		JLabel label = new JLabel("");
 		add(label, "2, 14, 10, 3");
+		setPhoto(photo);
 	}
 
 	/*
@@ -195,36 +205,49 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 		return sb.toString();
 	}
 
-	/*
+	/**
 	 * Function that returns the Photo size
 	 *  @return Size of the photo
+	 *  @throws FileNotFoundException,IllegalArgumentException
 	 */
-	private long getFileSize() {
+	private double getFileSize() throws FileNotFoundException, IllegalArgumentException {
 
-		File file = new File(photo.getPathToFile());
-
-		return (file.length() / 1000);
+		double size = photo.getSize(ImageManagerSize.BYTE);
+		if (size<=KBMINSIZE)
+		{
+			lblKb.setText(ImageManagerSize.BYTE.getSizeName());
+		}
+		if (size>KBMINSIZE && size <=MBMINSIZE)
+		{
+			lblKb.setText(ImageManagerSize.KILOBYTE.getSizeName());
+			return (photo.getSize(ImageManagerSize.KILOBYTE));
+		}
+		if (size>MBMINSIZE&&size<=GBMINSIZE)
+		{
+			lblKb.setText(ImageManagerSize.MEGABYTE.getSizeName());
+			return (photo.getSize(ImageManagerSize.MEGABYTE));
+		}
+		lblKb.setText(ImageManagerSize.GIGABYTE.getSizeName());
+		return (photo.getSize(ImageManagerSize.GIGABYTE));
 	}
 
-	/*
+	/**
 	 * Function that returns the Photo date
 	 *  @return Date of the photo
+	 *  @throws FileNotFoundException
+	 *  @throws IllegalArgumentException
 	 */
-	private Date getModifiedDate() {
-
-		File file = new File(photo.getPathToFile());
-		long tmp = file.lastModified();
-
-		Date modified = new Date(tmp);
-
-		return modified;
+	private Date getModifiedDate() throws FileNotFoundException, IllegalArgumentException {	
+		return photo.getLastModifiedDate();
 	}
 
-	/*
+	/**
 	 * Function that formats the Date
 	 * @return Date 
+	 * @throws FileNotFoundException 
+	 * @throws IllegalArgumentException
 	 */
-	private String formatDate() {
+	private String formatDate() throws FileNotFoundException, IllegalArgumentException {
 		DateFormat formatter;
 		formatter = new SimpleDateFormat("dd.MM.yy");
 
@@ -233,21 +256,28 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 		return s;
 	}
 
+	private Component getComponent()
+	{
+		return this;
+	}
+	
 	@Override
 	public void setPhoto(Photo photo) {
 		BufferedImage img;
 		try {
 			img = photo.getImage();
+			lblCreated_filled.setText(formatDate());
+			lblSize_filled.setText(String.valueOf(getFileSize()));
+			lblPixel_filled.setText(getPixel());
 			lblComment_filled.setText(photo.getComment());
-			lblPixel_filled.setText(img.getWidth() + " x " + img.getHeight());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(), "Error", e.getStackTrace().toString());
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(), "Error", e.getStackTrace().toString());
 			e.printStackTrace();
 		} catch (InsufficientPrivilegesException e) {
-			// TODO Auto-generated catch block
+			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(), "Error", e.getStackTrace().toString());
 			e.printStackTrace();
 		}
 		

@@ -3,8 +3,10 @@ package de.htw.hundertwasser.core;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 
 import de.htw.hundertwasser.backend.ImageManager;
+import de.htw.hundertwasser.backend.ImageManagerSize;
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
 
 /**
@@ -212,6 +214,23 @@ public class Photo {
 		return comment;
 	}
 
+	/**
+	 * This method will return the size of the Image
+	 * @param imgs
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws IllegalArgumentException
+	 */
+	public double getSize(ImageManagerSize imgs) throws FileNotFoundException, IllegalArgumentException
+	{
+		return manager.getSize(imgs, getPathToFile());
+	}
+	
+	public Date getLastModifiedDate() throws FileNotFoundException,IllegalArgumentException
+	{
+		return manager.getModifiedDate(getPathToFile());
+	}
+	
 	/**
 	 * Set the Comment of the Picuture. It is allow to save empty comments.
 	 * 

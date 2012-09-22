@@ -8,6 +8,7 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 
@@ -91,6 +92,37 @@ public class ImageManager implements ImageObserver{
 	}
 	
 	/**
+	 * This method will return the ImageFileSize in the given ImageSize
+	 * @param imgs ImageSize Megabyte,Kilobyte,GigaByte
+	 * @param absolutePathToFile
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws IllegalArgumentException
+	 */
+	public double getSize(ImageManagerSize imgs,String absolutePathToFile) throws FileNotFoundException,IllegalArgumentException
+	{
+		if (imgs==null) throw new IllegalArgumentException("The given Image size can't be null.");
+		if (absolutePathToFile==null) throw new IllegalArgumentException("The given path can't be null.");
+		if (absolutePathToFile.trim().isEmpty()) throw new IllegalArgumentException("The given path can't be empty.");
+		
+		File f = new File(absolutePathToFile);
+		if (!f.exists()) throw new FileNotFoundException("The given File" + absolutePathToFile + " doesn't exists.");
+		long size = f.length();
+		switch(imgs)
+		{
+		case GIGABYTE:
+			return (size/(1024*1024*1024));
+		case KILOBYTE:
+			return (size/(1024));
+		case MEGABYTE:
+			return (size/(1024*1024));
+		case BYTE:
+			return size;
+		default:
+			return 0;
+		}
+	}
+	/**
 	 * Returns an ArrayList of ImageFiles within the current directory
 	 * 
 	 * @param Path
@@ -121,6 +153,23 @@ public class ImageManager implements ImageObserver{
 		}
 	}
 
+	public Date getModifiedDate(String pathToFile) throws IllegalArgumentException,FileNotFoundException
+	{
+		if (pathToFile == null) throw new IllegalArgumentException(ERROR_NULL_PATH);
+		if (pathToFile.isEmpty()) throw new IllegalArgumentException(ERROR_EMPTY_PATH);
+		File file = new File(pathToFile);
+		if (file.exists())
+		{
+			long tmp = file.lastModified();
+			Date modified = new Date(tmp);
+			return modified;
+		}
+		else
+		{
+			throw new FileNotFoundException("File " + pathToFile + " doesn't exist.");
+		}
+	}
+	
 	@Override
 	public boolean imageUpdate(Image arg0, int arg1, int arg2, int arg3,
 			int arg4, int arg5) {
