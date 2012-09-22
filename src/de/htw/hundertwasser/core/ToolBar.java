@@ -78,30 +78,31 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 		// setPreferredSize(new Dimension(200, 400));
 		// setMinimumSize(new Dimension(200, 400));
 
-		FormLayout formLayout = new FormLayout(
-				new ColumnSpec[] { FormFactory.DEFAULT_COLSPEC,
-						FormFactory.RELATED_GAP_COLSPEC,
-						ColumnSpec.decode("max(101dlu;default):grow"),
-						FormFactory.RELATED_GAP_COLSPEC,
-						FormFactory.DEFAULT_COLSPEC, }, new RowSpec[] {
-						FormFactory.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("max(15dlu;default)"),
-						FormFactory.RELATED_GAP_ROWSPEC,
-						FormFactory.DEFAULT_ROWSPEC,
-						FormFactory.RELATED_GAP_ROWSPEC,
-						FormFactory.DEFAULT_ROWSPEC,
-						FormFactory.RELATED_GAP_ROWSPEC,
-						FormFactory.DEFAULT_ROWSPEC,
-						FormFactory.RELATED_GAP_ROWSPEC,
-						FormFactory.DEFAULT_ROWSPEC,
-						FormFactory.RELATED_GAP_ROWSPEC,
-						FormFactory.DEFAULT_ROWSPEC,
-						FormFactory.RELATED_GAP_ROWSPEC,
-						FormFactory.DEFAULT_ROWSPEC,
-						FormFactory.RELATED_GAP_ROWSPEC,
-						FormFactory.DEFAULT_ROWSPEC,
-						FormFactory.RELATED_GAP_ROWSPEC,
-						FormFactory.DEFAULT_ROWSPEC, });
+		FormLayout formLayout = new FormLayout(new ColumnSpec[] {
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.GROWING_BUTTON_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,},
+			new RowSpec[] {
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(15dlu;default)"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,});
 		formLayout.setHonorsVisibility(false);
 
 		setLayout(formLayout);
@@ -122,7 +123,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 		btnRename.setToolTipText("Rename");
 		btnRename.setIcon(new ImageIcon(ToolBar.class
 				.getResource("/de/htw/hundertwasser/res/rename.png")));
-		add(btnRename, "3, 6");
+		add(btnRename, "3, 6, fill, center");
 		btnRename.addActionListener(getRenameListener());
 		btnRename.setSize(10, 20);
 
@@ -132,7 +133,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 		btnZoom.setIcon(new ImageIcon(ToolBar.class
 				.getResource("/de/htw/hundertwasser/res/tool_zoom_clean.png")));
 		btnZoom.setToolTipText("Zoom");
-		add(btnZoom, "3, 8");
+		add(btnZoom, "3, 8, fill, center");
 		btnZoom.addActionListener(getZoomListner());
 		btnZoom.setSize(10, 20);
 
@@ -142,7 +143,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 		btnCut.setIcon(new ImageIcon(ToolBar.class
 				.getResource("/de/htw/hundertwasser/res/tool_cut_clean.png")));
 		btnCut.setToolTipText("Cut");
-		add(btnCut, "3, 10");
+		add(btnCut, "3, 10, fill, center");
 		btnCut.addActionListener(getCutListener());
 		btnCut.setSize(10, 20);
 
@@ -152,7 +153,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 		btnDelete.setIcon(new ImageIcon(ToolBar.class
 				.getResource("/de/htw/hundertwasser/res/delete.png")));
 		btnDelete.setToolTipText("Delete");
-		add(btnDelete, "3, 12");
+		add(btnDelete, "3, 12, fill, center");
 		btnDelete.addActionListener(getDeleteListener());
 		btnDelete.setSize(10, 20);
 
@@ -162,7 +163,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 				.getResource("/de/htw/hundertwasser/res/tool_print_clean.png")));
 		btnPrint.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnPrint.setToolTipText("Print");
-		add(btnPrint, "3, 14");
+		add(btnPrint, "3, 14, fill, center");
 		btnPrint.addActionListener(getPrintListener());
 		btnPrint.setSize(10, 20);
 
@@ -174,7 +175,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 								.getResource("/de/htw/hundertwasser/res/tool_fullscreen_clean.png")));
 		btnFullscreen.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnFullscreen.setToolTipText("Fullscreen");
-		add(btnFullscreen, "3, 16");
+		add(btnFullscreen, "3, 16, fill, center");
 		btnFullscreen.addActionListener(getFullScreenListener());
 		btnFullscreen.setSize(10, 20);
 
@@ -186,7 +187,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 								.getResource("/de/htw/hundertwasser/res/tool_blackwhite_clean.png")));
 		btnBlackwhite.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnBlackwhite.setToolTipText("Black/White");
-		add(btnBlackwhite, "3, 18");
+		add(btnBlackwhite, "3, 18, fill, center");
 		btnBlackwhite.addActionListener(getBlackAndWhiteListener());
 		btnBlackwhite.setSize(10, 20);
 
