@@ -56,6 +56,7 @@ public class PhotoBoxEditScreen extends EditScreen {
 		centralPanel.add(mover, BorderLayout.NORTH);
 		thumbnailBar.addThumbNailBarObserver(imgViewer);
 		thumbnailBar.addThumbNailBarObserver(infoBar);
+		thumbnailBar.addThumbNailBarObserver(toolBar);
 		// imgPanel.add(imgViewer,BorderLayout.CENTER);
 
 	}
