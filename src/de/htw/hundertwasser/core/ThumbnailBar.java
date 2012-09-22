@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,8 +29,10 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 import de.htw.hundertwasser.backend.ImageManager;
+import de.htw.hundertwasser.core.interfaces.NavBarPhotoBoxObserver;
 import de.htw.hundertwasser.core.interfaces.ThumbNailBarObservable;
 import de.htw.hundertwasser.core.interfaces.ThumbNailBarObserver;
+import de.htw.hundertwasser.custom.error.ChoosenFileNotAFolderException;
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 import de.htw.hundertwasser.view.PhotoAlbumFullScreen;
@@ -38,11 +41,12 @@ import de.htw.hundertwasser.view.PhotoAlbumFullScreen;
  * @author Steffen
  *
  */
-public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
+public class ThumbnailBar extends JPanel implements ThumbNailBarObservable, 
+													NavBarPhotoBoxObserver {
 
 	// Constants
 	private static final long serialVersionUID = 1L;	
-	private JButton[] buttons = new JButton[16];
+	private JButton[] buttons;
 	// Variables
 	private Font font;
 	private Font fontB;
@@ -60,13 +64,21 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
 	private ArrayList<ThumbNailBarObserver>	observerList;
 	private ImageManager im;
 	private Photo photo;
+	
+	private int countPhotos;
+	private File[] photos;
+	private int countButtons;
 
 
 	/*
 	 * Constructor
 	 */
 	public ThumbnailBar() {
+		
 		setFonts();
+		countPhotos = 15;//TODO nur zum testen!!!!
+		buttons = new JButton[countPhotos+1];
+		
 		for (int i=0; i<buttons.length; i++) {
 			buttons[i] = new JButton();
 			buttons[i].setBackground(Color.WHITE);
@@ -76,10 +88,16 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
 			buttons[i].addActionListener(getImageButtonsActionListener());
 		}
 		
+		for (int i=1; i<buttons.length-1; i++) {
+			buttons[i].setText(""+(i+1));
+		}
+		buttons[buttons.length-1].addActionListener(getPlusButtonActionListener());
+		buttons[buttons.length-1].setToolTipText("Add a photo");
+		buttons[buttons.length-1].setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/add_photo.png")));
+		
 		im = new ImageManager();
 		photo = new Photo("tits", "Motivations Bild v2.jpg");
 		photo.setComment("tits");
-
 		
 		toolBar = initialiseToolbar();		
 		panelThumbnails = initialiseThumbnails();
@@ -111,12 +129,8 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
 		
 		buttonLeft.addActionListener(getButtonLeftActionListener());	
 		
-		buttons[15].setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/add_photo.png")));
-		buttons[15].setToolTipText("Add a photo");
-		buttons[15].addActionListener(getPlusButtonActionListener());
-		
 		observerList = new ArrayList<ThumbNailBarObserver>();	
-
+	
 	}
 	
 	/**
@@ -196,21 +210,26 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setLayout(new BorderLayout(0, 10));
+		panel.setLayout(new BorderLayout(0, 5));
 		panel.setAlignmentY(Component.CENTER_ALIGNMENT);
 		
 		displayThumbnails = new JPanel();
 		displayThumbnails.setBackground(Color.WHITE);
 		displayThumbnails.setLayout(new GridLayout(1, 2, 10, 10));
 		panel.add(displayThumbnails, BorderLayout.CENTER);
-		
-		scrollBar = new JScrollBar(Scrollbar.HORIZONTAL, 1, 2, 1, 16);
+		int extent;
+		if (countPhotos>=1)
+			extent = 2;
+		else
+			extent = countPhotos;
+		scrollBar = new JScrollBar(Scrollbar.HORIZONTAL, 0, extent, 0, countPhotos+1);
 		scrollBar.setBackground(Color.WHITE);
 		scrollBar.setUnitIncrement(scrollBar.getVisibleAmount());
+		scrollBar.setBlockIncrement(scrollBar.getVisibleAmount());
 		panel.add(scrollBar, BorderLayout.SOUTH);
 		
 		try {
-			buttons[0].setIcon(new ImageIcon(im.getThumNailImage("Motivations Bild v2.jpg", 64, 64)));
+			buttons[0].setIcon(new ImageIcon(im.getThumNailImage("Motivations Bild v2.jpg", 32, 32)));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -222,12 +241,9 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
 			e.printStackTrace();
 		}
 		displayThumbnails.add(buttons[0]);
-		for (int i=1; i<15;i++) {//i=1 gesetzt
-				buttons[i].setText(""+(i+1));
-			if (i<2)
-				displayThumbnails.add(buttons[i]);
-		}
-		displayThumbnails.add(buttons[15]);
+		displayThumbnails.add(buttons[1]);
+		displayThumbnails.add(buttons[buttons.length-1]);
+		countButtons = 2;
 		
 		scrollBar.addAdjustmentListener(getScroolBarAdjustmentListener());
 		
@@ -261,7 +277,8 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				scrollBar.setValue(scrollBar.getValue()-scrollBar.getUnitIncrement());				
+				scrollBar.setValue(scrollBar.getValue()-scrollBar.getUnitIncrement());
+				setButtons();
 			}
 		};
 	}
@@ -275,7 +292,8 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				scrollBar.setValue(scrollBar.getValue()+scrollBar.getUnitIncrement());					
+				scrollBar.setValue(scrollBar.getValue()+scrollBar.getUnitIncrement());	
+				setButtons();
 			}
 		};
 	}
@@ -291,23 +309,19 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				displayThumbnails.setLayout(new GridLayout(1, 2, 10, 10));
-				displayThumbnails.removeAll();
-				displayThumbnails.add(buttons[0]);
-				displayThumbnails.add(buttons[1]);
-				displayThumbnails.add(buttons[15]);
-				displayThumbnails.setSize(getMaximumSize());
-				displayThumbnails.repaint();
-				displayThumbnails.revalidate();
+				countButtons = 2;
+				setButtons();
 				button2.setFont(fontB);
 				button4.setFont(font);
 				button8.setFont(font);
 				button16.setFont(font);
 				scrollBar.setVisibleAmount(2);
-				scrollBar.setUnitIncrement(2);					
+				scrollBar.setUnitIncrement(2);
+				scrollBar.setBlockIncrement(2);
 			}
 		};
 	}
-	
+
 	/**
 	 * Function to get the Action
 	 * 
@@ -319,20 +333,15 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				displayThumbnails.setLayout(new GridLayout(1, 4, 10, 10));
-				displayThumbnails.removeAll();
-				for (int i=0; i<3; i++) {
-					displayThumbnails.add(buttons[i]);
-				}
-				displayThumbnails.add(buttons[15]);
-				displayThumbnails.setSize(getMaximumSize());
-				displayThumbnails.repaint();
-				displayThumbnails.revalidate();
+				countButtons = 3;
+				setButtons();
 				button2.setFont(font);
 				button4.setFont(fontB);
 				button8.setFont(font);
 				button16.setFont(font);
-				scrollBar.setVisibleAmount(4);
-				scrollBar.setUnitIncrement(4);				
+				scrollBar.setVisibleAmount(4); //3 anstatt 4
+				scrollBar.setUnitIncrement(3); //3 anstatt 4	
+				scrollBar.setBlockIncrement(3); //3 anstat 4
 			}
 		};
 	}
@@ -347,21 +356,16 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				displayThumbnails.setLayout(new GridLayout(2, 4, 20, 5));
-				displayThumbnails.removeAll();
-				for (int i=0; i<7; i++) {
-					displayThumbnails.add(buttons[i]);
-				}
-				displayThumbnails.add(buttons[15]);
-				displayThumbnails.setSize(getMaximumSize());
-				displayThumbnails.repaint();
-				displayThumbnails.revalidate();
+				displayThumbnails.setLayout(new GridLayout(1, 8, 10, 10));
+				countButtons = 7;
+				setButtons();
 				button2.setFont(font);
 				button4.setFont(font);
 				button8.setFont(fontB);
 				button16.setFont(font);
 				scrollBar.setVisibleAmount(8);
-				scrollBar.setUnitIncrement(8);				
+				scrollBar.setUnitIncrement(7);	
+				scrollBar.setBlockIncrement(7);
 			}
 		};
 	}
@@ -377,19 +381,15 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				displayThumbnails.setLayout(new GridLayout(2, 8, 2, 2));
-				displayThumbnails.removeAll();
-				for (int i=0; i<buttons.length; i++) {
-					displayThumbnails.add(buttons[i]);
-				}
-				displayThumbnails.setSize(getMaximumSize());
-				displayThumbnails.repaint();
-				displayThumbnails.revalidate();
+				countButtons = 15;
+				setButtons();
 				button2.setFont(font);
 				button4.setFont(font);
 				button8.setFont(font);
 				button16.setFont(fontB);
 				scrollBar.setVisibleAmount(16);
-				scrollBar.setUnitIncrement(16);				
+				scrollBar.setUnitIncrement(15);	
+				scrollBar.setBlockIncrement(15);
 			}
 		};
 	}
@@ -405,7 +405,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
 			@Override
 			public void adjustmentValueChanged(AdjustmentEvent e) {
 				// TODO Auto-generated method stub
-				
+				setButtons();
 			}
 		};		
 	}
@@ -458,5 +458,47 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable {
 		for(ThumbNailBarObserver observer: observerList) {
 			observer.setPhoto(photo);
 		}		
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public void receivePhotoBox(PhotoBox photobox) {
+		// TODO Auto-generated method stub
+		countPhotos = photobox.getCount();
+		String pathToBox = photobox.getAbsolutePathToFiles();
+		try {
+		photos = im.getImagesListInFolder(pathToBox);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ChoosenFileNotAFolderException e) {
+			// TODO Auto-generated catch blocks
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	private void setButtons() {
+		displayThumbnails.removeAll();
+		int init = scrollBar.getValue();
+		int max = init+countButtons;	
+		if (max > countPhotos) {
+			init = countPhotos-countButtons;
+			max = init+countButtons;
+		}
+		for(int i=init;i<max;i++) {
+			displayThumbnails.add(buttons[i]);
+		}
+		displayThumbnails.add(buttons[buttons.length-1]);
+		displayThumbnails.setSize(getMaximumSize());
+		displayThumbnails.repaint();
+		displayThumbnails.revalidate();
 	}
 }
