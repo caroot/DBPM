@@ -28,6 +28,10 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
  */
 public class NavigationBar extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	NavBarPhotoAlbumModel modelPhotoAlbum;
 	NavBarPhotoAlbumRenderer rendererPhotoAlbum;
 	JTree jtreePhotoAlbum ;
