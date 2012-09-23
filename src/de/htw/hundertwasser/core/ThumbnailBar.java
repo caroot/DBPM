@@ -37,7 +37,8 @@ import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 import de.htw.hundertwasser.view.PhotoAlbumFullScreen;
 /**
- * 
+ *  This class creates the thumbnail bar in the lower range of the frame.
+ *  
  * @author Steffen
  *
  */
@@ -45,28 +46,28 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 													NavBarPhotoBoxObserver {
 
 	// Constants
-	private static final long serialVersionUID = 1L;	
-	private JButton[] buttons;
-	// Variables
+	private static final long serialVersionUID = 1L;
+	// Variables	
 	private Font font;
 	private Font fontB;
-	private JToolBar toolBar;
 	private JPanel panelThumbnails;
+	private JPanel displayThumbnails;
 	private JButton buttonLeft;
 	private JButton buttonRight;
-	private JScrollBar scrollBar;
-	private JPanel displayThumbnails;
 	private JButton button2;
 	private JButton button4;
 	private JButton button8;
 	private JButton button16;
+	private JButton[] buttons;
+	private JToolBar toolBar;
+	private JScrollBar scrollBar;
 	
 	private ArrayList<ThumbNailBarObserver>	observerList;
 	private ImageManager im;
 	private Photo photo;
-	
-	private int countPhotos;
 	private File[] photos;
+	private PhotoBox pb;	
+	private int countPhotos;
 	private int countButtons;
 
 
@@ -78,6 +79,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 		setFonts();
 		countPhotos = 15;//TODO nur zum testen!!!!
 		buttons = new JButton[countPhotos+1];
+		//setButtonIcons();
 		
 		for (int i=0; i<buttons.length; i++) {
 			buttons[i] = new JButton();
@@ -88,6 +90,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 			buttons[i].addActionListener(getImageButtonsActionListener());
 		}
 		
+		//TODO Nur zum Testen!!!
 		for (int i=1; i<buttons.length-1; i++) {
 			buttons[i].setText(""+(i+1));
 		}
@@ -95,6 +98,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 		buttons[buttons.length-1].setToolTipText("Add a photo");
 		buttons[buttons.length-1].setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/add_photo.png")));
 		
+		//TODO Nur zum Testen!!!
 		im = new ImageManager();
 		photo = new Photo("tits", "Motivations Bild v2.jpg");
 		photo.setComment("tits");
@@ -115,7 +119,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		setBackground(Color.WHITE);
 		
-		add(Box.createRigidArea(new Dimension(150, 0)));
+		add(Box.createRigidArea(new Dimension(75, 0)));
 		add(toolBar);
 		add(Box.createRigidArea(new Dimension(10, 0)));
 		add(buttonLeft);
@@ -123,7 +127,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 		add(panelThumbnails);
 		add(Box.createRigidArea(new Dimension(10, 0)));
 		add(buttonRight);
-		add(Box.createRigidArea(new Dimension(150, 0)));
+		add(Box.createRigidArea(new Dimension(200, 0)));
 		
 		buttonRight.addActionListener(getButtonRightActionListener());
 		
@@ -154,6 +158,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 	
 	/**
 	 * Function to initialise the Toolbar
+	 * @return	toolbar  
 	 */
 	private JToolBar initialiseToolbar() {
 		JToolBar toolBar = new JToolBar();
@@ -205,6 +210,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 	
 	/**
 	 * Function to initialise the Thumbnails
+	 * @return	panel with the thumbnails
 	 */
 	private JPanel initialiseThumbnails() {
 		
@@ -228,6 +234,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 		scrollBar.setBlockIncrement(scrollBar.getVisibleAmount());
 		panel.add(scrollBar, BorderLayout.SOUTH);
 		
+		//TODO Nur zum Testen!!!
 		try {
 			buttons[0].setIcon(new ImageIcon(im.getThumNailImage("Motivations Bild v2.jpg", 32, 32)));
 		} catch (FileNotFoundException e) {
@@ -261,6 +268,8 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String path = DialogHandler.chooseSource();
+				if (path != null)
+					pb.addPhoto(new Photo("", path));
 				// TODO Auto-generated method stub
 				
 			}
@@ -284,8 +293,8 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Function to get hte action
+	 * @return	action performed
 	 */
 	private ActionListener getButtonRightActionListener() {
 		return new ActionListener() {
@@ -339,9 +348,9 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 				button4.setFont(fontB);
 				button8.setFont(font);
 				button16.setFont(font);
-				scrollBar.setVisibleAmount(4); //3 anstatt 4
-				scrollBar.setUnitIncrement(3); //3 anstatt 4	
-				scrollBar.setBlockIncrement(3); //3 anstat 4
+				scrollBar.setVisibleAmount(4);
+				scrollBar.setUnitIncrement(3);	
+				scrollBar.setBlockIncrement(3);
 			}
 		};
 	}
@@ -421,6 +430,15 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+//				JButton b = (JButton) arg0.getSource();
+//				int pos = 0;
+//				for (int i=0;i<buttons.length-1;i++) {
+//					if (buttons[i].equals(b)) {
+//						pos = i;
+//						break;
+//					}
+//				}
+//				photo = new Photo(getName(), photos[pos].getAbsolutePath());
 				sendMessage(photo);				
 			}
 		};
@@ -466,8 +484,9 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 	@Override
 	public void receivePhotoBox(PhotoBox photobox) {
 		// TODO Auto-generated method stub
-		countPhotos = photobox.getCount();
-		String pathToBox = photobox.getAbsolutePathToFiles();
+		pb = photobox;
+		countPhotos = pb.getCount();
+		String pathToBox = pb.getAbsolutePathToFiles();
 		try {
 		photos = im.getImagesListInFolder(pathToBox);
 		} catch (IllegalArgumentException e) {
@@ -483,7 +502,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 	}
 	
 	/**
-	 * 
+	 * Adds a certain number of buttons to the thumbnail panel 
 	 */
 	private void setButtons() {
 		displayThumbnails.removeAll();
@@ -500,5 +519,25 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 		displayThumbnails.setSize(getMaximumSize());
 		displayThumbnails.repaint();
 		displayThumbnails.revalidate();
+	}
+	
+	/**
+	 * Sets the photos of the chosen photobox on the buttons
+	 */
+	private void setButtonIcons() {
+		for (int i=0;i<photos.length;i++) {
+			try {
+				buttons[i].setIcon(new ImageIcon(im.getThumNailImage(photos[i].getPath(), 32, 32)));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InsufficientPrivilegesException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }
