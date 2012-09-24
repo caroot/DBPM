@@ -33,7 +33,8 @@ import de.htw.hundertwasser.view.PhotoAlbumFullScreen;
 import de.htw.hundertwasser.view.PhotoBoxFullScreen;
 import de.htw.test.MouseListener;
 
-/*
+/**
+ * Class that describes the Toolbar
  * @author: Dominic Holz
  * @version: 0.1
  * @date: 12.09.12
