@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import de.htw.hundertwasser.backend.ElementStorage;
 import de.htw.hundertwasser.core.DialogHandler;
 import de.htw.hundertwasser.core.PhotoAlbum;
 import de.htw.hundertwasser.core.PhotoBox;
@@ -82,8 +83,10 @@ public class StartScreenToolPanel extends JPanel {
 			
 			ActionListener openListen = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					StartScreenElement parentElement = ((StartScreenElement) getParent());
-					 if (parentElement.getTyp() == StartScreenElement.ALBUM) {;
+					StartScreenElement parentElement = StartScreenElement.getChoosenOne();
+					 if (parentElement.getTyp() == StartScreenElement.ALBUM) {
+					 System.out.println("Open: " + parentElement.getElement());
+					 System.out.println("Store: " + ElementStorage.getPhotoAlbum("Nya"));
 						 PhotoAlbumEditScreen albumScreen = new PhotoAlbumEditScreen((PhotoAlbum) parentElement.getElement()); //Loads and displays the Photalbum in an PAES.
 						 albumScreen.setVisible(true);
 					} else {
@@ -98,7 +101,7 @@ public class StartScreenToolPanel extends JPanel {
 					String newName = DialogHandler.inputDialog("Insert new name:", "rename");
 					if(newName == null)
 						return; //Cancel was pressed
-					((StartScreenElement) getParent()).changeName(newName);
+					StartScreenElement.getChoosenOne().changeName(newName);
 				}
 			};
 			
@@ -112,7 +115,7 @@ public class StartScreenToolPanel extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					int delete = JOptionPane.showConfirmDialog(new JDialog(), "Are you sure?", "Delete", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if(delete == 0){
-						((StartScreenElement) getParent()).delete();
+						StartScreenElement.getChoosenOne().delete();
 					}
 				}
 			};

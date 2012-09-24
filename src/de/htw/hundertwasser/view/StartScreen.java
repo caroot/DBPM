@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import de.htw.hundertwasser.backend.ElementStorage;
 import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
@@ -43,12 +44,9 @@ public class StartScreen extends JFrame {
 	private static StartScreenSubPanel photoAlbums;
 	private static Color backgroundColor = Color.WHITE; // Background Color of
 														// the Startscreen
-	// TODO in PhotoBox/-Album einfuegen
-	public static int noOfAlbums = 0;
-	public static int noOfBoxes = 0;
 	// TODO End
-	private static String albumText = PALBUMS + " (" + noOfAlbums + ")";
-	private static String boxText = PBOXES + " (" + noOfBoxes + ")";
+	private static String albumText = PALBUMS + " (" + ElementStorage.getAlbumNumber() + ")";
+	private static String boxText = PBOXES + " (" + ElementStorage.getBoxNumber() + ")";
 	private static JLabel albumTextLabel;
 	private static JLabel boxTextLabel;
 	public static Dimension screenSize;
@@ -216,7 +214,7 @@ public class StartScreen extends JFrame {
 	 * this method changes the title text for the PhotoAlbums
 	 */
 	public static void retextAlbum() {
-		albumText = PALBUMS + " (" + noOfAlbums + ")";
+		albumText = PALBUMS + " (" + ElementStorage.getAlbumNumber() + ")";
 		albumTextLabel.setText(albumText);
 		albumTextLabel.repaint();
 	}
@@ -225,7 +223,7 @@ public class StartScreen extends JFrame {
 	 * this method changes the title text for the PhotoBoxes
 	 */
 	public static void retextBox() {
-		boxText = PBOXES + " (" + noOfBoxes + ")";
+		boxText = PBOXES + " (" + ElementStorage.getBoxNumber() + ")";
 		boxTextLabel.setText(boxText);
 		boxTextLabel.repaint();
 	}

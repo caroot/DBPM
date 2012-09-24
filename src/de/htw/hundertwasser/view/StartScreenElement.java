@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
+import de.htw.hundertwasser.backend.ElementStorage;
 import de.htw.hundertwasser.backend.FolderManager;
 import de.htw.hundertwasser.core.DialogHandler;
 import de.htw.hundertwasser.core.PhotoAlbum;
@@ -53,8 +54,13 @@ public class StartScreenElement extends JPanel {
 	private JButton elementButton = null;
 	private Object element = null; //<-- ONE Album or Box, depending on parameter.
 	private String elementName = null;
-	public StartScreenElement(int elementTyp, int panelTyp, JPanel parentPanel, String name) {
-		elementName = name;
+	private StartScreenElement thisElement;
+	private static StartScreenElement choosenOne = null;
+	
+	
+	public StartScreenElement(int elementTyp, int panelTyp, JPanel parentPanel, Object element) {
+		thisElement = this;
+		this.element = element;
 		this.elementTyp = elementTyp;
 		if(panelTyp == ADDITION) {
 			makeAddButton();
@@ -74,10 +80,15 @@ public class StartScreenElement extends JPanel {
 	 */
 	private void makeElementButton() {
 		try {
+			System.out.println("nya o.O");
 			if(elementTyp == ALBUM) {
+				elementName = ((PhotoAlbum) element).getName();
+				System.out.println("SNI");
 				Icon elementIcon = RessourcenEnummeration.PHOTOALBUM_NEU.getIcon();
 				elementButton = new JButton(elementName, elementIcon);
 			} else {
+				elementName = ((PhotoBox) element).getName();
+				System.out.println("Hall0: "+ ((PhotoBox) element).getName());
 				Icon elementIcon = RessourcenEnummeration.PHOTOBOX_NEU.getIcon();
 				elementButton = new JButton(elementName, elementIcon);
 			}
@@ -86,6 +97,8 @@ public class StartScreenElement extends JPanel {
 			elementButton.setFont(RessourcenEnummeration.FONT_CALIBRI.getFont().deriveFont(14f)); //Loads and resizes font
 			ActionListener addListen = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					System.out.println("click: " + element);
+					choosenOne = thisElement;
 					openToolPanel();
 					elementButton.setBackground(Color.LIGHT_GRAY); //Changes Button background when pressed, to shop, that it is.
 					parentPanel.validate();
@@ -130,7 +143,7 @@ public class StartScreenElement extends JPanel {
 				try {
 					String name;
 					if(elementTyp == StartScreenElement.ALBUM) {
-						name = DialogHandler.inputDialog("Insert name here", "New PhotoBox");
+						name = DialogHandler.inputDialog("Insert name here", "New PhotoAlbum");
 						if(name == null)
 							return; //cancel if no Name was inserted
 						if(name.trim().isEmpty()) {
@@ -138,9 +151,12 @@ public class StartScreenElement extends JPanel {
 							return;
 						}
 						element = new PhotoAlbum(name);
-						StartScreen.noOfAlbums++;
+						ElementStorage.addPhotoAlbum((PhotoAlbum) element);
+						System.out.println("Nya: " + element);
 						StartScreen.retextAlbum();
+						
 					} else {
+						
 						name = DialogHandler.inputDialog("Insert name here", "New PhotoBox");
 						if(name == null)
 							return; //cancel if no Name was inserted
@@ -154,19 +170,22 @@ public class StartScreenElement extends JPanel {
 						JProgressBar progress = DialogHandler.showProgressBar();
 						FolderManager manager = new FolderManager();
 							element = manager.importPhotoBox(name, path);
+						element = new PhotoBox(name); //TODO wieder raus!
+						((PhotoBox) element).setName(name);
 						//TODO fill Photobox with Photos, (Folder Manager s-times)
-						StartScreen.noOfBoxes++;
+							System.out.println("Box: " + element);
+							ElementStorage.addPhotoBox((PhotoBox) element);
 						StartScreen.retextBox();
-							Thread.sleep(3000);
+//							Thread.sleep(3000);
 						((Window) progress.getParent().getParent().getParent().getParent()).dispose();
 					}
-					parentPanel.add(new StartScreenElement(elementTyp, ELEMENT, parentPanel, name));
+					parentPanel.add(new StartScreenElement(elementTyp, ELEMENT, parentPanel, element));
 					parentPanel.getParent().validate();
 
 				} catch (FileNotFoundException fnfe) {
 					ErrorMessageDialog.showMessage(null, fnfe.getMessage(), ERROR_TITLE, fnfe.getStackTrace().toString());
-				} catch (InterruptedException ie) {
-					ErrorMessageDialog.showMessage(null, ie.getMessage(), ERROR_TITLE, ie.getStackTrace().toString());
+//				} catch (InterruptedException ie) {
+//					ErrorMessageDialog.showMessage(null, ie.getMessage(), ERROR_TITLE, ie.getStackTrace().toString());
 				}
 			}
 		};
@@ -210,20 +229,24 @@ public class StartScreenElement extends JPanel {
 	 * This method deletes an element
 	 */
 	public void delete() {
-		JPanel parent = (JPanel) getParent();
-		parent.remove(this);
-		parent.repaint();
-		parent.validate();
+		boolean removed = false;
 		if(elementTyp == ALBUM) { //TODO delete Boxes and Albums
 //			((PhotoAlbum) element).destroy();
-			StartScreen.noOfAlbums--;
+			System.out.println(element);
+			removed = ElementStorage.removePhotoAlbum(((PhotoAlbum) element));
 			StartScreen.retextAlbum();
 		} else {
 //			((PhotoBox) element).destroy();
-			StartScreen.noOfBoxes--;
+			removed = ElementStorage.removePhotoBox((PhotoBox) element);
 			StartScreen.retextBox();
 		}
-		parent.setSize(0,0); //Reset of the panel size, to prevent graphical errors.
+		if (removed) {
+			JPanel parent = (JPanel) getParent();
+			parent.remove(this);
+			parent.repaint();
+			parent.validate();
+			parent.setSize(0,0); //Reset of the panel size, to prevent graphical errors.
+		}
 	}
 	
 	public int getTyp() {
@@ -236,6 +259,10 @@ public class StartScreenElement extends JPanel {
 	 */
 	public Object getElement() {
 		return element;
+	}
+	
+	public static StartScreenElement getChoosenOne() {
+		return choosenOne;
 	}
 
 }
