@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.naming.OperationNotSupportedException;
 import javax.swing.JFrame;
@@ -104,6 +105,7 @@ public class StartScreen extends JFrame {
 			ErrorMessageDialog.showMessage(null, SOMETHING_FISHY_LAF,
 					ERROR_TITLE, ulafe.getStackTrace().toString());
 		}
+		
 		initialiseSizes();
 		mainScreen = new StartScreen();
 		mainScreen.add(initialisePhotoBoxes());

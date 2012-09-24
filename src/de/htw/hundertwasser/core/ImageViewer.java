@@ -155,13 +155,13 @@ public class ImageViewer extends JComponent implements MouseWheelListener,Compon
 			this.m_img = photo.getImage();
 			repaint();
 		} catch (FileNotFoundException e) {
-			ErrorMessageDialog.showMessage(this,e.getMessage(),"Error",e.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(this,e.getMessage(),"Error",e.getStackTrace());
 			e.printStackTrace();
 		} catch (IOException e) {
-			ErrorMessageDialog.showMessage(this,e.getMessage(),"Error",e.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(this,e.getMessage(),"Error",e.getStackTrace());
 			e.printStackTrace();
 		} catch (InsufficientPrivilegesException e) {
-			ErrorMessageDialog.showMessage(this,e.getMessage(),"Error",e.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(this,e.getMessage(),"Error",e.getStackTrace());
 			e.printStackTrace();
 		}
 		

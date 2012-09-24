@@ -94,13 +94,19 @@ public class StackTraceReport extends JDialog {
 	}
 
 	
-	public void showStackTraceReport(String stacktrace)
+	public void showStackTraceReport(StackTraceElement[] stacktrace)
 			throws IllegalArgumentException {
 		if (stacktrace == null)
 			throw new IllegalArgumentException(ERROR_NO_STACK_TRACE);
-		if (stacktrace.isEmpty())
+		if (stacktrace.length==0)
 			throw new IllegalArgumentException(ERROR_EMPTY_STACKTRACE);
-		txtStackTrace.setText(stacktrace);
+		StringBuilder stringBuilder=new StringBuilder();
+		for (int i=0;i<stacktrace.length;i++)
+		{
+			stringBuilder.append(stacktrace[i].toString());
+			stringBuilder.append("\n");
+		}
+		txtStackTrace.setText(stringBuilder.toString());
 		this.setVisible(true);
 	}
 
@@ -256,7 +262,9 @@ public class StackTraceReport extends JDialog {
 			e.printStackTrace();
 		}
 		StackTraceReport str = new StackTraceReport(null, true);
-		str.showStackTraceReport("Error");
+		StackTraceElement[] stacktraceElement = new StackTraceElement[1];
+		stacktraceElement[0] = new StackTraceElement("This", "main", "StackTraceReport.java", 266);
+		str.showStackTraceReport(stacktraceElement);
 	}
 
 }

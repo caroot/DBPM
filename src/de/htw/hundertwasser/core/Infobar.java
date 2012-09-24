@@ -167,15 +167,15 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 			height = photo.getImage().getHeight();
 		} catch (FileNotFoundException e) {
 			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
-					"Error", e.getStackTrace().toString());
+					"Error", e.getStackTrace());
 			e.printStackTrace();
 		} catch (IOException e) {
 			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
-					"Error", e.getStackTrace().toString());
+					"Error", e.getStackTrace());
 			e.printStackTrace();
 		} catch (InsufficientPrivilegesException e) {
 			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
-					"Error", e.getStackTrace().toString());
+					"Error", e.getStackTrace());
 			e.printStackTrace();
 		}
 
@@ -194,15 +194,15 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 			width = photo.getImage().getWidth();
 		} catch (FileNotFoundException e) {
 			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
-					"Error", e.getStackTrace().toString());
+					"Error", e.getStackTrace());
 			e.printStackTrace();
 		} catch (IOException e) {
 			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
-					"Error", e.getStackTrace().toString());
+					"Error", e.getStackTrace());
 			e.printStackTrace();
 		} catch (InsufficientPrivilegesException e) {
 			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
-					"Error", e.getStackTrace().toString());
+					"Error", e.getStackTrace());
 			e.printStackTrace();
 		}
 		// System.out.println(width);
@@ -302,7 +302,7 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 			
 		} catch (FileNotFoundException e) {
 			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
-					"Error", e.getStackTrace().toString());
+					"Error", e.getStackTrace());
 			e.printStackTrace();
 		}
 

@@ -46,7 +46,7 @@ public class ErrorMessageDialog {
 	 * Function to show the Message
 	 */
 	public static void showMessage(Component parent, String message,
-			String title, String stacktrace) {
+			String title, StackTraceElement[] stacktrace) {
 		try {
 			String[] yesNoOption = { "Ok", "Report a bug" };
 			int n = JOptionPane

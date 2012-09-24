@@ -8,9 +8,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
+import java.util.jar.JarInputStream;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
+
+import de.htw.hundertwasser.core.DialogHandler;
+import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 
 /**
  * This class will mange how the files are copied.
@@ -155,21 +159,49 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 		  return false;
 	  }
 	  
-	  private void copyFile(File source,String target) throws FileNotFoundException,IOException
+	  /**
+	   * This method copies source-Files to an given target.
+	   * @param source File that determine absolutley where the file is from.
+	   * @param target Target directory, where the file should be copied
+	   * @throws IllegalArgumentException if the source is null or the target-directory is empty.
+	   * @throws FileNotFoundException if the given source can't be found
+	   * @throws IOException if it can't be written to the target.
+	   */
+	  private void copyFile(File source,String target) throws IllegalArgumentException,FileNotFoundException,IOException
 	  {
 		  	File inputFile = source;
 		    File outputFile = new File(target);
 		    Component comp = null;
 		    if (outputFile.exists())
 		    {
-		    	 if (JOptionPane.showConfirmDialog(comp, "I found a file with the same name. Would you like to rename  " + source.getName() + "? So press the Button 'yes'. If you like to skip it press the button 'no'. Please Confirm this opration with yes to overwrite the file or no to discard the operation for the file.","Question",JOptionPane.QUESTION_MESSAGE,JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION)
+		    	 if (JOptionPane.showConfirmDialog(comp, "I found a file with the same name. Would you like to rename  " + source.getName() + "? So press the Button 'yes'. If you like to skip it press the button 'no'. Please Confirm this opration with yes to change its name  or no to skip the operation for the file.","Question",JOptionPane.QUESTION_MESSAGE,JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION)
 				 {
-		    		 //TODO:INPUTBOX eingeben.
+		    		 String newName=null;
+		    		 
+		    		 while(newName==null)
+		    		 {
+		    			 newName = JOptionPane.showInputDialog(null,"Please, enter a new filename.",outputFile.getName());
+		    			 if (newName==null)	
+		    			 {
+		    				 JOptionPane.showMessageDialog(null, "Please,  enter a name", "Input error", JOptionPane.INFORMATION_MESSAGE);
+		    			 
+		    			 }
+		    		 }
+		    		 if (!newName.contains(outputFile.toString().split(".")[1])) //Suffix not given
+		    		 {
+		    			 newName = newName + outputFile.toString().split(".")[1];//Apply suffix.
+		    		 }
+		    		 outputFile = new File(target.replace(outputFile.getName(), newName));
 				 }
+		    	 else
+		    	 {
+		    		 //Skip Operation.
+		    		 return; //Do nothing
+		    	 }
 		    }
-		    else
-		    {
-		    }
+		    
+		    if (!inputFile.exists()) throw new IllegalArgumentException("Source-file can't be found");
+		    
 		    FileReader in = new FileReader(inputFile);
 	    	FileWriter out = new FileWriter(outputFile);
 	    	int c;
@@ -179,8 +211,6 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 
 	    	in.close();
 	    	out.close();
-		    
-		    
 		  
 	  }
 	
@@ -196,7 +226,11 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
             	 if (bCreatePhotoBox) folderManager.createDirectories(targetPath);
             	  if (bCopyFileList)
             	  {
-            		  
+            		 copyFile(fileList[i], targetPath+fileList[i].getName()); 
+            	  }
+            	  else
+            	  {
+            		  copyFile(file,targetPath+fileList[i].getName());
             	  }
                   //Sleep for up to one second.
             	  //Thread.sleep(random.nextInt(1000));
@@ -204,7 +238,17 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
                   progress = ((100*i)/maxfiles);
                   setProgress(progress);
               }
-          } catch (InterruptedException ignore) {}
+          } catch (InterruptedException ignore) {} 
+          catch (IllegalArgumentException e) {
+			ErrorMessageDialog.showMessage(null, e.getMessage(), "Error", e.getStackTrace());
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			ErrorMessageDialog.showMessage(null, e.getMessage(), "Error", e.getStackTrace());
+			e.printStackTrace();
+		} catch (IOException e) {
+			ErrorMessageDialog.showMessage(null, e.getMessage(), "Error", e.getStackTrace());
+			e.printStackTrace();
+		}
           return null;
       }
 
