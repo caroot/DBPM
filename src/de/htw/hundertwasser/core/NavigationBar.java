@@ -214,36 +214,36 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 		}
 	};
 
-	/**
-	 * 
-	 * @return TreeModelListener
-	 */
-	private TreeModelListener getPhotoAlbumListener() {
-		return new TreeModelListener() {
-
-			@Override
-			public void treeNodesChanged(TreeModelEvent e) {
-				jtreePhotoAlbum.revalidate();
-			}
-
-			@Override
-			public void treeNodesInserted(TreeModelEvent e) {
-				jtreePhotoAlbum.revalidate();
-			}
-
-			@Override
-			public void treeNodesRemoved(TreeModelEvent e) {
-				jtreePhotoAlbum.revalidate();
-			}
-
-			@Override
-			public void treeStructureChanged(TreeModelEvent e) {
-				jtreePhotoAlbum.repaint();
-				jtreePhotoAlbum.revalidate();
-			}
-
-		};
-	}
+//	/**
+//	 * 
+//	 * @return TreeModelListener
+//	 */
+//	private TreeModelListener getPhotoAlbumListener() {
+//		return new TreeModelListener() {
+//
+//			@Override
+//			public void treeNodesChanged(TreeModelEvent e) {
+//				jtreePhotoAlbum.revalidate();
+//			}
+//
+//			@Override
+//			public void treeNodesInserted(TreeModelEvent e) {
+//				jtreePhotoAlbum.revalidate();
+//			}
+//
+//			@Override
+//			public void treeNodesRemoved(TreeModelEvent e) {
+//				jtreePhotoAlbum.revalidate();
+//			}
+//
+//			@Override
+//			public void treeStructureChanged(TreeModelEvent e) {
+//				jtreePhotoAlbum.repaint();
+//				jtreePhotoAlbum.revalidate();
+//			}
+//
+//		};
+//	}
 
 	/**
 	 * 
@@ -321,7 +321,7 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 		observerList.remove(observer);
 	}
 
-	private void selectPhotoBoxElement(String name) {
+	public void selectPhotoBoxElement(String name) {
 		for (int i = 0;i<jtreePhotoBox.getModel().getChildCount(jtreePhotoBox.getModel().getRoot());i++)
 		{
 			DefaultMutableTreeNode tn = (DefaultMutableTreeNode)jtreePhotoBox.getModel().getChild(jtreePhotoBox.getModel().getRoot(), i);
@@ -332,7 +332,7 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 		}
 	}
 	
-	private void selectPhotoAlbumElement(String name) {
+	public void selectPhotoAlbumElement(String name) {
 		for (int i = 0;i<jtreePhotoAlbum.getModel().getChildCount(jtreePhotoAlbum.getModel().getRoot());i++)
 		{
 			DefaultMutableTreeNode tn = (DefaultMutableTreeNode)jtreePhotoAlbum.getModel().getChild(jtreePhotoAlbum.getModel().getRoot(), i);
