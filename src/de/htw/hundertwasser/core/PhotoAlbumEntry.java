@@ -17,7 +17,7 @@ public class PhotoAlbumEntry {
 	private static final String ERROR_NO_STICKER = "The Sticker can't be null.";
 	private static final String ERROR_NO_PHOTO = "Das Photo darf nicht null sein.";
 
-	/*
+	/**
 	 * Function that returns the photo
 	 * @return Photo
 	 */
@@ -25,7 +25,7 @@ public class PhotoAlbumEntry {
 		return photo;
 	}
 
-	/*
+	/**
 	 * Function that allow to set a photo
 	 * @param photo
 	 */
@@ -33,7 +33,7 @@ public class PhotoAlbumEntry {
 		this.photo = photo;
 	}
 
-	/*
+	/**
 	 * Function that returns the Text
 	 * @return text
 	 */
@@ -41,7 +41,7 @@ public class PhotoAlbumEntry {
 		return text;
 	}
 
-	/*
+	/**
 	 * Function that allow to set a Text
 	 * @param text
 	 */
@@ -49,7 +49,7 @@ public class PhotoAlbumEntry {
 		this.text = text;
 	}
 
-	/*
+	/**
 	 * Function that returns the Sticker
 	 * @return sticker
 	 */
@@ -57,7 +57,7 @@ public class PhotoAlbumEntry {
 		return sticker;
 	}
 
-	/*
+	/**
 	 * Function that allow to set a Sticker
 	 */
 	public void setSticker(StickerEnummeration sticker) {

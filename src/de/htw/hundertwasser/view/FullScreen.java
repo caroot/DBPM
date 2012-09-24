@@ -1,4 +1,4 @@
-public package de.htw.hundertwasser.view;
+package de.htw.hundertwasser.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,8 +17,9 @@ import javax.swing.SwingConstants;
 import de.htw.hundertwasser.core.ImageViewer;
 
 /**
- * Klasse die zum anzeigen des ausgew�hlten Photos im Fullscreenmodus zu zeigen
- * @author johannesschramm
+ * Class that describes the Photos in Fullscreen
+ * 
+ *  @author johannesschramm
  *
  */
 

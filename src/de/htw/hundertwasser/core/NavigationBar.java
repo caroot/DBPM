@@ -37,9 +37,7 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 public class NavigationBar extends JPanel {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private NavBarPhotoAlbumModel modelPhotoAlbum;
 	private NavBarPhotoAlbumRenderer rendererPhotoAlbum;
@@ -150,7 +148,7 @@ public class NavigationBar extends JPanel {
 	}
 
 	/**
-	* 
+	* Function to fill the PhotoAlbum
  	*/
 	private void fillPhotoAlbumTest() {
 		for (int i = 0; i < 3; i++) {
@@ -160,7 +158,7 @@ public class NavigationBar extends JPanel {
 	}
 
 	/**
-	 * 
+	 * Function to set the Action performed
 	 * 
 	 */
 	ActionListener btnBoxListener = new ActionListener() {
@@ -169,7 +167,7 @@ public class NavigationBar extends JPanel {
 	};
 
 	/**
-	 * 
+	 * Function to set the Action performed
 	 */
 
 	ActionListener btnAlbumListener = new ActionListener() {
@@ -179,7 +177,7 @@ public class NavigationBar extends JPanel {
 	};
 
 	/**
-	 * 
+	 * Function to get the Tree
 	 * @return TreeModelListener
 	 */
 	private TreeModelListener getPhotoAlbumListener() {
@@ -209,7 +207,10 @@ public class NavigationBar extends JPanel {
 		};
 	}
 
-	
+	/**
+	 * Function to get the PhotoBoxListener
+	 * @return photoBoxListener
+	 */
 	private TreeModelListener getPhotoBoxListener() {
 		return new TreeModelListener() {
 

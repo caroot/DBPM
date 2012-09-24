@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-/*
+/**
  * Function that allow to set a Sticker
  */
 public class PhotoBoxListRendere extends JLabel implements ListCellRenderer{

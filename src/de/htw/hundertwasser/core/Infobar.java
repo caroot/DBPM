@@ -279,7 +279,7 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 	}
 
 	/**
-	 * 
+	 * Function that returns the Component
 	 * @return
 	 */
 	private Component getComponent() {
