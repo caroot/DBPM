@@ -165,8 +165,8 @@ public class StartScreenElement extends JPanel {
 						JProgressBar progress = DialogHandler.showProgressBar();
 						FolderManager manager = new FolderManager();
 							element = manager.importPhotoBox(name, path);
-						element = new PhotoBox(name); //TODO wieder raus!
-						((PhotoBox) element).setName(name);
+						element = new PhotoBox(name);        //TODO wieder raus!
+						((PhotoBox) element).setName(name); //TODO wieder raus!
 						//TODO fill Photobox with Photos, (Folder Manager s-times)
 							ElementStorage.addPhotoBox((PhotoBox) element);
 						StartScreen.retextBox();
@@ -228,7 +228,7 @@ public class StartScreenElement extends JPanel {
 	 */
 	public void delete() {
 		boolean removed = false;
-		if(elementTyp == ALBUM) { //TODO delete Boxes and Albums
+		if(elementTyp == ALBUM) {
 //			((PhotoAlbum) element).destroy();
 			removed = ElementStorage.removePhotoAlbum(((PhotoAlbum) element));
 			StartScreen.retextAlbum();

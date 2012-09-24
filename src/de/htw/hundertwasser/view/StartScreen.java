@@ -2,12 +2,14 @@ package de.htw.hundertwasser.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.naming.OperationNotSupportedException;
 import javax.swing.JFrame;
@@ -17,6 +19,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import de.htw.hundertwasser.backend.ElementStorage;
+import de.htw.hundertwasser.core.PhotoAlbum;
+import de.htw.hundertwasser.core.PhotoBox;
 import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
@@ -242,5 +246,47 @@ public class StartScreen extends JFrame {
 
 	public static Dimension getElementSize() {
 		return elementSize;
+	}
+	
+	/**
+	 * Method, that refreshes the shown boxes, to add new ones
+	 */
+	public static void refreshBoxes() {
+		JPanel boxPanel = photoBoxes.getElementPanel();
+		Component[] comps = boxPanel.getComponents();
+		ArrayList<PhotoBox> photoList = ElementStorage.getBoxList();
+		for(int j = 0; j < photoList.size(); j++){
+			boolean found = false;
+			for(int i = 0; i < comps.length; i++) {
+				PhotoBox testBox = (PhotoBox) ((StartScreenElement)comps[i]).getElement();
+				if(photoList.get(j) == testBox)
+					found = true;
+			}
+			if(!found) {
+				boxPanel.add(new StartScreenElement(StartScreenElement.BOX, StartScreenElement.ELEMENT, boxPanel, photoList.get(j)));
+			}
+		}
+		retextBox();
+	}
+	
+	/**
+	 * Method, that refreshes the shown albums, to add new ones
+	 */
+	public static void refreshAlbums() {
+		JPanel albumPanel = photoAlbums.getElementPanel();
+		Component[] comps = albumPanel.getComponents();
+		ArrayList<PhotoAlbum> albumList = ElementStorage.getAlbumList();
+		for(int j = 0; j < albumList.size(); j++){
+			boolean found = false;
+			for(int i = 0; i < comps.length; i++) {
+				PhotoAlbum testAlbum = (PhotoAlbum) ((StartScreenElement)comps[i]).getElement();
+				if(albumList.get(j) == testAlbum)
+					found = true;
+			}
+			if(!found) {
+				albumPanel.add(new StartScreenElement(StartScreenElement.ALBUM, StartScreenElement.ELEMENT, albumPanel, albumList.get(j)));
+			}
+		}
+		retextAlbum();
 	}
 }

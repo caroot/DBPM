@@ -23,7 +23,7 @@ public class StartScreenSubPanel extends JPanel {
 
 	
 	//Variable
-	JPanel subElements = null;
+	private JPanel subElements = null;
 	
 	public StartScreenSubPanel() {
 		setLayout(new BorderLayout(5, 5));
@@ -52,5 +52,13 @@ public class StartScreenSubPanel extends JPanel {
 		else
 			mainSubPanel.add(new StartScreenElement(StartScreenElement.BOX, StartScreenElement.ADDITION, subElements, ""));
 		add(mainSubPanel);
+	}
+	
+	/**
+	 * Method, that returns the Panel, where new Elements are shown.
+	 * @return the panel.
+	 */
+	public JPanel getElementPanel() {
+		return subElements;
 	}
 }
