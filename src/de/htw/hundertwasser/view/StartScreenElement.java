@@ -80,15 +80,12 @@ public class StartScreenElement extends JPanel {
 	 */
 	private void makeElementButton() {
 		try {
-			System.out.println("nya o.O");
 			if(elementTyp == ALBUM) {
 				elementName = ((PhotoAlbum) element).getName();
-				System.out.println("SNI");
 				Icon elementIcon = RessourcenEnummeration.PHOTOALBUM_NEU.getIcon();
 				elementButton = new JButton(elementName, elementIcon);
 			} else {
 				elementName = ((PhotoBox) element).getName();
-				System.out.println("Hall0: "+ ((PhotoBox) element).getName());
 				Icon elementIcon = RessourcenEnummeration.PHOTOBOX_NEU.getIcon();
 				elementButton = new JButton(elementName, elementIcon);
 			}
@@ -97,7 +94,6 @@ public class StartScreenElement extends JPanel {
 			elementButton.setFont(RessourcenEnummeration.FONT_CALIBRI.getFont().deriveFont(14f)); //Loads and resizes font
 			ActionListener addListen = new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					System.out.println("click: " + element);
 					choosenOne = thisElement;
 					openToolPanel();
 					elementButton.setBackground(Color.LIGHT_GRAY); //Changes Button background when pressed, to shop, that it is.
@@ -152,7 +148,6 @@ public class StartScreenElement extends JPanel {
 						}
 						element = new PhotoAlbum(name);
 						ElementStorage.addPhotoAlbum((PhotoAlbum) element);
-						System.out.println("Nya: " + element);
 						StartScreen.retextAlbum();
 						
 					} else {
@@ -173,7 +168,6 @@ public class StartScreenElement extends JPanel {
 						element = new PhotoBox(name); //TODO wieder raus!
 						((PhotoBox) element).setName(name);
 						//TODO fill Photobox with Photos, (Folder Manager s-times)
-							System.out.println("Box: " + element);
 							ElementStorage.addPhotoBox((PhotoBox) element);
 						StartScreen.retextBox();
 //							Thread.sleep(3000);
@@ -220,6 +214,10 @@ public class StartScreenElement extends JPanel {
 	 * @param newName: the new name of the Photoalbum/-box
 	 */
 	public void changeName(String newName) {
+		if(elementTyp == ALBUM)
+			((PhotoAlbum) element).setName(newName);
+		if(elementTyp == BOX)
+			((PhotoBox) element).setName(newName);
 		elementButton.setText(newName);
 		repaint();
 		validate();
@@ -232,7 +230,6 @@ public class StartScreenElement extends JPanel {
 		boolean removed = false;
 		if(elementTyp == ALBUM) { //TODO delete Boxes and Albums
 //			((PhotoAlbum) element).destroy();
-			System.out.println(element);
 			removed = ElementStorage.removePhotoAlbum(((PhotoAlbum) element));
 			StartScreen.retextAlbum();
 		} else {

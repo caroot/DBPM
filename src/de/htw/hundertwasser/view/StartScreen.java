@@ -200,7 +200,7 @@ public class StartScreen extends JFrame {
 	 */
 	public static void initialiseSizes() {
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		textSize = new Dimension(screenSize.width, 100);
+		textSize = new Dimension(screenSize.width, 85);
 		subSystemSize = new Dimension(screenSize.width * 8 / 10,
 				screenSize.height / 2 - 20);
 		scrollSize = new Dimension(subSystemSize.width * 3 / 4 - 20,

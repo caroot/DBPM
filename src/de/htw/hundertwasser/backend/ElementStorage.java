@@ -1,6 +1,5 @@
 package de.htw.hundertwasser.backend;
 
-import java.io.FileDescriptor;
 import java.util.ArrayList;
 
 import de.htw.hundertwasser.core.PhotoAlbum;
