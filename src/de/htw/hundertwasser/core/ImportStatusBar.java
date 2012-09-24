@@ -35,11 +35,11 @@ public class ImportStatusBar extends JDialog implements PropertyChangeListener,P
 	/**
 	 * Current width
 	 */
-	public static int WIDTH = 400;
+	public static int WIDTH = 600;
 	/**
 	 * Current height
 	 */
-	public static int HEIGHT = 300;
+	public static int HEIGHT = 110;
 	/**
 	 * Current BackgroundColor
 	 */
@@ -74,7 +74,7 @@ public class ImportStatusBar extends JDialog implements PropertyChangeListener,P
 		setBackground(BACKGROUNDCOLOR);
 		progressbar = new JProgressBar();
 		progressbar.setMaximum(MAX_PROGRESS_VALUE);
-		progressbar.setBackground(getBackground());
+		progressbar.setBackground(BACKGROUNDCOLOR);
 		progressbar.setForeground(FOREGROUNDCOLOR);
 		lblstatus.setForeground(FOREGROUNDCOLOR);
 		progressbar.setIndeterminate(true);
@@ -83,13 +83,12 @@ public class ImportStatusBar extends JDialog implements PropertyChangeListener,P
 		contentPane.add(lblstatus);
 		contentPane.add(progressbar);
 		layout.putConstraint(SpringLayout.NORTH, lblstatus, 10,SpringLayout.NORTH,contentPane);
-		layout.putConstraint(SpringLayout.EAST, lblstatus, 10,SpringLayout.EAST,contentPane);
 		layout.putConstraint(SpringLayout.WEST, lblstatus, 10,SpringLayout.WEST,contentPane);
-		layout.putConstraint(SpringLayout.SOUTH, lblstatus, 10,SpringLayout.NORTH,progressbar);
-		layout.putConstraint(SpringLayout.EAST, progressbar, 10,SpringLayout.EAST,contentPane);
+		layout.putConstraint(SpringLayout.NORTH, progressbar, 10,SpringLayout.SOUTH,lblstatus);
 		layout.putConstraint(SpringLayout.WEST, progressbar, 10,SpringLayout.WEST,contentPane);
-		layout.putConstraint(SpringLayout.SOUTH, progressbar, 10,SpringLayout.SOUTH,contentPane);
-		
+		layout.putConstraint(SpringLayout.SOUTH, progressbar, 50,SpringLayout.SOUTH,lblstatus);
+		layout.putConstraint(SpringLayout.WIDTH,progressbar,-20,SpringLayout.WIDTH,contentPane);
+		layout.putConstraint(SpringLayout.WIDTH,lblstatus,-20,SpringLayout.WIDTH,contentPane);
 	}
 
 	@Override
@@ -111,4 +110,10 @@ public class ImportStatusBar extends JDialog implements PropertyChangeListener,P
 		}
 	}
 
+	
+	public static void main(String[] args) {
+		ImportStatusBar imp = new ImportStatusBar();
+		imp.setVisible(true);
+		imp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	}
 }

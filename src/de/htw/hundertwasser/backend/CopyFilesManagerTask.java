@@ -241,7 +241,7 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
           int i = 0;
           setProgress(0);
           try {
-              Thread.sleep(150);
+              Thread.sleep(1000);
               while (progress < 100 && !isCancelled()) {
             	 if (bCreatePhotoBox)
                  {
@@ -257,7 +257,8 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
             	  }
             	  else
             	  {
-            		  copyFile(file,targetPath+File.separatorChar+fileList[i].getName());
+            		  copyFile(file,targetPath+File.separatorChar+file.getName());
+            		  setProgress(100);
             	  }
                   //Sleep for up to one second.
             	  //Thread.sleep(random.nextInt(1000));

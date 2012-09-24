@@ -164,16 +164,17 @@ public class StartScreenElement extends JPanel {
 						String path = DialogHandler.chooseSource();
 						if(path == null)
 							return; //cancel if no Path was chosen
-						JProgressBar progress = DialogHandler.showProgressBar();
+//						JProgressBar progress = DialogHandler.showProgressBar();
 						FolderManager manager = new FolderManager();
 							element = manager.importPhotoBox(name, path);
-						element = new PhotoBox(name);        //TODO wieder raus!
-						((PhotoBox) element).setName(name); //TODO wieder raus!
+							if (element==null) return; //Import verworfen.
+//						element = new PhotoBox(name);        //TODO wieder raus!
+//						((PhotoBox) element).setName(name); //TODO wieder raus!
 						//TODO fill Photobox with Photos, (Folder Manager s-times)
 							ElementStorage.addPhotoBox((PhotoBox) element);
 						StartScreen.retextBox();
 //							Thread.sleep(3000);
-						((Window) progress.getParent().getParent().getParent().getParent()).dispose();
+//						((Window) progress.getParent().getParent().getParent().getParent()).dispose();
 					}
 					parentPanel.add(new StartScreenElement(elementTyp, ELEMENT, parentPanel, element));
 					parentPanel.getParent().validate();

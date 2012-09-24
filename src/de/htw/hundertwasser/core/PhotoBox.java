@@ -32,6 +32,7 @@ public class PhotoBox {
 	 */
 	public PhotoBox(String absoultePathToFiles) throws IllegalArgumentException {
 		arPhotos = new ArrayList<Photo>();
+		setAbsolutePathToFiles(absoultePathToFiles);
 	}
 
 	/**
