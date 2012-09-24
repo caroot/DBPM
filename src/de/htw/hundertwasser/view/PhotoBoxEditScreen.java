@@ -55,6 +55,7 @@ public class PhotoBoxEditScreen extends EditScreen {
 		thumbnailBar.addThumbNailBarObserver(infoBar);
 		thumbnailBar.addThumbNailBarObserver(toolBar);
 		navigationBar.addNavBarPhotoBoxObserver(thumbnailBar);
+		navigationBar.sendMessage(photobox);
 		// imgPanel.add(imgViewer,BorderLayout.CENTER);
 
 	}

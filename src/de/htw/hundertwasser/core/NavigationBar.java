@@ -22,6 +22,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 import de.htw.hundertwasser.backend.ElementStorage;
 import de.htw.hundertwasser.core.interfaces.NavBarPhotoBoxObserable;
@@ -320,21 +321,37 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 		observerList.remove(observer);
 	}
 
+	private void selectPhotoBoxElement(String name) {
+		for (int i = 0;i<jtreePhotoBox.getModel().getChildCount(jtreePhotoBox.getModel().getRoot());i++)
+		{
+			DefaultMutableTreeNode tn = (DefaultMutableTreeNode)jtreePhotoBox.getModel().getChild(jtreePhotoBox.getModel().getRoot(), i);
+			if (tn.getUserObject().toString().equals(name))
+			{
+				jtreePhotoBox.setSelectionPath(new TreePath(tn.getPath()));
+			}
+		}
+	}
+	
+	private void selectPhotoAlbumElement(String name) {
+		for (int i = 0;i<jtreePhotoAlbum.getModel().getChildCount(jtreePhotoAlbum.getModel().getRoot());i++)
+		{
+			DefaultMutableTreeNode tn = (DefaultMutableTreeNode)jtreePhotoAlbum.getModel().getChild(jtreePhotoAlbum.getModel().getRoot(), i);
+			if (tn.getUserObject().toString().equals(name))
+			{
+				jtreePhotoAlbum.setSelectionPath(new TreePath(tn.getPath()));
+			}
+		}
+	}
+	
 	@Override
 	public void sendMessage(PhotoBox photoBox) {
 		// TODO Auto-generated method stub
+		selectPhotoBoxElement(photoBox.getName());
 		for (NavBarPhotoBoxObserver observer : observerList) {
 			observer.receivePhotoBox(photoBox);
 		}
 
-		// private void fillArrayList() {
-		//
-		// for (int j = 0; j < 10; j++) {
-		//
-		// test.add("Test " + j);
-		// System.out.println(test.get(j));
-		// }
-		// }
+		
 
 	}
 }
