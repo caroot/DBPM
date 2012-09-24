@@ -21,6 +21,7 @@ import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import de.htw.hundertwasser.backend.ElementStorage;
 import de.htw.hundertwasser.model.NavBarPhotoAlbumModel;
 import de.htw.hundertwasser.model.NavBarPhotoBoxModel;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
@@ -55,7 +56,7 @@ public class NavigationBar extends JPanel {
 	private DefaultMutableTreeNode boxRoot;
 	private DefaultMutableTreeNode albumRoot;
 
-	private ArrayList<String> test;
+//	private ArrayList<String> test;
 
 	/**
 	 * Constructor
@@ -90,7 +91,7 @@ public class NavigationBar extends JPanel {
 		jtreePhotoBox.setModel(new DefaultTreeModel(boxRoot));
 
 		
-		test = new ArrayList<String>();
+//		test = new ArrayList<String>();
 //		fillArrayList();
 //		fillTreePhotoBox(test);
 //		fillTreePhotoAlbum(test);
@@ -257,8 +258,9 @@ public class NavigationBar extends JPanel {
 		};
 	}
 
-	public void fillTreePhotoBox(ArrayList<String> photobox) {
+	public void fillTreePhotoBox() {
 
+		ArrayList<PhotoBox> photobox=ElementStorage.getBoxList();
 		for (int i = 0; i < photobox.size(); i++) {
 			boxRoot.add(new DefaultMutableTreeNode(photobox.get(i)));
 //			System.out.println(test.get(i));
@@ -267,8 +269,9 @@ public class NavigationBar extends JPanel {
 	}
 
 	
-	public void fillTreePhotoAlbum(ArrayList<String> photoalbum){
+	public void fillTreePhotoAlbum(){
 		
+		ArrayList<PhotoAlbum> photoalbum = ElementStorage.getAlbumList();
 		for (int i = 0; i < photoalbum.size(); i++) {
 			albumRoot.add(new DefaultMutableTreeNode(photoalbum.get(i)));
 //			System.out.println(test.get(i));

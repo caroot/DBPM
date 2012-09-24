@@ -44,7 +44,7 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 	// Variables
 	private Photo photo;
 	// private String absolutePath = "C:/Temp/universe.jpg";
-	private String absolutePath = "Motivations Bild v2.jpg";
+//	private String absolutePath = "Motivations Bild v2.jpg";
 
 	private JLabel lblComment_filled;
 	private JLabel lblPixel_filled;
@@ -59,8 +59,8 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 	 */
 	public Infobar() {
 
-		photo = new Photo("Motivation!", absolutePath);
-		photo.setComment(":)");
+//		photo = new Photo("Motivation!", absolutePath);
+//		photo.setComment(":)");
 
 		// setPreferredSize(new Dimension(250, 223));
 		// setMaximumSize(new Dimension(250,200));
@@ -102,11 +102,11 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 		lblInfo.setFont(new Font("Arial", Font.BOLD, 14));
 		add(lblInfo, "2, 2, 11, 1");
 
-		JLabel label_1 = new JLabel("             -------------------------");
-		label_1.setFont(new Font("Arial", Font.PLAIN, 12));
-		label_1.setVerticalAlignment(SwingConstants.TOP);
-		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label_1, "2, 3, 11, 2, center, default");
+		JLabel lblseparator = new JLabel("             -------------------------");
+		lblseparator.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblseparator.setVerticalAlignment(SwingConstants.TOP);
+		lblseparator.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblseparator, "2, 3, 11, 2, center, default");
 
 		JLabel lblName = new JLabel("Name");
 		lblName.setFont(new Font("Arial", Font.BOLD, 12));
@@ -131,7 +131,7 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 		lblPixel.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblPixel, "2, 10");
 
-		lblPixel_filled = new JLabel(getPixel());
+		lblPixel_filled = new JLabel();
 		lblPixel_filled.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblPixel_filled, "8, 10, center, default");
 
@@ -142,7 +142,7 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 		lblCreated_filled = new JLabel("");
 		add(lblCreated_filled, "8, 12, center, default");
 
-		lblComment_filled = new JLabel(photo.getComment());
+		lblComment_filled = new JLabel();
 		lblComment_filled.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblComment_filled.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblComment_filled, "6, 14, 5, 1, center, default");
@@ -153,7 +153,7 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 
 		JLabel label = new JLabel("");
 		add(label, "2, 16, 10, 1");
-		setPhoto(photo);
+//		setPhoto(photo);
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 	 * 
 	 * @return Height of the photo
 	 */
-	private int getPhotoHeight() {
+	private int getPhotoHeight(Photo photo) {
 		int height = 0;
 		try {
 			height = photo.getImage().getHeight();
@@ -188,7 +188,7 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 	 * 
 	 * @return Width of the photo
 	 */
-	private int getPhotoWidth() {
+	private int getPhotoWidth(Photo photo) {
 		int width = 0;
 		try {
 			width = photo.getImage().getWidth();
@@ -214,11 +214,11 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 	 * 
 	 * @return display size of the photo
 	 */
-	private String getPixel() {
+	private String getPixel(Photo photo) {
 
 		StringBuffer sb = new StringBuffer();
-		sb.append(new Integer(getPhotoHeight()).toString()).append(" x ")
-				.append(new Integer(getPhotoWidth()).toString());
+		sb.append(new Integer(getPhotoHeight(photo)).toString()).append(" x ")
+				.append(new Integer(getPhotoWidth(photo)).toString());
 
 		return sb.toString();
 	}
@@ -230,7 +230,7 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 	 * @throws FileNotFoundException
 	 *             ,IllegalArgumentException
 	 */
-	private double getFileSize() throws FileNotFoundException,
+	private double getFileSize(Photo photo) throws FileNotFoundException,
 			IllegalArgumentException {
 
 		double size = photo.getSize(ImageManagerSize.BYTE);
@@ -256,7 +256,7 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 	 * @throws FileNotFoundException
 	 * @throws IllegalArgumentException
 	 */
-	private Date getModifiedDate() throws FileNotFoundException,
+	private Date getModifiedDate(Photo photo) throws FileNotFoundException,
 			IllegalArgumentException {
 		return photo.getLastModifiedDate();
 	}
@@ -268,12 +268,12 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 	 * @throws FileNotFoundException
 	 * @throws IllegalArgumentException
 	 */
-	private String formatDate() throws FileNotFoundException,
+	private String formatDate(Photo photo) throws FileNotFoundException,
 			IllegalArgumentException {
 		DateFormat formatter;
 		formatter = new SimpleDateFormat("dd.MM.yy");
 
-		String s = formatter.format(getModifiedDate());
+		String s = formatter.format(getModifiedDate(photo));
 
 		return s;
 	}
@@ -293,22 +293,14 @@ public class Infobar extends JPanel implements ThumbNailBarObserver {
 	public void setPhoto(Photo photo) {
 
 		try {
-			img = photo.getImage();
-			lblCreated_filled.setText(formatDate());
+//			img = photo.getImage();
+			lblCreated_filled.setText(formatDate(photo));
 			lblName_filled.setText(photo.getName());
-			lblSize_filled.setText(String.valueOf(getFileSize()));
-			lblPixel_filled.setText(getPixel());
+			lblSize_filled.setText(String.valueOf(getFileSize(photo)));
+			lblPixel_filled.setText(getPixel(photo));
 			lblComment_filled.setText(photo.getComment());
 			
 		} catch (FileNotFoundException e) {
-			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
-					"Error", e.getStackTrace().toString());
-			e.printStackTrace();
-		} catch (IOException e) {
-			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
-					"Error", e.getStackTrace().toString());
-			e.printStackTrace();
-		} catch (InsufficientPrivilegesException e) {
 			ErrorMessageDialog.showMessage(getComponent(), e.getMessage(),
 					"Error", e.getStackTrace().toString());
 			e.printStackTrace();
