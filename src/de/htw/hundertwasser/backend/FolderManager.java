@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import de.htw.hundertwasser.core.EnvironmentChecker;
+import de.htw.hundertwasser.core.ImportStatusBar;
 import de.htw.hundertwasser.core.PhotoBox;
 import de.htw.hundertwasser.custom.error.CantCreateDirectoryException;
 import de.htw.hundertwasser.custom.error.ChoosenFileNotAFolderException;
@@ -191,10 +192,16 @@ public class FolderManager {
 	 * @param name Name of the Photobox
 	 * @param pathtoFile this is a ImageFile or a Directory
 	 * @return The created Photobox
-	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException  Occurs if the pathToFile doesn't exists
+	 * @throws ChoosenFileNotAFolderException  Occurs if the Path to File is not a folder
+	 * @throws IllegalArgumentException Occurs if one of the parameter is emtpy or null.
 	 */
-	public PhotoBox importPhotoBox(String name,String pathtoFile) throws FileNotFoundException 
+	public PhotoBox importPhotoBox(String name,String pathtoFile) throws FileNotFoundException, IllegalArgumentException, ChoosenFileNotAFolderException 
 	{
+		ImageManager imageManager = new ImageManager();
+		FolderManager folderManager = new FolderManager();
+		ImportStatusBar importStatusBar = new ImportStatusBar();
+		File[] fileList = null;
 		checkPath(pathtoFile);
 		if (name.trim().isEmpty()) throw new IllegalArgumentException(ERROR_NAME_EMPTY);
 		if (name==null) throw new IllegalArgumentException(ERROR_NAME_NULL);
@@ -203,6 +210,7 @@ public class FolderManager {
 		{
 			if (file.isDirectory())
 			{
+				fileList = imageManager.getImagesListInFolder(pathtoFile);
 				
 			}
 			else

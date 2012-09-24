@@ -7,13 +7,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
-import java.util.jar.JarInputStream;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
-import de.htw.hundertwasser.core.DialogHandler;
+import de.htw.hundertwasser.core.interfaces.ProgressStatusListener;
+import de.htw.hundertwasser.custom.event.ProgressStatusEvent;
 import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 
 /**
@@ -23,10 +25,20 @@ import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
  */
 public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 	  
+	/**
+	 * This error message occurs if the given Path is empty.
+	 */
 		private static final String ERROR_TARGET_PATH_EMPTY = "TargetPath can't be empty.";
+		/**
+		 * This error message occurs if the given Path is null.
+		 */
 		private static final String ERROR_TARGET_PATH_NULL = "TargetPath can't be null.";
+		
+		private static final String STATUS_FINISHED = "Process has end sucessfully.";
+		
 		/**
 		 * Internal used FolderManager
+		 * @link {@link FolderManager}
 		 */
 		private FolderManager folderManager = new FolderManager();
 		/**
@@ -53,6 +65,11 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 		 * Determine if a completeFilelist should be copied to the targetPath or not.
 		 */
 		private boolean bCopyFileList = false;
+		/**
+		 * An set of Progress status Listeners
+		 */
+		private ArrayList<ProgressStatusListener> eventlisteners = new ArrayList<ProgressStatusListener>();
+		
 		
 	/**
 	 * Constructor copy files from source to targetPath
@@ -174,6 +191,7 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 		    Component comp = null;
 		    if (outputFile.exists())
 		    {
+		    	fireEvent("Found file with the same name.");
 		    	 if (JOptionPane.showConfirmDialog(comp, "I found a file with the same name. Would you like to rename  " + source.getName() + "? So press the Button 'yes'. If you like to skip it press the button 'no'. Please Confirm this opration with yes to change its name  or no to skip the operation for the file.","Question",JOptionPane.QUESTION_MESSAGE,JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION)
 				 {
 		    		 String newName=null;
@@ -183,15 +201,17 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 		    			 newName = JOptionPane.showInputDialog(null,"Please, enter a new filename.",outputFile.getName());
 		    			 if (newName==null)	
 		    			 {
-		    				 JOptionPane.showMessageDialog(null, "Please,  enter a name", "Input error", JOptionPane.INFORMATION_MESSAGE);
-		    			 
+		    				 JOptionPane.showMessageDialog(null, "Name can't be null.", "Input error", JOptionPane.INFORMATION_MESSAGE);
 		    			 }
 		    		 }
+		    		 fireEvent("File renamed to "+newName+" .");
 		    		 if (!newName.contains(outputFile.toString().split(".")[1])) //Suffix not given
 		    		 {
 		    			 newName = newName + outputFile.toString().split(".")[1];//Apply suffix.
 		    		 }
+		    		 fireEvent("File renamed to "+newName+" .");
 		    		 outputFile = new File(target.replace(outputFile.getName(), newName));
+		    		 fireEvent("Output file renamed.");
 				 }
 		    	 else
 		    	 {
@@ -205,25 +225,31 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 		    FileReader in = new FileReader(inputFile);
 	    	FileWriter out = new FileWriter(outputFile);
 	    	int c;
-
+	    	fireEvent("Copy File " + inputFile.getName() + " to " + outputFile.getName());
 	    	while ((c = in.read()) != -1)
 	    		out.write(c);
 
 	    	in.close();
 	    	out.close();
-		  
+	    	fireEvent("File successfully copied");
 	  }
 	
 	  @Override
       public Void doInBackground() {
-          Random random = new Random();
           int progress = 0;
           int i = 0;
           setProgress(0);
           try {
               Thread.sleep(150);
               while (progress < 100 && !isCancelled()) {
-            	 if (bCreatePhotoBox) folderManager.createDirectories(targetPath);
+            	 if (bCreatePhotoBox)
+                 {
+            		 fireEvent("Try to create directories");
+                     if (folderManager.createDirectories(targetPath)==true)
+                     {
+                    	 fireEvent("Directories created");
+                     }
+                 }
             	  if (bCopyFileList)
             	  {
             		 copyFile(fileList[i], targetPath+fileList[i].getName()); 
@@ -254,7 +280,47 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 
       @Override
       public void done() {
+    	  fireEvent(true);
           Toolkit.getDefaultToolkit().beep();
       }	
 
+      public synchronized void addEventListener(ProgressStatusListener listener)
+      {
+    	  eventlisteners.add(listener);
+      }
+      
+      public synchronized void removeEventListener(ProgressStatusListener listener)
+      {
+    	  eventlisteners.remove(listener);
+      }
+      
+      /**
+       * This method will transmit the status information
+       * @param statusInformation information about the current status
+       */
+      private synchronized void fireEvent(String statusInformation)
+      {
+    	  ProgressStatusEvent event = new ProgressStatusEvent(this);
+    	  event.setStatusInformation(statusInformation);
+    	  Iterator<ProgressStatusListener> iterator = eventlisteners.iterator();
+    	  while(iterator.hasNext())
+    	  {
+    		  ((ProgressStatusListener)iterator.next()).handleProgressStatusEvent(event);
+    	  }
+      }
+      /**
+       * This method will transmit the information that the process is finished
+       * @param bfinished
+       */
+      private synchronized void fireEvent(boolean bfinished)
+      {
+    	  ProgressStatusEvent event = new ProgressStatusEvent(this);
+    	  event.setStatusInformation(STATUS_FINISHED);
+    	  event.setFinished(true);
+    	  Iterator<ProgressStatusListener> iterator = eventlisteners.iterator();
+    	  while(iterator.hasNext())
+    	  {
+    		  ((ProgressStatusListener)iterator.next()).handleProgressStatusEvent(event);
+    	  }
+      }
 }
