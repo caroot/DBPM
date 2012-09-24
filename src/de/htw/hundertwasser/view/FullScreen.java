@@ -17,8 +17,9 @@ import javax.swing.SwingConstants;
 import de.htw.hundertwasser.core.ImageViewer;
 
 /**
- * Klasse die zum anzeigen des ausgew�hlten Photos im Fullscreenmodus zu zeigen
- * @author johannesschramm
+ * Class that describes the Photos in Fullscreen
+ * 
+ *  @author johannesschramm
  *
  */
 
