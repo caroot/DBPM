@@ -1,4 +1,4 @@
-public package de.htw.hundertwasser.view;
+package de.htw.hundertwasser.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
