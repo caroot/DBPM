@@ -248,6 +248,7 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 			for (int i = 0; i < photobox.size(); i++) {
 				boxRoot.add(new DefaultMutableTreeNode(photobox.get(i)
 						.getName()));
+				jtreePhotoBox.setModel(new DefaultTreeModel(boxRoot));
 				// System.out.println(test.get(i));
 			}
 		}
@@ -278,8 +279,8 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 		photobox.setName(Name);
 		ElementStorage.addPhotoBox(photobox);
 		
-		// boxRoot.removeAllChildren();
-		// fillTreePhotoBox();
+		 boxRoot.removeAllChildren();
+		 fillTreePhotoBox();
 		// System.out.println(ElementStorage.getBoxList().toString());
 	}
 
