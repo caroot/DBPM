@@ -30,9 +30,13 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 		 */
 		private int maxfiles=0;
 		/**
-		 * List of files
+		 * List of files that shall be copied.
 		 */
 		private File[] fileList=null;
+		/**
+		 * File to copy
+		 */
+		private File file=null;
 		/**
 		 * Path to the files
 		 */
@@ -72,7 +76,7 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 	  {
 		  if (fileslist ==null) throw new IllegalArgumentException("Filelist can't be null.");
 		  checkTargetFile(targetPath);
-		  this.fileList=fileList;
+		  this.fileList=fileslist;
 		  bCopyFileList=true;
 		  maxfiles=fileslist.length;
 	  }
@@ -100,13 +104,25 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 	  {
 		  checkTargetFile(targetPath);
 		  if (file == null) throw new IllegalArgumentException("File can't be null.");
+		  this.file = file;
 		  maxfiles=1;
 		  bCopyFileList=false;
 		  
 	  }
 	  
-	
-	  private boolean moveFile(File source,String target)
+	  /**
+	   * This method is the first attempt to copy files. </br>
+	   * But the methods depends on system-calls which are different on every OS.</br>
+	   * Furthermore you won't copy a file, but you move it from one directory to the target directory.</br>
+	   * <b>This method is obsolete.</b>
+	   * 
+	   * @param source
+	   * @param target
+	   * @return
+	   * @deprecated
+	   */
+	  @SuppressWarnings("unused")
+	private boolean moveFile(File source,String target)
 	  {
 		  File tempfile = new File(target);
 		  Component comp = null;
@@ -141,18 +157,30 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 	  
 	  private void copyFile(File source,String target) throws FileNotFoundException,IOException
 	  {
-		  File inputFile = source;
+		  	File inputFile = source;
 		    File outputFile = new File(target);
-
+		    Component comp = null;
+		    if (outputFile.exists())
+		    {
+		    	 if (JOptionPane.showConfirmDialog(comp, "I found a file with the same name. Would you like to rename  " + source.getName() + "? So press the Button 'yes'. If you like to skip it press the button 'no'. Please Confirm this opration with yes to overwrite the file or no to discard the operation for the file.","Question",JOptionPane.QUESTION_MESSAGE,JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION)
+				 {
+		    		 //TODO:INPUTBOX eingeben.
+				 }
+		    }
+		    else
+		    {
+		    }
 		    FileReader in = new FileReader(inputFile);
-		    FileWriter out = new FileWriter(outputFile);
-		    int c;
+	    	FileWriter out = new FileWriter(outputFile);
+	    	int c;
 
-		    while ((c = in.read()) != -1)
-		      out.write(c);
+	    	while ((c = in.read()) != -1)
+	    		out.write(c);
 
-		    in.close();
-		    out.close();
+	    	in.close();
+	    	out.close();
+		    
+		    
 		  
 	  }
 	
