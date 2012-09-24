@@ -70,6 +70,7 @@ public class ImportStatusBar extends JDialog implements PropertyChangeListener,P
 			e.printStackTrace();
 		}
 		setPreferredSize(new Dimension(WIDTH,HEIGHT));
+		setMinimumSize(new Dimension(WIDTH,HEIGHT));
 		setBackground(BACKGROUNDCOLOR);
 		progressbar = new JProgressBar();
 		progressbar.setMaximum(MAX_PROGRESS_VALUE);
