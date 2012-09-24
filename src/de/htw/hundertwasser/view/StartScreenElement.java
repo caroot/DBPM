@@ -107,11 +107,11 @@ public class StartScreenElement extends JPanel {
 			
 			add(elementButton);
 		} catch (IOException ioe) {
-			ErrorMessageDialog.showMessage(null, ioe.getMessage(), ERROR_TITLE, ioe.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(null, ioe.getMessage(), ERROR_TITLE, ioe.getStackTrace());
 		} catch (OperationNotSupportedException onse) {
-			ErrorMessageDialog.showMessage(null, onse.getMessage(), ERROR_TITLE, onse.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(null, onse.getMessage(), ERROR_TITLE, onse.getStackTrace());
 		} catch (FontFormatException ffe) {
-			ErrorMessageDialog.showMessage(null, ffe.getMessage(), ERROR_TITLE, ffe.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(null, ffe.getMessage(), ERROR_TITLE, ffe.getStackTrace());
 		}
 	}
 
@@ -177,7 +177,7 @@ public class StartScreenElement extends JPanel {
 					parentPanel.getParent().validate();
 
 				} catch (FileNotFoundException fnfe) {
-					ErrorMessageDialog.showMessage(null, fnfe.getMessage(), ERROR_TITLE, fnfe.getStackTrace().toString());
+					ErrorMessageDialog.showMessage(null, fnfe.getMessage(), ERROR_TITLE, fnfe.getStackTrace());
 //				} catch (InterruptedException ie) {
 //					ErrorMessageDialog.showMessage(null, ie.getMessage(), ERROR_TITLE, ie.getStackTrace().toString());
 				}
@@ -186,7 +186,7 @@ public class StartScreenElement extends JPanel {
 		addButton.addActionListener(addListen);
 		add(addButton);
 		} catch (IOException ioe) {
-			ErrorMessageDialog.showMessage(null, ioe.getMessage(), ERROR_TITLE, ioe.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(null, ioe.getMessage(), ERROR_TITLE, ioe.getStackTrace());
 		}
 	}
 	

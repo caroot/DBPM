@@ -94,16 +94,16 @@ public class StartScreen extends JFrame {
 					);
 		} catch (ClassNotFoundException cnfe) {
 			ErrorMessageDialog.showMessage(null, SOMETHING_FISHY_LAF,
-					ERROR_TITLE, cnfe.getStackTrace().toString());
+					ERROR_TITLE, cnfe.getStackTrace());
 		} catch (InstantiationException ie) {
 			ErrorMessageDialog.showMessage(null, SOMETHING_FISHY_LAF,
-					ERROR_TITLE, ie.getStackTrace().toString());
+					ERROR_TITLE, ie.getStackTrace());
 		} catch (IllegalAccessException iae) {
 			ErrorMessageDialog.showMessage(null, SOMETHING_FISHY_LAF,
-					ERROR_TITLE, iae.getStackTrace().toString());
+					ERROR_TITLE, iae.getStackTrace());
 		} catch (UnsupportedLookAndFeelException ulafe) {
 			ErrorMessageDialog.showMessage(null, SOMETHING_FISHY_LAF,
-					ERROR_TITLE, ulafe.getStackTrace().toString());
+					ERROR_TITLE, ulafe.getStackTrace());
 		}
 		
 		initialiseSizes();
@@ -146,13 +146,13 @@ public class StartScreen extends JFrame {
 
 		} catch (OperationNotSupportedException onse) {
 			ErrorMessageDialog.showMessage(null, onse.getMessage(),
-					ERROR_TITLE, onse.getStackTrace().toString());
+					ERROR_TITLE, onse.getStackTrace());
 		} catch (IOException ioe) {
 			ErrorMessageDialog.showMessage(null, ioe.getMessage(), ERROR_TITLE,
-					ioe.getStackTrace().toString());
+					ioe.getStackTrace());
 		} catch (FontFormatException ffe) {
 			ErrorMessageDialog.showMessage(null, ffe.getMessage(), ERROR_TITLE,
-					ffe.getStackTrace().toString());
+					ffe.getStackTrace());
 		}
 		photoAlbums.setPreferredSize(subSystemSize);
 		return photoAlbums;
@@ -179,13 +179,13 @@ public class StartScreen extends JFrame {
 
 		} catch (OperationNotSupportedException onse) {
 			ErrorMessageDialog.showMessage(null, onse.getMessage(),
-					ERROR_TITLE, onse.getStackTrace().toString());
+					ERROR_TITLE, onse.getStackTrace());
 		} catch (IOException ioe) {
 			ErrorMessageDialog.showMessage(null, ioe.getMessage(), ERROR_TITLE,
-					ioe.getStackTrace().toString());
+					ioe.getStackTrace());
 		} catch (FontFormatException ffe) {
 			ErrorMessageDialog.showMessage(null, ffe.getMessage(), ERROR_TITLE,
-					ffe.getStackTrace().toString());
+					ffe.getStackTrace());
 		}
 		return photoBoxes;
 	}
