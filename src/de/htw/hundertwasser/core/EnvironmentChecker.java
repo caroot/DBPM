@@ -2,7 +2,7 @@ package de.htw.hundertwasser.core;
 
 import java.util.Set;
 
-/*
+/**
  * Class that checks the Environment
  * @autor fabian hewer 
  */
@@ -12,7 +12,7 @@ public class EnvironmentChecker {
 	private static String OSNAME = "Windows";
 	private static String JAVAVERSION = "1.6";
 
-	/*
+	/**
 	 * Check what Java Runtime it is
 	 * @return Java Runtime Version
 	 */
@@ -20,7 +20,7 @@ public class EnvironmentChecker {
 		return System.getProperty("java.runtime.version");
 	}
 
-	/*
+	/**
 	 * Check what Operating System it is
 	 * @return OperatingSystemName
 	 */
@@ -28,7 +28,7 @@ public class EnvironmentChecker {
 		return System.getProperty("os.name");
 	}
 
-	/*
+	/**
 	 * Check what Version the Operating System it is
 	 * @return OperatingSystemVersion
 	 */
@@ -36,7 +36,7 @@ public class EnvironmentChecker {
 		return System.getProperty("os.version");
 	}
 
-	/*
+	/**
 	 * Check what architecture the Operating System is
 	 * @return OperatingSystemArchitectureVersion
 	 */
@@ -44,7 +44,7 @@ public class EnvironmentChecker {
 		return System.getProperty("os.arch");
 	}
 
-	/*
+	/**
 	 * Check if the Environment contains WINDOWS
 	 * @return true if the OS contains WINDOWS, otherwise false
 	 */
@@ -57,7 +57,7 @@ public class EnvironmentChecker {
 		return false;
 	}
 
-	/*
+	/**
 	 * Function that checks if the CurrentOS contains WINDOWS
 	 * @return OperatingSystemName
 	 */
@@ -65,7 +65,7 @@ public class EnvironmentChecker {
 		return (getCurrentOS().contains(OSNAME));
 	}
 
-	/*
+	/**
 	 * Check the RuntimeEnvironment
 	 * @return JavaRuntimeVersion
 	 */
@@ -73,7 +73,7 @@ public class EnvironmentChecker {
 		return (getJavaRuntimeVersion().contains(JAVAVERSION));
 	}
 
-	/*
+	/**
 	 * Check the PropertiesKeySet
 	 * @return KeySet
 	 */
@@ -81,7 +81,7 @@ public class EnvironmentChecker {
 		return System.getProperties().keySet();
 	}
 
-	/*
+	/**
 	 * Check the Property
 	 * @return Property
 	 */
