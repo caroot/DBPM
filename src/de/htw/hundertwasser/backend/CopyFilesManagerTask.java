@@ -19,6 +19,46 @@ import javax.swing.SwingWorker;
  */
 public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 	  
+		/**
+		 * Maximalanzahl an Dateien
+		 */
+		private int maxfiles=0;
+		/**
+		 * DateiListe
+		 */
+		private File[] filelist=null;
+		/**
+		 * DateiPfad
+		 */
+		private String targetPath="";
+		/**
+		 * Determine if the PhotoBox should be created or not.
+		 */
+		private boolean bCreatePhotoBox=false;
+		/**
+		 * Determine if a completeFilelist should be copied to the targetPath or not.
+		 */
+		private boolean bCopyFileList = false;
+		
+		
+	  public void setCopyFiles(File[] fileslist,String targetPath) throws IllegalArgumentException
+	  {
+		  if (fileslist ==null) throw new IllegalArgumentException("Filelist can't be null.");
+		  if (targetPath == null) throw new IllegalArgumentException("TargetPath can't be null.");
+		  if (targetPath.trim().isEmpty()) throw new IllegalArgumentException("TargetPath can't be empty.");
+		  
+		  maxfiles=fileslist.length;
+		  
+	  }
+	  
+	
+	  
+	  public void setCopyFiles(File file,String targetPath) throws IllegalArgumentException
+	  {
+		  
+	  }
+	  
+	
 	  private boolean moveFile(File source,String target)
 	  {
 		  File tempfile = new File(target);
