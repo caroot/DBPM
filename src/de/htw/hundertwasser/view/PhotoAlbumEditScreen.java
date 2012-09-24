@@ -41,6 +41,7 @@ public class PhotoAlbumEditScreen extends EditScreen {
 		mover.setBackground(Color.WHITE);
 		centralPanel.add(mover, BorderLayout.NORTH);
 
+		navigationBar.selectPhotoAlbumElement(photoalbum.getName());
 		setState(Frame.MAXIMIZED_BOTH);
 	}
 

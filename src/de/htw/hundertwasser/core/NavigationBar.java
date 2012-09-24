@@ -7,9 +7,6 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.HierarchyEvent;
-import java.awt.event.HierarchyListener;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -68,6 +65,7 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 	private ArrayList<NavBarPhotoBoxObserver> observerList;
 
 	private PhotoBox photobox;
+	private PhotoAlbum photoalbum;
 
 	/**
 	 * Constructor
@@ -86,7 +84,7 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 		jtreePhotoAlbum.addTreeSelectionListener(AlbumSelectionListener);
 
 		jtreePhotoBox.getModel().addTreeModelListener(boxListener);
-		
+
 		observerList = new ArrayList<NavBarPhotoBoxObserver>();
 
 		albumRoot = new DefaultMutableTreeNode("your photoalbums");
@@ -183,7 +181,7 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 
 	ActionListener btnAlbumListener = new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
-
+			addPhotoAlbum();
 		}
 	};
 
@@ -209,32 +207,32 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 
 		}
 	};
-	
+
 	TreeModelListener boxListener = new TreeModelListener() {
-		
+
 		@Override
 		public void treeStructureChanged(TreeModelEvent e) {
 			jtreePhotoBox.revalidate();
-			
+
 		}
-		
+
 		@Override
 		public void treeNodesRemoved(TreeModelEvent e) {
 			jtreePhotoBox.revalidate();
-			
+
 		}
-		
+
 		@Override
 		public void treeNodesInserted(TreeModelEvent e) {
 			jtreePhotoBox.revalidate();
-			
+
 		}
-		
+
 		@Override
 		public void treeNodesChanged(TreeModelEvent e) {
 			jtreePhotoBox.revalidate();
 			jtreePhotoBox.repaint();
-			
+
 		}
 	};
 
@@ -270,18 +268,36 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 
 	}
 
+	/**
+	 * 
+	 */
 	public void addPhotoBox() {
 		// System.out.println(ElementStorage.getBoxList().toString());
-		String Name = JOptionPane.showInputDialog(null, NAME, "rename",
+		String name = JOptionPane.showInputDialog(null, NAME, "Name the box",
 				JOptionPane.QUESTION_MESSAGE);
 
 		photobox = new PhotoBox(DialogHandler.chooseSource());
-		photobox.setName(Name);
+		photobox.setName(name);
 		ElementStorage.addPhotoBox(photobox);
-		
-		 boxRoot.removeAllChildren();
-		 fillTreePhotoBox();
+
+		boxRoot.removeAllChildren();
+		fillTreePhotoBox();
 		// System.out.println(ElementStorage.getBoxList().toString());
+	}
+
+	/**
+	 * 
+	 */
+	public void addPhotoAlbum() {
+		String name = JOptionPane.showInputDialog(null, NAME, "Name the album",
+				JOptionPane.QUESTION_MESSAGE);
+
+		photoalbum = new PhotoAlbum(DialogHandler.chooseSource());
+		photoalbum.setName(name);
+		ElementStorage.addPhotoAlbum(photoalbum);
+
+		albumRoot.removeAllChildren();
+		fillTreePhotoAlbum();
 	}
 
 	@Override
