@@ -28,7 +28,7 @@ public class FolderManager {
 	private static final String ERROR_NULL_PATH = "The path can't be null.";
 	
 	private static final String DPBM_WORKINGDIRECTORY="Dunkelbunt-PhotoManager"+File.separatorChar;
-	
+
 	public FolderManager()
 	{
 		environmentChecker = new EnvironmentChecker();
@@ -40,7 +40,13 @@ public class FolderManager {
 	 */
 	public String getApplicationPath()
 	{
-		return System.getenv("APPDATA");
+		String pathname = System.getenv("APPDATA");
+		if (pathname==null  || pathname.trim().isEmpty())
+		{
+			pathname = System.getProperty("user.home");
+		}
+				
+		return pathname;
 	}
 	
 	/**
@@ -80,6 +86,10 @@ public class FolderManager {
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append(getApplicationPath());
+		if (!sb.toString().endsWith(String.valueOf(File.separatorChar)))
+		{
+			sb.append(File.separatorChar);
+		}
 		sb.append(DPBM_WORKINGDIRECTORY);
 		if (!isFolderExists(sb.toString()))
 		{
@@ -106,7 +116,7 @@ public class FolderManager {
 	 * @param path
 	 * @return 
 	 */
-	private boolean createDirectories(String path) throws IllegalArgumentException
+	protected boolean createDirectories(String path) throws IllegalArgumentException
 	{
 		checkPath(path);
 		File directory = new File(path);

@@ -19,16 +19,22 @@ import javax.swing.SwingWorker;
  */
 public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 	  
+		private static final String ERROR_TARGET_PATH_EMPTY = "TargetPath can't be empty.";
+		private static final String ERROR_TARGET_PATH_NULL = "TargetPath can't be null.";
 		/**
-		 * Maximalanzahl an Dateien
+		 * Internal used FolderManager
+		 */
+		private FolderManager folderManager = new FolderManager();
+		/**
+		 * Maximum amount of files
 		 */
 		private int maxfiles=0;
 		/**
-		 * DateiListe
+		 * List of files
 		 */
-		private File[] filelist=null;
+		private File[] fileList=null;
 		/**
-		 * DateiPfad
+		 * Path to the files
 		 */
 		private String targetPath="";
 		/**
@@ -40,21 +46,62 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 		 */
 		private boolean bCopyFileList = false;
 		
+	/**
+	 * Constructor copy files from source to targetPath
+	 * @param fileList List of files
+	 * @param targetPath Path where the files should be copied
+	 * @throws IllegalArgumentException if the filelist is empty or null. And it will be thrown if the targetPath is empty or null.
+	 */
+	public CopyFilesManagerTask(File[] fileList,String targetPath) throws IllegalArgumentException
+	{
+		copyFiles(fileList,targetPath);
+	}
+	/**
+	 * Constructor copy files from source to targetpath
+	 * @param file list of files
+	 * @param targetPath Path where the files should be copied
+	 * @throws IllegalArgumentException if the file is null. And it will be thrown if the targetPath is empty or null.
+	 */
+	public CopyFilesManagerTask(File file,String targetPath) throws IllegalArgumentException
+	{
+		copyFiles(file,targetPath);
+	}
 		
-	  public void setCopyFiles(File[] fileslist,String targetPath) throws IllegalArgumentException
+		
+	  private void copyFiles(File[] fileslist,String targetPath) throws IllegalArgumentException
 	  {
 		  if (fileslist ==null) throw new IllegalArgumentException("Filelist can't be null.");
-		  if (targetPath == null) throw new IllegalArgumentException("TargetPath can't be null.");
-		  if (targetPath.trim().isEmpty()) throw new IllegalArgumentException("TargetPath can't be empty.");
-		  
+		  checkTargetFile(targetPath);
+		  this.fileList=fileList;
+		  bCopyFileList=true;
 		  maxfiles=fileslist.length;
-		  
 	  }
 	  
-	
-	  
-	  public void setCopyFiles(File file,String targetPath) throws IllegalArgumentException
+	  /**
+	   * Try to determine if the targetPath is valid, and if this path exists
+	   * @param targetPath
+	   */
+	  private void checkTargetFile(String targetPath)
 	  {
+		  if (targetPath == null) throw new IllegalArgumentException(ERROR_TARGET_PATH_NULL);
+		  if (targetPath.trim().isEmpty()) throw new IllegalArgumentException(ERROR_TARGET_PATH_EMPTY);
+		  File targetFile = new File(targetPath);
+		  if (targetFile.exists())
+		  {
+			  bCreatePhotoBox=false;
+		  }
+		  else
+		  {
+			  bCreatePhotoBox=true;
+		  }
+	  }
+	  
+	  private void copyFiles(File file,String targetPath) throws IllegalArgumentException
+	  {
+		  checkTargetFile(targetPath);
+		  if (file == null) throw new IllegalArgumentException("File can't be null.");
+		  maxfiles=1;
+		  bCopyFileList=false;
 		  
 	  }
 	  
@@ -113,15 +160,21 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
       public Void doInBackground() {
           Random random = new Random();
           int progress = 0;
+          int i = 0;
           setProgress(0);
           try {
               Thread.sleep(150);
               while (progress < 100 && !isCancelled()) {
+            	 if (bCreatePhotoBox) folderManager.createDirectories(targetPath);
+            	  if (bCopyFileList)
+            	  {
+            		  
+            	  }
                   //Sleep for up to one second.
-                  Thread.sleep(random.nextInt(1000));
+            	  //Thread.sleep(random.nextInt(1000));
                   //Make random progress.
-                  progress += random.nextInt(10);
-                  setProgress(Math.min(progress, 100));
+                  progress = ((100*i)/maxfiles);
+                  setProgress(progress);
               }
           } catch (InterruptedException ignore) {}
           return null;
