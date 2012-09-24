@@ -18,12 +18,14 @@ import javax.swing.JTree;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import de.htw.hundertwasser.backend.ElementStorage;
-import de.htw.hundertwasser.model.NavBarPhotoAlbumModel;
-import de.htw.hundertwasser.model.NavBarPhotoBoxModel;
+import de.htw.hundertwasser.core.interfaces.NavBarPhotoBoxObserable;
+import de.htw.hundertwasser.core.interfaces.NavBarPhotoBoxObserver;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 /**
@@ -36,17 +38,16 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
  * 
  */
 
-public class NavigationBar extends JPanel {
+public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private NavBarPhotoAlbumModel modelPhotoAlbum;
-	private NavBarPhotoAlbumRenderer rendererPhotoAlbum;
-
-	private NavBarPhotoBoxModel modelPhotoBox;
-	private NavBarPhotoBoxRenderer rendererPhotoBox;
+	// private NavBarPhotoAlbumModel modelPhotoAlbum;
+	// private NavBarPhotoAlbumRenderer rendererPhotoAlbum;
+	// private NavBarPhotoBoxModel modelPhotoBox;
+	// private NavBarPhotoBoxRenderer rendererPhotoBox;
 	private JTree jtreePhotoAlbum;
 
 	private JScrollPane scrlPhotoAlben;
@@ -55,8 +56,9 @@ public class NavigationBar extends JPanel {
 	private Font font;
 	private DefaultMutableTreeNode boxRoot;
 	private DefaultMutableTreeNode albumRoot;
+	private ArrayList<NavBarPhotoBoxObserver> observerList;
 
-//	private ArrayList<String> test;
+	// private ArrayList<String> test;
 
 	/**
 	 * Constructor
@@ -65,13 +67,15 @@ public class NavigationBar extends JPanel {
 
 		jtreePhotoAlbum = new JTree();
 		jtreePhotoBox = new JTree();
+		jtreePhotoBox.addTreeSelectionListener(BoxSelectionListener);
+
 		scrlPhotoAlben = new JScrollPane();
 		scrlPhotoBoxes = new JScrollPane();
 
-		modelPhotoAlbum = new NavBarPhotoAlbumModel();
-		rendererPhotoAlbum = new NavBarPhotoAlbumRenderer();
-		modelPhotoBox = new NavBarPhotoBoxModel();
-		rendererPhotoBox = new NavBarPhotoBoxRenderer();
+		// modelPhotoAlbum = new NavBarPhotoAlbumModel();
+		// rendererPhotoAlbum = new NavBarPhotoAlbumRenderer();
+		// modelPhotoBox = new NavBarPhotoBoxModel();
+		// rendererPhotoBox = new NavBarPhotoBoxRenderer();
 
 		// jtreePhotoAlbum.setModel(modelPhotoAlbum);
 		// jtreePhotoAlbum.setCellRenderer(rendererPhotoAlbum);
@@ -80,22 +84,22 @@ public class NavigationBar extends JPanel {
 		// jtreePhotoBox.setModel(modelPhotoBox);
 		// jtreePhotoBox.setCellRenderer(rendererPhotoBox);
 		// modelPhotoBox.addTreeModelListener(getPhotoBoxListener());
-		
-		
-	
-		albumRoot=new DefaultMutableTreeNode("your photoalbums");
+
+		observerList = new ArrayList<NavBarPhotoBoxObserver>();
+
+		albumRoot = new DefaultMutableTreeNode("your photoalbums");
 		jtreePhotoAlbum.setModel(new DefaultTreeModel(albumRoot));
+		// fillTreePhotoAlbum();
 
-
-		boxRoot=new DefaultMutableTreeNode("your photoboxes");
+		boxRoot = new DefaultMutableTreeNode("your photoboxes");
 		jtreePhotoBox.setModel(new DefaultTreeModel(boxRoot));
+		fillTreePhotoBox();
 
-		
-//		test = new ArrayList<String>();
-//		fillArrayList();
-//		fillTreePhotoBox(test);
-//		fillTreePhotoAlbum(test);
-		
+		// test = new ArrayList<String>();
+		// fillArrayList();
+		// fillTreePhotoBox(test);
+		// fillTreePhotoAlbum(test);
+
 		setBackground(Color.WHITE);
 		setLayout(null);
 		setPreferredSize(new Dimension(150, 803));
@@ -167,16 +171,6 @@ public class NavigationBar extends JPanel {
 	}
 
 	/**
-	* 
- 	*/
-	private void fillPhotoAlbumTest() {
-		for (int i = 0; i < 3; i++) {
-			PhotoAlbum album = new PhotoAlbum("Mein " + i + ".tes PhotoAlbum");
-			modelPhotoAlbum.addPhotoAlbum(album);
-		}
-	}
-
-	/**
 	 * 
 	 * 
 	 */
@@ -192,6 +186,30 @@ public class NavigationBar extends JPanel {
 	ActionListener btnAlbumListener = new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 
+		}
+	};
+
+	TreeSelectionListener BoxSelectionListener = new TreeSelectionListener() {
+		public void valueChanged(TreeSelectionEvent tse) {
+
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode) jtreePhotoBox
+					.getLastSelectedPathComponent();
+
+			System.out.print(node.getUserObject().toString());
+			sendMessage(ElementStorage.getPhotoBox(node.getUserObject()
+					.toString()));
+		}
+	};
+
+
+	TreeSelectionListener AlbumSelectionListener = new TreeSelectionListener() {
+		public void valueChanged(TreeSelectionEvent tse) {
+
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode) jtreePhotoAlbum
+					.getLastSelectedPathComponent();
+
+//			TODO sendMessage(photoalbum) to editscreen
+			
 		}
 	};
 
@@ -258,34 +276,65 @@ public class NavigationBar extends JPanel {
 		};
 	}
 
+	/**
+	 * 
+	 */
 	public void fillTreePhotoBox() {
 
-		ArrayList<PhotoBox> photobox=ElementStorage.getBoxList();
-		for (int i = 0; i < photobox.size(); i++) {
-			boxRoot.add(new DefaultMutableTreeNode(photobox.get(i)));
-//			System.out.println(test.get(i));
+		ArrayList<PhotoBox> photobox = ElementStorage.getBoxList();
+		if (photobox != null) {
+			for (int i = 0; i < photobox.size(); i++) {
+				boxRoot.add(new DefaultMutableTreeNode(photobox.get(i)
+						.getName()));
+				// System.out.println(test.get(i));
+			}
 		}
 
 	}
 
-	
-	public void fillTreePhotoAlbum(){
-		
+	/**
+	 * 
+	 */
+	public void fillTreePhotoAlbum() {
+
 		ArrayList<PhotoAlbum> photoalbum = ElementStorage.getAlbumList();
-		for (int i = 0; i < photoalbum.size(); i++) {
-			albumRoot.add(new DefaultMutableTreeNode(photoalbum.get(i)));
-//			System.out.println(test.get(i));
+		if (photoalbum != null) {
+			for (int i = 0; i < photoalbum.size(); i++) {
+				albumRoot.add(new DefaultMutableTreeNode(photoalbum.get(i)));
+				// System.out.println(test.get(i));
+			}
 		}
+
 	}
-	
-	
-//	private void fillArrayList() {
-//
-//		for (int j = 0; j < 10; j++) {
-//
-//			test.add("Test " + j);
-//			System.out.println(test.get(j));
-//		}
-//	}
-	
+
+	@Override
+	public void addNavBarPhotoBoxObserver(NavBarPhotoBoxObserver observer) {
+		// TODO Auto-generated method stub
+		observerList.add(observer);
+
+	}
+
+	@Override
+	public void removeNavBarPhotoBoxObserver(NavBarPhotoBoxObserver observer) {
+		// TODO Auto-generated method stub
+		observerList.remove(observer);
+	}
+
+	@Override
+	public void sendMessage(PhotoBox photoBox) {
+		// TODO Auto-generated method stub
+		for (NavBarPhotoBoxObserver observer : observerList) {
+			observer.receivePhotoBox(photoBox);
+		}
+
+		// private void fillArrayList() {
+		//
+		// for (int j = 0; j < 10; j++) {
+		//
+		// test.add("Test " + j);
+		// System.out.println(test.get(j));
+		// }
+		// }
+
+	}
 }
