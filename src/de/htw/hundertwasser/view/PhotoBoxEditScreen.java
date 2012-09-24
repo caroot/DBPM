@@ -7,15 +7,12 @@ import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import javax.crypto.spec.IvParameterSpec;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import de.htw.hundertwasser.backend.ImageManager;
 import de.htw.hundertwasser.core.ImageViewer;
 import de.htw.hundertwasser.core.Photo;
 import de.htw.hundertwasser.core.PhotoBox;
-import de.htw.hundertwasser.core.interfaces.ThumbNailBarObserver;
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
 
 /**
@@ -57,6 +54,7 @@ public class PhotoBoxEditScreen extends EditScreen {
 		thumbnailBar.addThumbNailBarObserver(imgViewer);
 		thumbnailBar.addThumbNailBarObserver(infoBar);
 		thumbnailBar.addThumbNailBarObserver(toolBar);
+		navigationBar.addNavBarPhotoBoxObserver(thumbnailBar);
 		// imgPanel.add(imgViewer,BorderLayout.CENTER);
 
 	}

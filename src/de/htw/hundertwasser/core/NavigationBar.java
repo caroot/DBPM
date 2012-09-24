@@ -89,7 +89,7 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 
 		albumRoot = new DefaultMutableTreeNode("your photoalbums");
 		jtreePhotoAlbum.setModel(new DefaultTreeModel(albumRoot));
-		// fillTreePhotoAlbum();
+		 fillTreePhotoAlbum();
 
 		boxRoot = new DefaultMutableTreeNode("your photoboxes");
 		jtreePhotoBox.setModel(new DefaultTreeModel(boxRoot));
@@ -300,7 +300,7 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 		ArrayList<PhotoAlbum> photoalbum = ElementStorage.getAlbumList();
 		if (photoalbum != null) {
 			for (int i = 0; i < photoalbum.size(); i++) {
-				albumRoot.add(new DefaultMutableTreeNode(photoalbum.get(i)));
+				albumRoot.add(new DefaultMutableTreeNode(photoalbum.get(i).getName()));
 				// System.out.println(test.get(i));
 			}
 		}
