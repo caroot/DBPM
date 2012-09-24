@@ -35,11 +35,11 @@ public class ImportStatusBar extends JDialog implements PropertyChangeListener,P
 	/**
 	 * Current width
 	 */
-	private static int WIDTH = 400;
+	public static int WIDTH = 400;
 	/**
 	 * Current height
 	 */
-	private static int HEIGHT = 300;
+	public static int HEIGHT = 300;
 	/**
 	 * Current BackgroundColor
 	 */
@@ -82,9 +82,12 @@ public class ImportStatusBar extends JDialog implements PropertyChangeListener,P
 		contentPane.add(lblstatus);
 		contentPane.add(progressbar);
 		layout.putConstraint(SpringLayout.NORTH, lblstatus, 10,SpringLayout.NORTH,contentPane);
-		layout.putConstraint(SpringLayout.NORTH, lblstatus, 10,SpringLayout.NORTH,contentPane);
-		layout.putConstraint(SpringLayout.NORTH, lblstatus, 10,SpringLayout.NORTH,contentPane);
-		layout.putConstraint(SpringLayout.NORTH, lblstatus, 10,SpringLayout.NORTH,contentPane);
+		layout.putConstraint(SpringLayout.EAST, lblstatus, 10,SpringLayout.EAST,contentPane);
+		layout.putConstraint(SpringLayout.WEST, lblstatus, 10,SpringLayout.WEST,contentPane);
+		layout.putConstraint(SpringLayout.SOUTH, lblstatus, 10,SpringLayout.NORTH,progressbar);
+		layout.putConstraint(SpringLayout.EAST, progressbar, 10,SpringLayout.EAST,contentPane);
+		layout.putConstraint(SpringLayout.WEST, progressbar, 10,SpringLayout.WEST,contentPane);
+		layout.putConstraint(SpringLayout.SOUTH, progressbar, 10,SpringLayout.SOUTH,contentPane);
 		
 	}
 

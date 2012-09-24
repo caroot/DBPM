@@ -1,5 +1,6 @@
 package de.htw.hundertwasser.backend;
 
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;
@@ -195,27 +196,50 @@ public class FolderManager {
 	 * @throws FileNotFoundException  Occurs if the pathToFile doesn't exists
 	 * @throws ChoosenFileNotAFolderException  Occurs if the Path to File is not a folder
 	 * @throws IllegalArgumentException Occurs if one of the parameter is emtpy or null.
+	 * @throws CantCreateDirectoryException 
 	 */
-	public PhotoBox importPhotoBox(String name,String pathtoFile) throws FileNotFoundException, IllegalArgumentException, ChoosenFileNotAFolderException 
+	public PhotoBox importPhotoBox(String name,String pathtoFile) throws FileNotFoundException, IllegalArgumentException, ChoosenFileNotAFolderException, CantCreateDirectoryException 
 	{
 		ImageManager imageManager = new ImageManager();
-		FolderManager folderManager = new FolderManager();
+		
 		ImportStatusBar importStatusBar = new ImportStatusBar();
+		
 		File[] fileList = null;
 		checkPath(pathtoFile);
 		if (name.trim().isEmpty()) throw new IllegalArgumentException(ERROR_NAME_EMPTY);
 		if (name==null) throw new IllegalArgumentException(ERROR_NAME_NULL);
 		File file = new File(pathtoFile);
+		
+		//Initialise importstatusbar
+		{
+		importStatusBar.setLocation(
+				(Toolkit.getDefaultToolkit().getScreenSize().width-importStatusBar.WIDTH) / 2,
+				(Toolkit.getDefaultToolkit().getScreenSize().height-importStatusBar.HEIGHT) / 2
+				);
+		importStatusBar.setUndecorated(true);
+		importStatusBar.setAlwaysOnTop(true);
+		importStatusBar.setTitle("Import PhotoBox");
+		}
+		
 		if (file.exists())
 		{
 			if (file.isDirectory())
 			{
 				fileList = imageManager.getImagesListInFolder(pathtoFile);
-				
+				CopyFilesManagerTask task = new CopyFilesManagerTask(fileList,getWorkingDirectory()+name);
+				importStatusBar.setVisible(true);
+				task.addEventListener(importStatusBar);
+				task.addPropertyChangeListener(importStatusBar);
+				task.execute();
 			}
 			else
 			{
-				
+				File sourceFile = new File(pathtoFile);
+				CopyFilesManagerTask task = new CopyFilesManagerTask(sourceFile, getWorkingDirectory()+name);
+				importStatusBar.setVisible(true);
+				task.addEventListener(importStatusBar);
+				task.addPropertyChangeListener(importStatusBar);
+				task.execute();
 			}
 		}
 		else

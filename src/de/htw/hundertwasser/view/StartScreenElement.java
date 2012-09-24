@@ -22,6 +22,7 @@ import de.htw.hundertwasser.backend.FolderManager;
 import de.htw.hundertwasser.core.DialogHandler;
 import de.htw.hundertwasser.core.PhotoAlbum;
 import de.htw.hundertwasser.core.PhotoBox;
+import de.htw.hundertwasser.custom.error.CantCreateDirectoryException;
 import de.htw.hundertwasser.custom.error.ChoosenFileNotAFolderException;
 import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
@@ -182,12 +183,13 @@ public class StartScreenElement extends JPanel {
 //				} catch (InterruptedException ie) {
 //					ErrorMessageDialog.showMessage(null, ie.getMessage(), ERROR_TITLE, ie.getStackTrace().toString());
 				} catch (IllegalArgumentException e1) {
-					// TODO Auto-generated catch block
 					ErrorMessageDialog.showMessage(null, e1.getMessage(), ERROR_TITLE, e1.getStackTrace());
-
 					e1.printStackTrace();
 				} catch (ChoosenFileNotAFolderException e1) {
 					// TODO Auto-generated catch block
+					ErrorMessageDialog.showMessage(null, e1.getMessage(), ERROR_TITLE, e1.getStackTrace());
+					e1.printStackTrace();
+				} catch (CantCreateDirectoryException e1) {
 					ErrorMessageDialog.showMessage(null, e1.getMessage(), ERROR_TITLE, e1.getStackTrace());
 					e1.printStackTrace();
 				}

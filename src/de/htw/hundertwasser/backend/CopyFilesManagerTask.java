@@ -100,6 +100,7 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 		  this.fileList=fileslist;
 		  bCopyFileList=true;
 		  maxfiles=fileslist.length;
+		  this.targetPath = targetPath;
 	  }
 	  
 	  /**
@@ -128,7 +129,7 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 		  this.file = file;
 		  maxfiles=1;
 		  bCopyFileList=false;
-		  
+		  this.targetPath = targetPath;
 	  }
 	  
 	  /**
@@ -252,17 +253,18 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
                  }
             	  if (bCopyFileList)
             	  {
-            		 copyFile(fileList[i], targetPath+fileList[i].getName()); 
+            		 copyFile(fileList[i], targetPath+File.separatorChar+fileList[i].getName()); 
             	  }
             	  else
             	  {
-            		  copyFile(file,targetPath+fileList[i].getName());
+            		  copyFile(file,targetPath+File.separatorChar+fileList[i].getName());
             	  }
                   //Sleep for up to one second.
             	  //Thread.sleep(random.nextInt(1000));
                   //Make random progress.
                   progress = ((100*i)/maxfiles);
                   setProgress(progress);
+                  i++;
               }
           } catch (InterruptedException ignore) {} 
           catch (IllegalArgumentException e) {
