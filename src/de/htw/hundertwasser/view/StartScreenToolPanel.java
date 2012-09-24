@@ -122,13 +122,13 @@ public class StartScreenToolPanel extends JPanel {
 			deleteButton.addActionListener(deleteListen);
 			
 		} catch (IOException ioe) {
-			ErrorMessageDialog.showMessage(null, NO_ICON, ERROR_TITLE, ioe.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(null, NO_ICON, ERROR_TITLE, ioe.getStackTrace());
 			ioe.printStackTrace();
 		} catch (FontFormatException ffe) {
-			ErrorMessageDialog.showMessage(null, NO_FONT, ERROR_TITLE, ffe.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(null, NO_FONT, ERROR_TITLE, ffe.getStackTrace());
 			ffe.printStackTrace();
 		} catch (OperationNotSupportedException onse) {
-			ErrorMessageDialog.showMessage(null, SOMETHING_FISHY, ERROR_TITLE, onse.getStackTrace().toString());
+			ErrorMessageDialog.showMessage(null, SOMETHING_FISHY, ERROR_TITLE, onse.getStackTrace());
 			onse.printStackTrace();
 		}
 	}
