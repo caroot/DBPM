@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
@@ -315,33 +316,14 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				try {
-
-					if (inPhotoBox == true) {
-						PhotoBoxFullScreen pbfs = new PhotoBoxFullScreen(
-								photo.getImage());
-					} else {
-						PhotoAlbumFullScreen pafs;
-
-						pafs = new PhotoAlbumFullScreen(photo.getImage());
-						// pafs.add(getParent());
-						pafs.repaint();
-					}
-				} catch (FileNotFoundException e1) {
-					ErrorMessageDialog.showMessage(getComponent(), e1
-							.getLocalizedMessage(), "Error", e1.getStackTrace()
-							.toString());
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					ErrorMessageDialog.showMessage(getComponent(), e1
-							.getLocalizedMessage(), "Error", e1.getStackTrace()
-							.toString());
-					e1.printStackTrace();
-				} catch (InsufficientPrivilegesException e1) {
-					ErrorMessageDialog.showMessage(getComponent(), e1
-							.getLocalizedMessage(), "Error", e1.getStackTrace()
-							.toString());
-					e1.printStackTrace();
+				if (inPhotoBox == true) {
+					PhotoBoxFullScreen pbfs = new PhotoBoxFullScreen((BufferedImage) editScreen.getImgViewer().getImage());
+				} else {
+					PhotoAlbumFullScreen pafs;
+					pafs = new PhotoAlbumFullScreen((BufferedImage) editScreen.getImgViewer().getImage());
+//					pafs = new PhotoAlbumFullScreen(photo.getImage());
+					// pafs.add(getParent());
+					pafs.repaint();
 				}
 
 			}
