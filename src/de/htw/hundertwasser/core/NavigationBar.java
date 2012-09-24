@@ -5,21 +5,21 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.naming.OperationNotSupportedException;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
-import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 import de.htw.hundertwasser.model.NavBarPhotoAlbumModel;
 import de.htw.hundertwasser.model.NavBarPhotoBoxModel;
@@ -37,11 +37,13 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
 
 public class NavigationBar extends JPanel {
 
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private NavBarPhotoAlbumModel modelPhotoAlbum;
 	private NavBarPhotoAlbumRenderer rendererPhotoAlbum;
-	
+
 	private NavBarPhotoBoxModel modelPhotoBox;
 	private NavBarPhotoBoxRenderer rendererPhotoBox;
 	private JTree jtreePhotoAlbum;
@@ -50,6 +52,10 @@ public class NavigationBar extends JPanel {
 	private JScrollPane scrlPhotoBoxes;
 	private JTree jtreePhotoBox;
 	private Font font;
+	private DefaultMutableTreeNode boxRoot;
+	private DefaultMutableTreeNode albumRoot;
+
+	private ArrayList<String> test;
 
 	/**
 	 * Constructor
@@ -65,18 +71,30 @@ public class NavigationBar extends JPanel {
 		rendererPhotoAlbum = new NavBarPhotoAlbumRenderer();
 		modelPhotoBox = new NavBarPhotoBoxModel();
 		rendererPhotoBox = new NavBarPhotoBoxRenderer();
-		
-		jtreePhotoAlbum.setModel(modelPhotoAlbum);
-		jtreePhotoAlbum.setCellRenderer(rendererPhotoAlbum);
-		modelPhotoAlbum.addTreeModelListener(getPhotoAlbumListener());
 
-		jtreePhotoBox.setModel(modelPhotoBox);
-		jtreePhotoBox.setCellRenderer(rendererPhotoBox);
-		modelPhotoBox.addTreeModelListener(getPhotoBoxListener());
+		// jtreePhotoAlbum.setModel(modelPhotoAlbum);
+		// jtreePhotoAlbum.setCellRenderer(rendererPhotoAlbum);
+		// modelPhotoAlbum.addTreeModelListener(getPhotoAlbumListener());
+		//
+		// jtreePhotoBox.setModel(modelPhotoBox);
+		// jtreePhotoBox.setCellRenderer(rendererPhotoBox);
+		// modelPhotoBox.addTreeModelListener(getPhotoBoxListener());
 		
 		
-		fillPhotoAlbumTest();
+	
+		albumRoot=new DefaultMutableTreeNode("your photoalbums");
+		jtreePhotoAlbum.setModel(new DefaultTreeModel(albumRoot));
 
+
+		boxRoot=new DefaultMutableTreeNode("your photoboxes");
+		jtreePhotoBox.setModel(new DefaultTreeModel(boxRoot));
+
+		
+		test = new ArrayList<String>();
+//		fillArrayList();
+//		fillTreePhotoBox(test);
+//		fillTreePhotoAlbum(test);
+		
 		setBackground(Color.WHITE);
 		setLayout(null);
 		setPreferredSize(new Dimension(150, 803));
@@ -148,7 +166,7 @@ public class NavigationBar extends JPanel {
 	}
 
 	/**
-	* Function to fill the PhotoAlbum
+	* 
  	*/
 	private void fillPhotoAlbumTest() {
 		for (int i = 0; i < 3; i++) {
@@ -158,7 +176,7 @@ public class NavigationBar extends JPanel {
 	}
 
 	/**
-	 * Function to set the Action performed
+	 * 
 	 * 
 	 */
 	ActionListener btnBoxListener = new ActionListener() {
@@ -167,7 +185,7 @@ public class NavigationBar extends JPanel {
 	};
 
 	/**
-	 * Function to set the Action performed
+	 * 
 	 */
 
 	ActionListener btnAlbumListener = new ActionListener() {
@@ -177,7 +195,7 @@ public class NavigationBar extends JPanel {
 	};
 
 	/**
-	 * Function to get the Tree
+	 * 
 	 * @return TreeModelListener
 	 */
 	private TreeModelListener getPhotoAlbumListener() {
@@ -208,9 +226,10 @@ public class NavigationBar extends JPanel {
 	}
 
 	/**
-	 * Function to get the PhotoBoxListener
-	 * @return photoBoxListener
+	 * 
+	 * @return
 	 */
+
 	private TreeModelListener getPhotoBoxListener() {
 		return new TreeModelListener() {
 
@@ -238,4 +257,32 @@ public class NavigationBar extends JPanel {
 		};
 	}
 
+	public void fillTreePhotoBox(ArrayList<String> photobox) {
+
+		for (int i = 0; i < photobox.size(); i++) {
+			boxRoot.add(new DefaultMutableTreeNode(photobox.get(i)));
+//			System.out.println(test.get(i));
+		}
+
+	}
+
+	
+	public void fillTreePhotoAlbum(ArrayList<String> photoalbum){
+		
+		for (int i = 0; i < photoalbum.size(); i++) {
+			albumRoot.add(new DefaultMutableTreeNode(photoalbum.get(i)));
+//			System.out.println(test.get(i));
+		}
+	}
+	
+	
+//	private void fillArrayList() {
+//
+//		for (int j = 0; j < 10; j++) {
+//
+//			test.add("Test " + j);
+//			System.out.println(test.get(j));
+//		}
+//	}
+	
 }

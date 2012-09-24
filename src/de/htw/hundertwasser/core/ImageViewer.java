@@ -166,4 +166,15 @@ public class ImageViewer extends JComponent implements MouseWheelListener,Compon
 		}
 		
 	}
+	
+	public Image getImage(){
+		
+		if (m_img == null){
+			
+		}
+		else {
+			return m_img;
+			}
+		return null;
+	}
 }
