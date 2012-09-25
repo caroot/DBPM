@@ -37,7 +37,7 @@ public class DialogHandler {
 	 * @return the chosen file or directory, or null, if canceled is pressed.
 	 */
 	public static String chooseSource() {
-		JFileChooser chooser = new JFileChooser();
+		JFileChooser chooser = new JFileChooser(System.getProperty("user.home"));
 		chooser.setDialogTitle("Choose Source");
 	    chooser.setFileFilter(de.htw.hundertwasser.backend.FileAcceptor.getFilter());
 	    chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);

@@ -65,16 +65,20 @@ public class StartScreen extends JFrame {
 	 */
 	public StartScreen() {
 		super(DBPM);
-		setBackground(Color.BLACK);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // If the close Button
-														// iss pressed, the
-														// programm terminates
-		setSize(screenSize); // Sets Size to maximum Screen Size
-		setExtendedState(MAXIMIZED_BOTH); // Window starts maximized
-		setLayout(new GridLayout(0, 1, 0, 1)); // No of columns, Rows,
-												// Gaps(columns), Gaps(row)
 		try {
+			initialiseSizes();
+			setBackground(Color.BLACK);
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // If the close Button
+															// iss pressed, the
+															// programm terminates
+			setSize(screenSize); // Sets Size to maximum Screen Size
+			setExtendedState(MAXIMIZED_BOTH); // Window starts maximized
+			setLayout(new GridLayout(0, 1, 0, 1)); // No of columns, Rows,
+												// Gaps(columns), Gaps(row)
 			setIconImage(RessourcenEnummeration.EICHHORN_ICON.getImage());
+			add(initialisePhotoBoxes());
+			add(initializePhotoAlbums());
+			setVisible(true);
 		} catch (IOException e) {
 			ErrorMessageDialog.showMessage(null, ICON_AWAY);
 			e.printStackTrace();
@@ -106,12 +110,7 @@ public class StartScreen extends JFrame {
 					ERROR_TITLE, ulafe.getStackTrace());
 		}
 		
-		initialiseSizes();
 		mainScreen = new StartScreen();
-		mainScreen.add(initialisePhotoBoxes());
-		mainScreen.add(initializePhotoAlbums());
-		loadPreInitialized();
-		mainScreen.setVisible(true);
 
 	}
 
