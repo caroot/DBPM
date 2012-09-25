@@ -61,7 +61,7 @@ public class StAXCompleteWriterTest {
 
 	private PhotoBox createPhotoBox(int anzPhotos)
 	{
-		PhotoBox photobox= new PhotoBox("asdasdsda");
+		PhotoBox photobox= new PhotoBox("asdasdsda","Test");
 		photobox.setName("MyPhotobox with" + anzPhotos);
 		for (int i=0;i<anzPhotos;i++)
 		{
@@ -75,7 +75,7 @@ public class StAXCompleteWriterTest {
 	
 	private PhotoAlbum createPhotoAlbum(int anzEntries)
 	{
-		PhotoAlbum photoAlbum = new PhotoAlbum();
+		PhotoAlbum photoAlbum = new PhotoAlbum("asdasdsda");
 		photoAlbum.setName("MyPhotoAlbum with" + anzEntries);
 		for (int i=0;i<anzEntries;i++)
 		{
@@ -96,10 +96,10 @@ public class StAXCompleteWriterTest {
 	public void setUp() throws Exception {
 		photoBox10 = createPhotoBox(10);
 		photoBox100 = createPhotoBox(100);
-		photoBox0 = new PhotoBox("asdasdsda");
+		photoBox0 = new PhotoBox("asdasdsda","dddd");
 		photoBox0.setName("MyPhotoBoxName");
 		
-		photoAlbum0 = new PhotoAlbum();
+		photoAlbum0 = new PhotoAlbum("fff");
 		photoAlbum0.setName("MyPhotoBoxName");
 		photoAlbum10 = createPhotoAlbum(10);
 		photoAlbum100 = createPhotoAlbum(100);
