@@ -232,7 +232,7 @@ public class FolderManager implements ProgressStatusEventListener,FolderManagerO
 		ArrayList<PhotoBox> arPhotoBox = new ArrayList<PhotoBox>();
 		for (File directory:directories)
 		{
-			PhotoBox newPhotoBox = new PhotoBox(directory.getAbsolutePath(),directory.getName());
+			PhotoBox newPhotoBox = createPhotoBox(directory.getAbsolutePath(),directory.getName());
 			arPhotoBox.add(newPhotoBox);
 		}
 		return arPhotoBox;
