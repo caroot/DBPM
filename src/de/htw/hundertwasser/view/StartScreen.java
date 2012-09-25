@@ -79,6 +79,9 @@ public class StartScreen extends JFrame {
 			add(initialisePhotoBoxes());
 			add(initializePhotoAlbums());
 			setVisible(true);
+			StartScreen.refreshAlbums();
+			StartScreen.refreshBoxes();
+			
 		} catch (IOException e) {
 			ErrorMessageDialog.showMessage(null, ICON_AWAY);
 			e.printStackTrace();

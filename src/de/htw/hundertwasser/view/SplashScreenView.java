@@ -219,6 +219,8 @@ public class SplashScreenView extends JFrame implements PropertyChangeListener,P
 	{
 		setVisible(false);		
 		StartScreen startScreen = new StartScreen();
+		StartScreen.refreshAlbums();
+		StartScreen.refreshBoxes();
 	}
 	
 	@Override
