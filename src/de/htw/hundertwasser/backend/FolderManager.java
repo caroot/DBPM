@@ -3,6 +3,7 @@ package de.htw.hundertwasser.backend;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,7 +34,13 @@ public class FolderManager {
 
 	private static final String DPBM_WORKINGDIRECTORY = "Dunkelbunt-PhotoManager"
 			+ File.separatorChar;
+	
+	private static final String DPBM_BINDIR = "bin"
+			+ File.separatorChar;
 
+	private static final String DPBM_PHOTOBOXDIR = "PhotoBox"
+			+ File.separatorChar;
+	
 	public FolderManager() {
 		environmentChecker = new EnvironmentChecker();
 
@@ -105,6 +112,27 @@ public class FolderManager {
 			return sb.toString();
 		}
 
+	}
+	
+	public String getPhotoBoxWorkingDirectory() throws CantCreateDirectoryException
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append(getWorkingDirectory());
+		sb.append(DPBM_PHOTOBOXDIR);
+		if (!sb.toString().endsWith(String.valueOf(File.separatorChar))) {
+			sb.append(File.separatorChar);
+		}
+		if (!isFolderExists(sb.toString())) {
+			if (createDirectories(sb.toString())) {
+				return sb.toString();
+			} else {
+				throw new CantCreateDirectoryException(
+						"Can't create Directory " + sb.toString());
+
+			}
+		} else {
+			return sb.toString();
+		}
 	}
 
 	/**
@@ -181,6 +209,28 @@ public class FolderManager {
 	}
 
 	/**
+	 * This function will return the current Photoboxes within the Working directory.
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws FileNotFoundException
+	 * @throws ChoosenFileNotAFolderException
+	 * @throws CantCreateDirectoryException
+	 */
+	public synchronized ArrayList<PhotoBox> readCurrentWorkingDirectoryPhotoBox() throws IllegalArgumentException, FileNotFoundException, ChoosenFileNotAFolderException, CantCreateDirectoryException
+	{
+		File[] directories = getFolderList(getWorkingDirectory());
+		if (directories == null) return null;
+		if (directories.length==0) return null;
+		ArrayList<PhotoBox> arPhotoBox = new ArrayList<PhotoBox>();
+		for (File directory:directories)
+		{
+			PhotoBox newPhotoBox = new PhotoBox(directory.getAbsolutePath());
+			arPhotoBox.add(newPhotoBox);
+		}
+		return arPhotoBox;
+	}
+	
+	/**
 	 * ImportPhotobox and it's content to the current working directory.
 	 * 
 	 * @param name
@@ -232,7 +282,7 @@ public class FolderManager {
 				{
 					if (JOptionPane.showConfirmDialog(null, "The folder "+ pathtoFile + " is empty. Would you like to create a empty Photobox?","Question",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)==JOptionPane.YES_OPTION)
 					{
-						CopyFilesManagerTask task = new CopyFilesManagerTask(fileList,getWorkingDirectory()+name);
+						CopyFilesManagerTask task = new CopyFilesManagerTask(fileList,getPhotoBoxWorkingDirectory()+name);
 						importStatusBar.setVisible(true);
 						task.addEventListener(importStatusBar);
 						task.addPropertyChangeListener(importStatusBar);
@@ -245,7 +295,7 @@ public class FolderManager {
 				}
 				else
 				{
-					CopyFilesManagerTask task = new CopyFilesManagerTask(fileList,getWorkingDirectory()+name);
+					CopyFilesManagerTask task = new CopyFilesManagerTask(fileList,getPhotoBoxWorkingDirectory()+name);
 					importStatusBar.setVisible(true);
 					task.addEventListener(importStatusBar);
 					task.addPropertyChangeListener(importStatusBar);
@@ -255,7 +305,7 @@ public class FolderManager {
 			else
 			{
 				File sourceFile = new File(pathtoFile);
-				CopyFilesManagerTask task = new CopyFilesManagerTask(sourceFile, getWorkingDirectory()+name);
+				CopyFilesManagerTask task = new CopyFilesManagerTask(sourceFile, getPhotoBoxWorkingDirectory()+name);
 				importStatusBar.setVisible(true);
 				task.addEventListener(importStatusBar);
 				task.addPropertyChangeListener(importStatusBar);
@@ -266,7 +316,7 @@ public class FolderManager {
 		{
 			throw new FileNotFoundException("File " + file.getName() +" won't exists." );
 		}
-		PhotoBox photobox = new PhotoBox(getWorkingDirectory()+name);
+		PhotoBox photobox = new PhotoBox(getPhotoBoxWorkingDirectory()+name);
 		photobox.setName(name);
 		return photobox;
 	}
