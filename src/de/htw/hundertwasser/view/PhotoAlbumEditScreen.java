@@ -45,10 +45,10 @@ public class PhotoAlbumEditScreen extends EditScreen {
 		mover.setBackground(Color.WHITE);
 		centralPanel.add(mover, BorderLayout.NORTH);
 		JLabel albumName = new JLabel();
-		albumName.setText("Name of the album:" + photoalbum.getName());
+		albumName.setText(photoalbum.getName());
 		albumName.setHorizontalTextPosition(SwingConstants.CENTER);
 		albumName.setHorizontalAlignment(SwingConstants.CENTER);
-		albumName.setFont(new Font("Arial", Font.BOLD, 14));
+		albumName.setFont(new Font("Arial", Font.BOLD, 16));
 		albumName.setBackground(Color.GRAY);
 		
 		mover.add(albumName);
