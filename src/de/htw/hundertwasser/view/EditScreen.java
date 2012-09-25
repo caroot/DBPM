@@ -63,7 +63,7 @@ public class EditScreen extends JFrame implements WindowListener {
 
 	private Photo photo;
 	/**
-	 * Konstruktor für den EditScreen 
+	 * Konstruktor fuer den EditScreen 
 	 */
 	public EditScreen() {
 		
@@ -207,12 +207,12 @@ public class EditScreen extends JFrame implements WindowListener {
 		buttonPanelright.add(panel_3);
 		buttonPanelright.add(previous);
 		// centralPanel.add(previous, BorderLayout.WEST); // auf Panel
-		// hinzufï¿½gen
+		// hinzufuegen
 		// Button mit Pfeil versehen
 		previous.setIcon(new ImageIcon(EditScreen.class
 				.getResource("/de/htw/hundertwasser/res/arrow_left.png")));
 
-		// ContentPane haelt standardmaeï¿½ig ein BorderLayout
+		// ContentPane haelt standardmaessig ein BorderLayout
 		// Hinzufuegen der Buttons zum Content Pane des JFrames
 		controlPanel.add(infoBar, BorderLayout.NORTH);
 		controlPanel.add(toolBar, BorderLayout.CENTER);
@@ -244,7 +244,7 @@ public class EditScreen extends JFrame implements WindowListener {
 	}
 
 	/**
-	 * Methoden um die Displaygröße herauszufinden
+	 * Methoden um die DisplaygroeÃŸe herauszufinden
 	 * 
 	 * @return screenSize
 	 */

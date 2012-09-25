@@ -1,0 +1,10 @@
+de.htw.hundertwasser.backend
+de.htw.hundertwasser.core
+de.htw.hundertwasser.core.interfaces
+de.htw.hundertwasser.custom.error
+de.htw.hundertwasser.custom.event
+de.htw.hundertwasser.errorsupport
+de.htw.hundertwasser.model
+de.htw.hundertwasser.res
+de.htw.hundertwasser.view
+de.htw.test
