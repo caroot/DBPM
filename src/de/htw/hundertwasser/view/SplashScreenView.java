@@ -52,7 +52,7 @@ public class SplashScreenView extends JFrame implements PropertyChangeListener,P
 	/**
 	 * Current width
 	 */
-	public static int WIDTH = 600;
+	public static int WIDTH = 450;
 	/**
 	 * Current height
 	 */
@@ -88,6 +88,7 @@ public class SplashScreenView extends JFrame implements PropertyChangeListener,P
 		contentPane.add(photoBoxLoad);
 		contentPane.add(photoAlbumLoad);
 		contentPane.add(integrityCheck);
+		contentPane.add(runApplication);
 		contentPane.add(information);
 		contentPane.add(progressBar);
 		loadIcons();
