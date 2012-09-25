@@ -48,6 +48,7 @@ public class StartScreenElement extends JPanel {
 	public static final String ERROR_TITLE = "StartScreenElement Error";
 	public static final String FAILURE_TITLE = "Nya... that was wrong!";
 	public static final String NAME_EMPTY = "The name can not be empty!";
+	public static final String NAME_TOO_LONG = "Not more than 50 characters!";
 	
 	//Variables
 	private static StartScreenToolPanel chosenElementToolPanel = null;
@@ -147,6 +148,9 @@ public class StartScreenElement extends JPanel {
 						if(name.trim().isEmpty()) {
 							ErrorMessageDialog.showMessage(null, NAME_EMPTY, FAILURE_TITLE); //Cancel if Name is empty
 							return;
+						} else if(name.length() > 50) {
+							ErrorMessageDialog.showMessage(null, NAME_TOO_LONG, FAILURE_TITLE); //Cancel if Name is empty
+							return;
 						}
 						element = new PhotoAlbum(name);
 						ElementStorage.addPhotoAlbum((PhotoAlbum) element);
@@ -159,6 +163,9 @@ public class StartScreenElement extends JPanel {
 							return; //cancel if no Name was inserted
 						if(name.trim().isEmpty()) {
 							ErrorMessageDialog.showMessage(null, NAME_EMPTY, FAILURE_TITLE); //Cancel if Name is empty
+							return;
+						} else if(name.length() > 50) {
+							ErrorMessageDialog.showMessage(null, NAME_TOO_LONG, FAILURE_TITLE); //Cancel if Name is empty
 							return;
 						}
 						String path = DialogHandler.chooseSource();
