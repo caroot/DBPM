@@ -35,7 +35,6 @@ import de.htw.hundertwasser.core.interfaces.NavBarPhotoBoxObserver;
 import de.htw.hundertwasser.custom.error.CantCreateDirectoryException;
 import de.htw.hundertwasser.custom.error.ChoosenFileNotAFolderException;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
-import de.htw.hundertwasser.view.EditScreen;
 import de.htw.hundertwasser.view.StartScreen;
 
 /**
