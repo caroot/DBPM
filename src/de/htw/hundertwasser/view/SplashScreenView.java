@@ -166,6 +166,7 @@ public class SplashScreenView extends JFrame implements PropertyChangeListener,P
             break;
             case 100:
             	showRunApplicationFilled();
+            	startStartScreen();
             break;
             }
             progressBar.setIndeterminate(false);
@@ -265,8 +266,7 @@ public class SplashScreenView extends JFrame implements PropertyChangeListener,P
 		}
 		if (eventstartup.isRunApplication())
 		{
-			showIntegretyFilled();
-			startStartScreen();
+			showRunApplicationFilled();
 		}
 		}
 		catch (IOException ex)

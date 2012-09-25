@@ -48,10 +48,11 @@ public class StartUpTask extends SwingWorker<Void,Void>{
 			fireEvent("Integrity Check running");
 			fireEventIntegrety(true);
 			Thread.sleep(1000);
-		setProgress(100);
 			fireEvent(true);
 			fireEvent("Everything is all right, application will start up soon.");
 			fireEventRunApplication(true);
+			setProgress(100);
+			Thread.sleep(1000);
 	
 		} catch (ChoosenFileNotAFolderException e) {
 			// TODO Auto-generated catch block
