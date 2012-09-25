@@ -1,6 +1,7 @@
 package de.htw.hundertwasser.custom.event;
 
 import java.util.ArrayList;
+import java.util.EventObject;
 
 import de.htw.hundertwasser.core.PhotoAlbum;
 import de.htw.hundertwasser.core.PhotoBox;
@@ -11,7 +12,7 @@ import de.htw.hundertwasser.core.PhotoBox;
  * @author daniel
  *
  */
-public class ProgressStartUpEvent extends ProgressStatusEvent{
+public class ProgressStartUpEvent extends EventObject{
 
 	/**
 	 * 
@@ -22,6 +23,14 @@ public class ProgressStartUpEvent extends ProgressStatusEvent{
 	private ArrayList<PhotoAlbum> photoAlbumList=null;
 	private boolean bIntegrity = false;
 	private boolean bRunApplication = false;
+	/**
+	 * this string will contain the status informatoin
+	 */
+	private String statusInformation;
+	/**
+	 * This variable will show that the process is finished.
+	 */
+	private boolean bFinish=false;
 	
 	/**
 	 * Constructor
@@ -98,4 +107,38 @@ public class ProgressStartUpEvent extends ProgressStatusEvent{
 	{
 		return bIntegrity;
 	}
+	
+	/**
+	  * This method will return the status Information
+	  * @return
+	  */
+	 public String getStatusInformation()
+	 {
+		 return statusInformation;
+	 }
+	 
+	 /**
+	  * This method will set the status Information
+	  */
+	 public void setStatusInformation(String information)
+	 {
+		 this.statusInformation = information;
+	 }
+	 /**
+	  * This method will determine that the process is finished
+	  * @param finished
+	  */
+	 public void setFinished(boolean finished)
+	 {
+		 this.bFinish=finished;
+	 }
+	 
+	 /**
+	  * This function will show that the process is finished or not. 
+	  * @return
+	  */
+	 public boolean getFinished()
+	 {
+		 return bFinish;
+	 }
 }

@@ -7,6 +7,7 @@ import javax.swing.SwingWorker;
 
 import de.htw.hundertwasser.core.PhotoAlbum;
 import de.htw.hundertwasser.core.PhotoBox;
+import de.htw.hundertwasser.core.interfaces.ProgressStartUpEventListener;
 import de.htw.hundertwasser.core.interfaces.ProgressStatusEventListener;
 import de.htw.hundertwasser.custom.error.CantCreateDirectoryException;
 import de.htw.hundertwasser.custom.error.ChoosenFileNotAFolderException;
@@ -20,7 +21,7 @@ public class StartUpTask extends SwingWorker<Void,Void>{
 	/**
 	 * An set of Progress status Listeners
 	 */
-	private ArrayList<ProgressStatusEventListener> eventlisteners = new ArrayList<ProgressStatusEventListener>();
+	private ArrayList<ProgressStartUpEventListener> eventlisteners = new ArrayList<ProgressStartUpEventListener>();
 	@Override
 	protected Void doInBackground() throws Exception {
 		try {
@@ -37,6 +38,7 @@ public class StartUpTask extends SwingWorker<Void,Void>{
 		setProgress(25);
 			//Read the PhotoAlbums and collect them
 			fireEvent("PhotoAlbum collected");
+			//firePhotoAlbumEvent();
 			Thread.sleep(1000);
 		setProgress(50);
 			fireEvent("Integrity Check will start");
@@ -50,7 +52,7 @@ public class StartUpTask extends SwingWorker<Void,Void>{
 			fireEvent(true);
 			fireEvent("Everything is all right, application will start up soon.");
 			fireEventRunApplication(true);
-			Thread.sleep(1000);
+	
 		} catch (ChoosenFileNotAFolderException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,10 +67,10 @@ public class StartUpTask extends SwingWorker<Void,Void>{
 	{
 		ProgressStartUpEvent event = new ProgressStartUpEvent(this);
 	  	  event.setPhotoboxList(arListPhotoBox);
-	  	  Iterator<ProgressStatusEventListener> iterator = eventlisteners.iterator();
+	  	  Iterator<ProgressStartUpEventListener> iterator = eventlisteners.iterator();
 	  	  while(iterator.hasNext())
 	  	  {
-	  		  ((ProgressStatusEventListener)iterator.next()).handleProgressStatusEvent(event);
+	  		  ((ProgressStartUpEventListener)iterator.next()).handleProgressStartUpEvent(event);
 	  	  }
 	}
 	
@@ -76,10 +78,10 @@ public class StartUpTask extends SwingWorker<Void,Void>{
 	{
 		ProgressStartUpEvent event = new ProgressStartUpEvent(this);
 	  	  event.setPhotoAlbumList(arListPhotoBox);
-	  	  Iterator<ProgressStatusEventListener> iterator = eventlisteners.iterator();
+	  	  Iterator<ProgressStartUpEventListener> iterator = eventlisteners.iterator();
 	  	  while(iterator.hasNext())
 	  	  {
-	  		  ((ProgressStatusEventListener)iterator.next()).handleProgressStatusEvent(event);
+	  		  ((ProgressStartUpEventListener)iterator.next()).handleProgressStartUpEvent(event);
 	  	  }
 	}
 	
@@ -87,10 +89,10 @@ public class StartUpTask extends SwingWorker<Void,Void>{
 	{
 		ProgressStartUpEvent event = new ProgressStartUpEvent(this);
 	  	  event.setIntegrityCheck(bIntegretyCheck);
-	  	  Iterator<ProgressStatusEventListener> iterator = eventlisteners.iterator();
+	  	  Iterator<ProgressStartUpEventListener> iterator = eventlisteners.iterator();
 	  	  while(iterator.hasNext())
 	  	  {
-	  		  ((ProgressStatusEventListener)iterator.next()).handleProgressStatusEvent(event);
+	  		  ((ProgressStartUpEventListener)iterator.next()).handleProgressStartUpEvent(event);
 	  	  }
 	}
 	
@@ -98,19 +100,19 @@ public class StartUpTask extends SwingWorker<Void,Void>{
 	{
 		ProgressStartUpEvent event = new ProgressStartUpEvent(this);
 	  	  event.setRunApplikation(bRunApplication);
-	  	  Iterator<ProgressStatusEventListener> iterator = eventlisteners.iterator();
+	  	  Iterator<ProgressStartUpEventListener> iterator = eventlisteners.iterator();
 	  	  while(iterator.hasNext())
 	  	  {
-	  		  ((ProgressStatusEventListener)iterator.next()).handleProgressStatusEvent(event);
+	  		  ((ProgressStartUpEventListener)iterator.next()).handleProgressStartUpEvent(event);
 	  	  }
 	}
 	
-	public synchronized void addEventListener(ProgressStatusEventListener listener)
+	public synchronized void addEventListener(ProgressStartUpEventListener listener)
     {
   	  eventlisteners.add(listener);
     }
     
-    public synchronized void removeEventListener(ProgressStatusEventListener listener)
+    public synchronized void removeEventListener(ProgressStartUpEventListener listener)
     {
   	  eventlisteners.remove(listener);
     }
@@ -123,10 +125,10 @@ public class StartUpTask extends SwingWorker<Void,Void>{
     {
     	ProgressStatusEvent event = new ProgressStatusEvent(this);
   	  event.setStatusInformation(statusInformation);
-  	  Iterator<ProgressStatusEventListener> iterator = eventlisteners.iterator();
+  	  Iterator<ProgressStartUpEventListener> iterator = eventlisteners.iterator();
   	  while(iterator.hasNext())
   	  {
-  		  ((ProgressStatusEventListener)iterator.next()).handleProgressStatusEvent(event);
+  		  ((ProgressStartUpEventListener)iterator.next()).handleProgressStartUpEvent(event);
   	  }
     }
     /**
@@ -138,10 +140,10 @@ public class StartUpTask extends SwingWorker<Void,Void>{
     	ProgressStatusEvent event = new ProgressStatusEvent(this);
   	  event.setStatusInformation(STATUS_FINISHED);
   	  event.setFinished(true);
-  	  Iterator<ProgressStatusEventListener> iterator = eventlisteners.iterator();
+  	  Iterator<ProgressStartUpEventListener> iterator = eventlisteners.iterator();
   	  while(iterator.hasNext())
   	  {
-  		  ((ProgressStatusEventListener)iterator.next()).handleProgressStatusEvent(event);
+  		  ((ProgressStartUpEventListener)iterator.next()).handleProgressStartUpEvent(event);
   	  }
     }
 }

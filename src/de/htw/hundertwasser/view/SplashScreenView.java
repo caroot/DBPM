@@ -21,8 +21,10 @@ import de.htw.hundertwasser.backend.StartUpTask;
 import de.htw.hundertwasser.core.ImportStatusBar;
 import de.htw.hundertwasser.core.PhotoAlbum;
 import de.htw.hundertwasser.core.PhotoBox;
+import de.htw.hundertwasser.core.interfaces.ProgressStartUpEventListener;
 import de.htw.hundertwasser.core.interfaces.ProgressStatusEventListener;
 import de.htw.hundertwasser.custom.event.ProgressStartUpEvent;
+import de.htw.hundertwasser.custom.event.ProgressStatusEvent;
 import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 
@@ -32,7 +34,7 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
  * @author daniel
  *
  */
-public class SplashScreenView extends JFrame implements PropertyChangeListener,ProgressStatusEventListener{
+public class SplashScreenView extends JFrame implements PropertyChangeListener,ProgressStartUpEventListener{
 
 	/**
 	 * 
@@ -136,10 +138,7 @@ public class SplashScreenView extends JFrame implements PropertyChangeListener,P
 	
 	public void start()
 	{
-		StartUpTask task = new StartUpTask();
-		task.addEventListener(this);
-		task.addPropertyChangeListener(this);
-		task.execute();
+		
 	}
 	
 	@Override
@@ -216,38 +215,50 @@ public class SplashScreenView extends JFrame implements PropertyChangeListener,P
 		runApplication.setIcon(RessourcenEnummeration.RUN.getIcon());
 	}
 	
+	private void startStartScreen()
+	{
+		setVisible(false);		
+		StartScreen startScreen = new StartScreen();
+	}
+	
 	@Override
-	public void handleProgressStatusEvent(EventObject statusinformation) {
-		ProgressStartUpEvent event = (ProgressStartUpEvent)statusinformation;
-		information.setText(event.getStatusInformation());
+	public void handleProgressStartUpEvent(EventObject event) {
+		if (event instanceof ProgressStatusEvent)
+		{
+		ProgressStatusEvent myevent = (ProgressStatusEvent)event;
+		information.setText(myevent.getStatusInformation());
+		}
+		else
+		{
+		ProgressStartUpEvent eventstartup = (ProgressStartUpEvent)event;
+		information.setText(eventstartup.getStatusInformation());
 		try
 		{
-		if (event.getPhotoboxList()!=null)
+		if (eventstartup.getPhotoboxList()!=null)
 		{
-			for (PhotoBox box:event.getPhotoboxList())
+			for (PhotoBox box:eventstartup.getPhotoboxList())
 			{
+				information.setText("Add Photobox " + box.getName() );
 				ElementStorage.addPhotoBox(box);
 			}
 			showPhotoBoxGrayFilled();
 		}
-		if (event.getPhotoAlbumList()!=null)
+		if (eventstartup.getPhotoAlbumList()!=null)
 		{
-			for (PhotoAlbum album:event.getPhotoAlbumList())
+			for (PhotoAlbum album:eventstartup.getPhotoAlbumList())
 			{
 				ElementStorage.addPhotoAlbum(album);
 			}
 			showPhotoAlbumGrayFilled();
 		}
-		if (event.isIntegrityCheck())
+		if (eventstartup.isIntegrityCheck())
 		{
 			showIntegretyFilled();
 		}
-		if (event.isRunApplication())
+		if (eventstartup.isRunApplication())
 		{
 			showIntegretyFilled();
-			StartScreen startScreen = new StartScreen();
-			startScreen.setVisible(true);
-			dispose();
+			startStartScreen();
 		}
 		}
 		catch (IOException ex)
@@ -255,13 +266,19 @@ public class SplashScreenView extends JFrame implements PropertyChangeListener,P
 			ErrorMessageDialog.showMessage(this, ex.getMessage(), "Error", ex.getStackTrace());
 			ex.printStackTrace();
 		}
+		}
 	}
 	
 
 	public static void main(String[] args) {
 		SplashScreenView imp = new SplashScreenView();
 		imp.setVisible(true);
-		imp.start();
-		imp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		StartUpTask task = new StartUpTask();
+		task.addEventListener(imp);
+		task.addPropertyChangeListener(imp);
+		task.execute();
+//		imp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	}
+
+	
 }

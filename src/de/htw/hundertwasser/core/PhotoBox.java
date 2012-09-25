@@ -30,8 +30,9 @@ public class PhotoBox {
 	 * 
 	 * @throws IllegalArgumentExceptoin
 	 */
-	public PhotoBox(String absoultePathToFiles) throws IllegalArgumentException {
+	public PhotoBox(String absoultePathToFiles,String name) throws IllegalArgumentException {
 		arPhotos = new ArrayList<Photo>();
+		this.name = name;
 		setAbsolutePathToFiles(absoultePathToFiles);
 	}
 

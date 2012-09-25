@@ -224,7 +224,7 @@ public class FolderManager {
 		ArrayList<PhotoBox> arPhotoBox = new ArrayList<PhotoBox>();
 		for (File directory:directories)
 		{
-			PhotoBox newPhotoBox = new PhotoBox(directory.getAbsolutePath());
+			PhotoBox newPhotoBox = new PhotoBox(directory.getAbsolutePath(),directory.getName());
 			arPhotoBox.add(newPhotoBox);
 		}
 		return arPhotoBox;
@@ -316,8 +316,7 @@ public class FolderManager {
 		{
 			throw new FileNotFoundException("File " + file.getName() +" won't exists." );
 		}
-		PhotoBox photobox = new PhotoBox(getPhotoBoxWorkingDirectory()+name);
-		photobox.setName(name);
+		PhotoBox photobox = new PhotoBox(getPhotoBoxWorkingDirectory()+name,name);
 		return photobox;
 	}
 
