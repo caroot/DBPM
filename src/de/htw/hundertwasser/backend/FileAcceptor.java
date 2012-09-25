@@ -5,21 +5,29 @@ import java.io.FilenameFilter;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/*
+/**
  * Constructor that the Format pretends
- * @author daniel rhein
- * @return File that was selected 
+ * @author Fabian Hewer
  */
 public class FileAcceptor extends FileFilter implements FilenameFilter {
 	private static FileNameExtensionFilter filter = new FileNameExtensionFilter(
 			"Images", "jpg", "gif", "jpeg", "tiff", "png");
 	private static String[] extensions = filter.getExtensions();
 
+	/**
+	 * Method, that says if a file is acceptable
+	 * @param file, the File that is to test
+	 * @return true, when acceptable
+	 */
 	public boolean accept(File file) {
 		return filter.accept(file);
 	}
 
-	@Override
+	/**
+	 * Method, that says if a file is acceptable
+	 * @param file, the File that is to test
+	 * @return true, when acceptable
+	 */
 	public boolean accept(File path, String name) {
 		for (int i = 0; i < extensions.length; i++) {
 			if (name.endsWith("." + extensions[i]))
@@ -28,15 +36,18 @@ public class FileAcceptor extends FileFilter implements FilenameFilter {
 		return false;
 	}
 
-	/*
-	 * Function that the filter returns
+	/**
+	 * Method, that returns the Used FileNameExtensionFilter.
 	 * @return filter
 	 */
 	public static FileNameExtensionFilter getFilter() {
 		return filter;
 	}
 
-	@Override
+	/**
+	 * Method, that returns the description of the user FileNameExtensionFilter
+	 * @return String description
+	 */
 	public String getDescription() {
 		return filter.getDescription();
 	}
