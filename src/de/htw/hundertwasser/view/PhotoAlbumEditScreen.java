@@ -3,12 +3,15 @@ package de.htw.hundertwasser.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import de.htw.hundertwasser.backend.ElementStorage;
 import de.htw.hundertwasser.core.ImageViewer;
@@ -38,10 +41,18 @@ public class PhotoAlbumEditScreen extends EditScreen {
 		}
 
 		JPanel mover = new JPanel();
-		mover.setPreferredSize(new Dimension(0, 100));
+		mover.setPreferredSize(new Dimension(0, 50));
 		mover.setBackground(Color.WHITE);
 		centralPanel.add(mover, BorderLayout.NORTH);
-
+		JLabel albumName = new JLabel();
+		albumName.setText("Name of the album:" + photoalbum.getName());
+		albumName.setHorizontalTextPosition(SwingConstants.CENTER);
+		albumName.setHorizontalAlignment(SwingConstants.CENTER);
+		albumName.setFont(new Font("Arial", Font.BOLD, 14));
+		albumName.setBackground(Color.GRAY);
+		
+		mover.add(albumName);
+		
 		navigationBar.selectPhotoAlbumElement(photoalbum.getName());
 		setState(Frame.MAXIMIZED_BOTH);
 		
