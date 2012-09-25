@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.FileCacheImageInputStream;
 
 import de.htw.hundertwasser.custom.error.ChoosenFileNotAFolderException;
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
@@ -138,7 +139,14 @@ public class ImageManager implements ImageObserver{
 			throw new IllegalArgumentException(ERROR_NULL_PATH);
 		if (path.trim().isEmpty())
 			throw new IllegalArgumentException(ERROR_EMPTY_PATH);
-
+		if (!path.endsWith(String.valueOf(File.separatorChar)))
+		{
+			path = path + File.separatorChar;
+		}
+		if (!path.endsWith("."))
+		{
+			path = path + ".";
+		}
 		imageList = new File(path);
 		if (imageList.exists()) {
 			if (imageList.isDirectory()) {

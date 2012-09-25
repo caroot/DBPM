@@ -3,6 +3,7 @@ package de.htw.hundertwasser.backend;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.io.File;
+import java.nio.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -222,7 +223,7 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 		    }
 		    
 		    if (!inputFile.exists()) throw new IllegalArgumentException("Source-file can't be found");
-		    
+		    /*
 		    FileReader in = new FileReader(inputFile);
 	    	FileWriter out = new FileWriter(outputFile);
 	    	int c;
@@ -231,7 +232,9 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 	    		out.write(c);
 
 	    	in.close();
-	    	out.close();
+	    	out.close();*/
+		    FileCopy fileCopy = new FileCopy(true);
+		    fileCopy.copy(inputFile, outputFile);
 	    	fireEvent("File successfully copied");
 	  }
 	

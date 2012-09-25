@@ -219,7 +219,7 @@ public class FolderManager {
 	 */
 	public synchronized ArrayList<PhotoBox> readCurrentWorkingDirectoryPhotoBox() throws IllegalArgumentException, FileNotFoundException, ChoosenFileNotAFolderException, CantCreateDirectoryException
 	{
-		File[] directories = getFolderList(getWorkingDirectory());
+		File[] directories = getFolderList(getPhotoBoxWorkingDirectory());
 		if (directories == null) return null;
 		if (directories.length==0) return null;
 		ArrayList<PhotoBox> arPhotoBox = new ArrayList<PhotoBox>();

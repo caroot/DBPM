@@ -15,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SpringLayout;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import de.htw.hundertwasser.backend.ElementStorage;
 import de.htw.hundertwasser.backend.StartUpTask;
@@ -35,6 +37,10 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
  *
  */
 public class SplashScreenView extends JFrame implements PropertyChangeListener,ProgressStartUpEventListener{
+
+	
+	//Error Constants
+		public static final String ERROR_TITLE = "StartScreenElement Error";
 
 	/**
 	 * 
@@ -273,6 +279,29 @@ public class SplashScreenView extends JFrame implements PropertyChangeListener,P
 	
 
 	public static void main(String[] args) {
+		try {
+			// for(LookAndFeelInfo info:UIManager.getInstalledLookAndFeels())
+			// {
+			// System.out.println(info.getClassName());
+			// }
+			// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			UIManager
+					.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel"
+					// "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel"
+					);
+		} catch (ClassNotFoundException cnfe) {
+			ErrorMessageDialog.showMessage(null, cnfe.getMessage(),
+					ERROR_TITLE, cnfe.getStackTrace());
+		} catch (InstantiationException ie) {
+			ErrorMessageDialog.showMessage(null, ie.getMessage(),
+					ERROR_TITLE, ie.getStackTrace());
+		} catch (IllegalAccessException iae) {
+			ErrorMessageDialog.showMessage(null, iae.getMessage(),
+					ERROR_TITLE, iae.getStackTrace());
+		} catch (UnsupportedLookAndFeelException ulafe) {
+			ErrorMessageDialog.showMessage(null, ulafe.getMessage(),
+					ERROR_TITLE, ulafe.getStackTrace());
+		}
 		SplashScreenView imp = new SplashScreenView();
 		imp.setVisible(true);
 		StartUpTask task = new StartUpTask();
