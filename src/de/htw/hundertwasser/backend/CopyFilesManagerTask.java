@@ -266,6 +266,11 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
                   //Sleep for up to one second.
             	  //Thread.sleep(random.nextInt(1000));
                   //Make random progress.
+            	  if (i==(maxfiles-1))
+            	  {
+            		  setProgress(100);
+                      
+            	  }
                   progress = ((100*i)/maxfiles);
                   setProgress(progress);
                   i++;
