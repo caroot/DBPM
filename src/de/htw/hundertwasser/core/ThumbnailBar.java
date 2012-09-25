@@ -29,11 +29,15 @@ import javax.swing.JScrollBar;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
+import de.htw.hundertwasser.backend.FolderManager;
 import de.htw.hundertwasser.backend.ImageManager;
 import de.htw.hundertwasser.core.interfaces.NavBarPhotoBoxObserver;
 import de.htw.hundertwasser.core.interfaces.ThumbNailBarObservable;
 import de.htw.hundertwasser.core.interfaces.ThumbNailBarObserver;
+import de.htw.hundertwasser.custom.error.CantCreateDirectoryException;
+import de.htw.hundertwasser.custom.error.ChoosenFileNotAFolderException;
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
+import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 import de.htw.hundertwasser.view.PhotoAlbumFullScreen;
 /**
@@ -68,6 +72,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 	private PhotoBox pb;	
 	private int countPhotos;
 	private int countButtons = 2;
+	private FolderManager fm = new FolderManager();
 
 
 	/*
@@ -216,7 +221,22 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				String path = DialogHandler.chooseSource();
+				try {
+					receivePhotoBox(fm.importPhotoBox(pb.getName(), path));
+				} catch (FileNotFoundException e1) {
+					ErrorMessageDialog.showMessage(null, e1.getMessage(), "Error", e1.getStackTrace());
+					e1.printStackTrace();
+				} catch (IllegalArgumentException e1) {
+					ErrorMessageDialog.showMessage(null, e1.getMessage(), "Error", e1.getStackTrace());
+					e1.printStackTrace();
+				} catch (ChoosenFileNotAFolderException e1) {
+					ErrorMessageDialog.showMessage(null, e1.getMessage(), "Error", e1.getStackTrace());
+					e1.printStackTrace();
+				} catch (CantCreateDirectoryException e1) {
+					ErrorMessageDialog.showMessage(null, e1.getMessage(), "Error", e1.getStackTrace());
+					e1.printStackTrace();
+				}
 			}
 		};
 	}
@@ -483,19 +503,19 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 	 * 
 	 * @param button
 	 */
-	private void setIcon(JButton button) {
+	private void setIcon(JButton button, int width, int height) {
 		int index = buttons.indexOf(button);
 		if (index<buttons.size()) {
 			try {
-				button.setIcon(new ImageIcon(im.getThumNailImage(pb.getPhoto(index).getPathToFile(), 32, 32)));
+				button.setIcon(new ImageIcon(im.getThumNailImage(pb.getPhoto(index).getPathToFile(), 48, 32)));
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
+				ErrorMessageDialog.showMessage(null, e.getMessage(), "Error", e.getStackTrace());
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				ErrorMessageDialog.showMessage(null, e.getMessage(), "Error", e.getStackTrace());
 				e.printStackTrace();
 			} catch (InsufficientPrivilegesException e) {
-				// TODO Auto-generated catch block
+				ErrorMessageDialog.showMessage(null, e.getMessage(), "Error", e.getStackTrace());
 				e.printStackTrace();
 			}
 		}
@@ -513,7 +533,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 				// TODO Auto-generated method stub
 				if (e.getSource() instanceof JButton) {
 					JButton button = (JButton) e.getSource();
-					setIcon(button);
+					setIcon(button,button.getWidth(), button.getHeight());				
 				}
 			}
 			
@@ -522,7 +542,8 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 				// TODO Auto-generated method stub
 				if (e.getSource() instanceof JButton) {
 					JButton button = (JButton) e.getSource();
-					setIcon(button);
+					setIcon(button,button.getWidth(), button.getHeight());
+					System.out.println("Width: "+button.getWidth()+"\nHeight: "+button.getHeight());
 				}
 			}
 			
@@ -539,5 +560,6 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 			}
 		};
 	}
+	
 }
 
