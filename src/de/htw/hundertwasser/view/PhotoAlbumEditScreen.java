@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import de.htw.hundertwasser.backend.ElementStorage;
 import de.htw.hundertwasser.core.ImageViewer;
 import de.htw.hundertwasser.core.PhotoAlbum;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
@@ -43,6 +44,10 @@ public class PhotoAlbumEditScreen extends EditScreen {
 
 		navigationBar.selectPhotoAlbumElement(photoalbum.getName());
 		setState(Frame.MAXIMIZED_BOTH);
+		
+		navigationBar.addNavBarPhotoBoxObserver(thumbnailBar);
+//		navigationBar.selectPhotoBoxElement(photobox.getName());
+//		ElementStorage.get
 	}
 
 	/**
