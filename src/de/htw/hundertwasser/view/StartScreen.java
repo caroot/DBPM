@@ -259,6 +259,8 @@ public class StartScreen extends JFrame {
 		JPanel boxPanel = photoBoxes.getElementPanel();
 		Component[] comps = boxPanel.getComponents();
 		ArrayList<PhotoBox> photoList = ElementStorage.getBoxList();
+		if(photoList == null)
+			return;
 		for(int j = 0; j < photoList.size(); j++){
 			boolean found = false;
 			for(int i = 0; i < comps.length; i++) {
@@ -280,6 +282,8 @@ public class StartScreen extends JFrame {
 		JPanel albumPanel = photoAlbums.getElementPanel();
 		Component[] comps = albumPanel.getComponents();
 		ArrayList<PhotoAlbum> albumList = ElementStorage.getAlbumList();
+		if(albumList == null)
+			return;
 		for(int j = 0; j < albumList.size(); j++){
 			boolean found = false;
 			for(int i = 0; i < comps.length; i++) {
@@ -288,7 +292,7 @@ public class StartScreen extends JFrame {
 					found = true;
 			}
 			if(!found) {
-				albumPanel.add(new StartScreenElement(StartScreenElement.ALBUM, StartScreenElement.ELEMENT, albumPanel, albumList.get(j)));
+			albumPanel.add(new StartScreenElement(StartScreenElement.ALBUM, StartScreenElement.ELEMENT, albumPanel, albumList.get(j)));
 			}
 		}
 		retextAlbum();
