@@ -503,7 +503,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 	 * 
 	 * @param button
 	 */
-	private void setIcon(JButton button, int width, int height) {
+	private void setIcon(JButton button) {
 		int index = buttons.indexOf(button);
 		if (index<buttons.size()) {
 			try {
@@ -533,7 +533,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 				// TODO Auto-generated method stub
 				if (e.getSource() instanceof JButton) {
 					JButton button = (JButton) e.getSource();
-					setIcon(button,button.getWidth(), button.getHeight());				
+					setIcon(button);				
 				}
 			}
 			
@@ -542,8 +542,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 				// TODO Auto-generated method stub
 				if (e.getSource() instanceof JButton) {
 					JButton button = (JButton) e.getSource();
-					setIcon(button,button.getWidth(), button.getHeight());
-					System.out.println("Width: "+button.getWidth()+"\nHeight: "+button.getHeight());
+					setIcon(button);
 				}
 			}
 			
