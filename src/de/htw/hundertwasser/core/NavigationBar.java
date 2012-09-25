@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -28,9 +29,14 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import de.htw.hundertwasser.backend.ElementStorage;
+import de.htw.hundertwasser.backend.FolderManager;
 import de.htw.hundertwasser.core.interfaces.NavBarPhotoBoxObserable;
 import de.htw.hundertwasser.core.interfaces.NavBarPhotoBoxObserver;
+import de.htw.hundertwasser.custom.error.CantCreateDirectoryException;
+import de.htw.hundertwasser.custom.error.ChoosenFileNotAFolderException;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
+import de.htw.hundertwasser.view.EditScreen;
+import de.htw.hundertwasser.view.StartScreen;
 
 /**
  * Class that creates the NavigationBar
@@ -67,6 +73,9 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 	private PhotoBox photobox;
 	private PhotoAlbum photoalbum;
 
+	private DefaultTreeModel boxTreeModel;
+	private DefaultTreeModel albumTreeModel;
+
 	/**
 	 * Constructor
 	 */
@@ -88,11 +97,15 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 		observerList = new ArrayList<NavBarPhotoBoxObserver>();
 
 		albumRoot = new DefaultMutableTreeNode("your photoalbums");
-		jtreePhotoAlbum.setModel(new DefaultTreeModel(albumRoot));
+		albumTreeModel = new DefaultTreeModel(albumRoot);
+		jtreePhotoAlbum.setModel(albumTreeModel);
+
 		fillTreePhotoAlbum();
 
 		boxRoot = new DefaultMutableTreeNode("your photoboxes");
-		jtreePhotoBox.setModel(new DefaultTreeModel(boxRoot));
+		boxTreeModel = new DefaultTreeModel(boxRoot);
+		jtreePhotoBox.setModel(boxTreeModel);
+
 		fillTreePhotoBox();
 
 		JPanel pnlPhotoBox = new JPanel();
@@ -185,6 +198,10 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 		}
 	};
 
+	/**
+	 * 
+	 */
+
 	TreeSelectionListener BoxSelectionListener = new TreeSelectionListener() {
 		public void valueChanged(TreeSelectionEvent tse) {
 
@@ -192,8 +209,14 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 					.getLastSelectedPathComponent();
 
 			// System.out.print(node.getUserObject().toString());
-			sendMessage(ElementStorage.getPhotoBox(node.getUserObject()
-					.toString()));
+			try {
+				node.getUserObject();
+				sendMessage(ElementStorage.getPhotoBox(node.getUserObject()
+						.toString()));
+
+			} catch (NullPointerException nullpntr) {
+				// System.out.println("root selected");
+			}
 		}
 	};
 
@@ -213,26 +236,23 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 		@Override
 		public void treeStructureChanged(TreeModelEvent e) {
 			jtreePhotoBox.revalidate();
-
+			boxTreeModel.reload();
 		}
 
 		@Override
 		public void treeNodesRemoved(TreeModelEvent e) {
 			jtreePhotoBox.revalidate();
-
 		}
 
 		@Override
 		public void treeNodesInserted(TreeModelEvent e) {
 			jtreePhotoBox.revalidate();
-
 		}
 
 		@Override
 		public void treeNodesChanged(TreeModelEvent e) {
 			jtreePhotoBox.revalidate();
 			jtreePhotoBox.repaint();
-
 		}
 	};
 
@@ -246,8 +266,8 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 			for (int i = 0; i < photobox.size(); i++) {
 				boxRoot.add(new DefaultMutableTreeNode(photobox.get(i)
 						.getName()));
-				jtreePhotoBox.setModel(new DefaultTreeModel(boxRoot));
-				// System.out.println(test.get(i));
+				// jtreePhotoBox.setModel(new DefaultTreeModel(boxRoot));
+				// System.out.println("filltreephotobox");
 			}
 		}
 	}
@@ -265,7 +285,6 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 				// System.out.println(test.get(i));
 			}
 		}
-
 	}
 
 	/**
@@ -276,13 +295,39 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 		String name = JOptionPane.showInputDialog(null, NAME, "Name the box",
 				JOptionPane.QUESTION_MESSAGE);
 
-		photobox = new PhotoBox(DialogHandler.chooseSource());
-		photobox.setName(name);
-		ElementStorage.addPhotoBox(photobox);
+		// System.out.println("\n" + boxRoot.getLastChild().toString());
+		// boxTreeModel.reload();
 
-		boxRoot.removeAllChildren();
-		fillTreePhotoBox();
-		// System.out.println(ElementStorage.getBoxList().toString());
+		String path = DialogHandler.chooseSource();
+		if (path == null) {
+			return;
+		}
+		FolderManager manager = new FolderManager();
+		try {
+			photobox = manager.importPhotoBox(name, path);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ChoosenFileNotAFolderException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CantCreateDirectoryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (photobox == null)
+			return; // Import verworfen.
+
+		ElementStorage.addPhotoBox(photobox);
+		DefaultMutableTreeNode newChild = new DefaultMutableTreeNode(name);
+		boxRoot.add(newChild);
+
+		jtreePhotoBox.updateUI();
+
+		StartScreen.refreshBoxes();
 	}
 
 	/**
@@ -292,25 +337,10 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 		String name = JOptionPane.showInputDialog(null, NAME, "Name the album",
 				JOptionPane.QUESTION_MESSAGE);
 
-		photoalbum = new PhotoAlbum(DialogHandler.chooseSource());
-		photoalbum.setName(name);
+		photoalbum = new PhotoAlbum(name);
 		ElementStorage.addPhotoAlbum(photoalbum);
 
-		albumRoot.removeAllChildren();
-		fillTreePhotoAlbum();
-	}
-
-	@Override
-	public void addNavBarPhotoBoxObserver(NavBarPhotoBoxObserver observer) {
-		// TODO Auto-generated method stub
-		observerList.add(observer);
-
-	}
-
-	@Override
-	public void removeNavBarPhotoBoxObserver(NavBarPhotoBoxObserver observer) {
-		// TODO Auto-generated method stub
-		observerList.remove(observer);
+		jtreePhotoAlbum.updateUI();
 	}
 
 	/**
@@ -342,6 +372,19 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 				jtreePhotoAlbum.setSelectionPath(new TreePath(tn.getPath()));
 			}
 		}
+	}
+
+	@Override
+	public void addNavBarPhotoBoxObserver(NavBarPhotoBoxObserver observer) {
+		// TODO Auto-generated method stub
+		observerList.add(observer);
+
+	}
+
+	@Override
+	public void removeNavBarPhotoBoxObserver(NavBarPhotoBoxObserver observer) {
+		// TODO Auto-generated method stub
+		observerList.remove(observer);
 	}
 
 	@Override
