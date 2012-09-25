@@ -34,8 +34,7 @@ public class ElementStorage {
 		} else {
 			for(int i = 0; i < boxList.size(); i++) {
 				if(boxList.get(i).getName().equals(box.getName())) {
-					ErrorMessageDialog.showMessage(null, NAME_TAKEN_BOX);
-					return;
+					throw new IllegalArgumentException(NAME_TAKEN_BOX);
 				}
 			}
 		}
@@ -116,8 +115,7 @@ public class ElementStorage {
 		} else {
 			for(int i = 0; i < albumList.size(); i++) {
 				if(albumList.get(i).getName().equals(album.getName())) {
-					ErrorMessageDialog.showMessage(null, NAME_TAKEN_ALBUM);
-					return;
+					throw new IllegalArgumentException(NAME_TAKEN_ALBUM);
 				}
 			}
 		}

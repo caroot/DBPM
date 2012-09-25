@@ -174,32 +174,23 @@ public class StartScreenElement extends JPanel {
 //						JProgressBar progress = DialogHandler.showProgressBar();
 						FolderManager manager = new FolderManager();
 							element = manager.importPhotoBox(name, path);
-							if (element==null) return; //Import verworfen.
-//						element = new PhotoBox(name);        //TODO wieder raus!
-//						((PhotoBox) element).setName(name); //TODO wieder raus!
+							if (element==null) return; //Import cancled.
 						//TODO fill Photobox with Photos, (Folder Manager s-times)
 							ElementStorage.addPhotoBox((PhotoBox) element);
 						StartScreen.retextBox();
-//							Thread.sleep(3000);
 //						((Window) progress.getParent().getParent().getParent().getParent()).dispose();
 					}
 					parentPanel.add(new StartScreenElement(elementTyp, ELEMENT, parentPanel, element));
 					parentPanel.getParent().validate();
 
 				} catch (FileNotFoundException fnfe) {
-					ErrorMessageDialog.showMessage(null, fnfe.getMessage(), ERROR_TITLE, fnfe.getStackTrace());
-//				} catch (InterruptedException ie) {
-//					ErrorMessageDialog.showMessage(null, ie.getMessage(), ERROR_TITLE, ie.getStackTrace().toString());
+					ErrorMessageDialog.showMessage(null, fnfe.getMessage(), ERROR_TITLE);
 				} catch (IllegalArgumentException e1) {
-					ErrorMessageDialog.showMessage(null, e1.getMessage(), ERROR_TITLE, e1.getStackTrace());
-					e1.printStackTrace();
+					ErrorMessageDialog.showMessage(null, e1.getMessage(), ERROR_TITLE);
 				} catch (ChoosenFileNotAFolderException e1) {
-					// TODO Auto-generated catch block
-					ErrorMessageDialog.showMessage(null, e1.getMessage(), ERROR_TITLE, e1.getStackTrace());
-					e1.printStackTrace();
+					ErrorMessageDialog.showMessage(null, e1.getMessage(), ERROR_TITLE);
 				} catch (CantCreateDirectoryException e1) {
-					ErrorMessageDialog.showMessage(null, e1.getMessage(), ERROR_TITLE, e1.getStackTrace());
-					e1.printStackTrace();
+					ErrorMessageDialog.showMessage(null, e1.getMessage(), ERROR_TITLE);
 				}
 			}
 		};

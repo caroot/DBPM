@@ -272,6 +272,7 @@ public class StartScreen extends JFrame {
 				boxPanel.add(new StartScreenElement(StartScreenElement.BOX, StartScreenElement.ELEMENT, boxPanel, photoList.get(j)));
 			}
 		}
+		boxPanel.validate();
 		retextBox();
 	}
 	
@@ -293,8 +294,10 @@ public class StartScreen extends JFrame {
 			}
 			if(!found) {
 			albumPanel.add(new StartScreenElement(StartScreenElement.ALBUM, StartScreenElement.ELEMENT, albumPanel, albumList.get(j)));
+
 			}
 		}
+		albumPanel.validate();
 		retextAlbum();
 	}
 }
