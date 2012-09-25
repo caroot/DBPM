@@ -12,7 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
-import java.io.File;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +33,6 @@ import de.htw.hundertwasser.backend.ImageManager;
 import de.htw.hundertwasser.core.interfaces.NavBarPhotoBoxObserver;
 import de.htw.hundertwasser.core.interfaces.ThumbNailBarObservable;
 import de.htw.hundertwasser.core.interfaces.ThumbNailBarObserver;
-import de.htw.hundertwasser.custom.error.ChoosenFileNotAFolderException;
 import de.htw.hundertwasser.custom.error.InsufficientPrivilegesException;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 import de.htw.hundertwasser.view.PhotoAlbumFullScreen;
@@ -58,17 +58,16 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 	private JButton button4;
 	private JButton button8;
 	private JButton button16;
-	private JButton[] buttons;
+	private ArrayList<JButton> buttons;
 	private JToolBar toolBar;
 	private JScrollBar scrollBar;
 	
 	private ArrayList<ThumbNailBarObserver>	observerList;
-	private ImageManager im;
+	private ImageManager im = new ImageManager();
 	private Photo photo;
-	private File[] photos;
 	private PhotoBox pb;	
 	private int countPhotos;
-	private int countButtons;
+	private int countButtons = 2;
 
 
 	/*
@@ -77,31 +76,8 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 	public ThumbnailBar() {
 		
 		setFonts();
-		countPhotos = 15;//TODO nur zum testen!!!!
-		buttons = new JButton[countPhotos+1];
-		//setButtonIcons();
-		
-		for (int i=0; i<buttons.length; i++) {
-			buttons[i] = new JButton();
-			buttons[i].setBackground(Color.WHITE);
-		}
-		
-		for (int i=0; i<buttons.length-1;i++) {
-			buttons[i].addActionListener(getImageButtonsActionListener());
-		}
-		
-		//TODO Nur zum Testen!!!
-		for (int i=1; i<buttons.length-1; i++) {
-			buttons[i].setText(""+(i+1));
-		}
-		buttons[buttons.length-1].addActionListener(getPlusButtonActionListener());
-		buttons[buttons.length-1].setToolTipText("Add a photo");
-		buttons[buttons.length-1].setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/add_photo.png")));
-		
-		//TODO Nur zum Testen!!!
+		buttons = new ArrayList<JButton>();
 		im = new ImageManager();
-		photo = new Photo("tits", "Motivations Bild v2.jpg");
-		photo.setComment("tits");
 		
 		toolBar = initialiseToolbar();		
 		panelThumbnails = initialiseThumbnails();
@@ -176,25 +152,21 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 		button2 = new JButton("2");
 		button2.setBackground(Color.WHITE);
 		button2.setFont(fontB);
-		button2.setToolTipText("");
 		toolBar.add(button2);
 		
 		button4 = new JButton("4");
 		button4.setBackground(Color.WHITE);
 		button4.setFont(font);
-		button4.setToolTipText("");
 		toolBar.add(button4);
 		
 		button8 = new JButton("8");
 		button8.setBackground(Color.WHITE);
 		button8.setFont(font);
-		button8.setToolTipText("");
 		toolBar.add(button8);
 		
 		button16 = new JButton("16");
 		button16.setBackground(Color.WHITE);
 		button16.setFont(font);
-		button16.setToolTipText("");
 		toolBar.add(button16);
 		
 		button2.addActionListener(getButton2ActionListener());
@@ -223,36 +195,12 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 		displayThumbnails.setBackground(Color.WHITE);
 		displayThumbnails.setLayout(new GridLayout(1, 2, 10, 10));
 		panel.add(displayThumbnails, BorderLayout.CENTER);
-		int extent;
-		if (countPhotos>=1)
-			extent = 2;
-		else
-			extent = countPhotos;
-		scrollBar = new JScrollBar(Scrollbar.HORIZONTAL, 0, extent, 0, countPhotos+1);
+		scrollBar = new JScrollBar();
 		scrollBar.setBackground(Color.WHITE);
-		scrollBar.setUnitIncrement(scrollBar.getVisibleAmount());
-		scrollBar.setBlockIncrement(scrollBar.getVisibleAmount());
+		scrollBar.setOrientation(Scrollbar.HORIZONTAL);
 		panel.add(scrollBar, BorderLayout.SOUTH);
 		
-		//TODO Nur zum Testen!!!
-		try {
-			buttons[0].setIcon(new ImageIcon(im.getThumNailImage("Motivations Bild v2.jpg", 32, 32)));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InsufficientPrivilegesException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		displayThumbnails.add(buttons[0]);
-		displayThumbnails.add(buttons[1]);
-		displayThumbnails.add(buttons[buttons.length-1]);
-		countButtons = 2;
-		
-		scrollBar.addAdjustmentListener(getScroolBarAdjustmentListener());
+		scrollBar.addAdjustmentListener(getScrollBarAdjustmentListener());
 		
 		return panel;
 	}
@@ -267,9 +215,6 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String path = DialogHandler.chooseSource();
-				if (path != null)
-					pb.addPhoto(new Photo("", path));
 				// TODO Auto-generated method stub
 				
 			}
@@ -408,7 +353,7 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 	 * 
 	 * @return action performed
 	 */
-	private AdjustmentListener getScroolBarAdjustmentListener() {
+	private AdjustmentListener getScrollBarAdjustmentListener() {
 		return new AdjustmentListener() {
 			
 			@Override
@@ -428,17 +373,13 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 		return new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-//				JButton b = (JButton) arg0.getSource();
-//				int pos = 0;
-//				for (int i=0;i<buttons.length-1;i++) {
-//					if (buttons[i].equals(b)) {
-//						pos = i;
-//						break;
-//					}
-//				}
-//				photo = new Photo(getName(), photos[pos].getAbsolutePath());
+				if (e.getSource() instanceof JButton) {
+					JButton button = (JButton) e.getSource();
+					int index = buttons.indexOf(button);
+					photo = new Photo(pb.getPhoto(index).getName(), pb.getPhoto(index).getPathToFile());
+				}
 				sendMessage(photo);				
 			}
 		};
@@ -479,55 +420,74 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 	}
 
 	/**
+	 * Receives the chosen photobox from the navigation bar
 	 * 
+	 * @param photobox
 	 */
 	@Override
 	public void receivePhotoBox(PhotoBox photobox) {
 		// TODO Auto-generated method stub
 		pb = photobox;
 		countPhotos = pb.getCount();
-		String pathToBox = pb.getAbsolutePathToFiles();
-		try {
-		photos = im.getImagesListInFolder(pathToBox);
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ChoosenFileNotAFolderException e) {
-			// TODO Auto-generated catch blocks
-			e.printStackTrace();
+		buttons = new ArrayList<JButton>(countPhotos+1);
+		
+		for (int i=0; i<countPhotos+1; i++) {
+			JButton button = new JButton();
+			button.setBackground(Color.WHITE);
+			buttons.add(i, button);
+		}		
+		for (int i=0; i<buttons.size()-1;i++) {
+			buttons.get(i).addActionListener(getImageButtonsActionListener());
+			buttons.get(i).addComponentListener(getThumbnailComponentListener());
 		}
+		buttons.get(buttons.size()-1).addActionListener(getPlusButtonActionListener());
+		buttons.get(buttons.size()-1).setToolTipText("Add a photo");
+		buttons.get(buttons.size()-1).setIcon(new ImageIcon(PhotoAlbumFullScreen.class.getResource("/de/htw/hundertwasser/res/add_photo.png")));
+
+		scrollBar.setMaximum(countPhotos+1);
+		scrollBar.setBackground(Color.WHITE);
+		scrollBar.setVisibleAmount(2);
+		scrollBar.setUnitIncrement(2);
+		scrollBar.setBlockIncrement(2);
+		setButtons();
 	}
 	
 	/**
 	 * Adds a certain number of buttons to the thumbnail panel 
 	 */
 	private void setButtons() {
-		displayThumbnails.removeAll();
-		int init = scrollBar.getValue();
-		int max = init+countButtons;	
-		if (max > countPhotos) {
-			init = countPhotos-countButtons;
-			max = init+countButtons;
+		displayThumbnails.removeAll();		
+		if (countPhotos<countButtons) {
+			for (int i=0; i<countPhotos;i++) {
+				displayThumbnails.add(buttons.get(i));
+			}
+		} else {
+			int init = scrollBar.getValue();
+			int max = init+countButtons;	
+			if (max > countPhotos) {
+				init = countPhotos-countButtons;
+				max = init+countButtons;
+			}
+			for(int i=init;i<max;i++) {
+			displayThumbnails.add(buttons.get(i));
+			}
 		}
-		for(int i=init;i<max;i++) {
-			displayThumbnails.add(buttons[i]);
-		}
-		displayThumbnails.add(buttons[buttons.length-1]);
+		displayThumbnails.add(buttons.get(buttons.size()-1));
 		displayThumbnails.setSize(getMaximumSize());
 		displayThumbnails.repaint();
 		displayThumbnails.revalidate();
+
 	}
 	
 	/**
-	 * Sets the photos of the chosen photobox on the buttons
+	 * 
+	 * @param button
 	 */
-	private void setButtonIcons() {
-		for (int i=0;i<photos.length;i++) {
+	private void setIcon(JButton button) {
+		int index = buttons.indexOf(button);
+		if (index<buttons.size()) {
 			try {
-				buttons[i].setIcon(new ImageIcon(im.getThumNailImage(photos[i].getPath(), 32, 32)));
+				button.setIcon(new ImageIcon(im.getThumNailImage(pb.getPhoto(index).getPathToFile(), 32, 32)));
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -540,4 +500,44 @@ public class ThumbnailBar extends JPanel implements ThumbNailBarObservable,
 			}
 		}
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	private ComponentListener getThumbnailComponentListener() {
+		return new ComponentListener() {
+			
+			@Override
+			public void componentShown(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getSource() instanceof JButton) {
+					JButton button = (JButton) e.getSource();
+					setIcon(button);
+				}
+			}
+			
+			@Override
+			public void componentResized(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getSource() instanceof JButton) {
+					JButton button = (JButton) e.getSource();
+					setIcon(button);
+				}
+			}
+			
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+	}
 }
+

@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.jws.Oneway;
 import javax.naming.OperationNotSupportedException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -34,6 +35,7 @@ import de.htw.hundertwasser.core.interfaces.NavBarPhotoBoxObserable;
 import de.htw.hundertwasser.core.interfaces.NavBarPhotoBoxObserver;
 import de.htw.hundertwasser.custom.error.CantCreateDirectoryException;
 import de.htw.hundertwasser.custom.error.ChoosenFileNotAFolderException;
+import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
 import de.htw.hundertwasser.view.StartScreen;
 
@@ -56,6 +58,12 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 
 	private static final String NAME = "Please Enter a name:";
 
+	private static final String ERROR_TITLE = "NavigationBar Error";
+	private static final String ERROR_FILEMANAGER = "An Error Occured within the Filemanager Operation";
+	private static final String ERROR_FONT = "An Error occured while trying to change font";
+	private static final String ERROR_LISTENER = "An Error occured within the navbar tree";
+	
+	
 	private JTree jtreePhotoAlbum;
 	private JTree jtreePhotoBox;
 
@@ -164,15 +172,15 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 		try {
 			font = RessourcenEnummeration.FONT_CALIBRI.getFont()
 					.deriveFont(11f);
-		} catch (OperationNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FontFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (OperationNotSupportedException opnosuppexc) {
+			ErrorMessageDialog.showMessage(null, ERROR_FONT, ERROR_TITLE,
+					opnosuppexc.getStackTrace());
+		} catch (IOException ioexc) {
+			ErrorMessageDialog.showMessage(null, ERROR_FONT, ERROR_TITLE,
+					ioexc.getStackTrace());
+		} catch (FontFormatException fontformexc) {
+			ErrorMessageDialog.showMessage(null, ERROR_FONT, ERROR_TITLE,
+					fontformexc.getStackTrace());
 		}
 	}
 
@@ -213,8 +221,9 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 				sendMessage(ElementStorage.getPhotoBox(node.getUserObject()
 						.toString()));
 
-			} catch (NullPointerException nullpntr) {
-				// System.out.println("root selected");
+			} catch (NullPointerException nullpntrexc) {
+				ErrorMessageDialog.showMessage(null, ERROR_LISTENER, ERROR_TITLE,
+						nullpntrexc.getStackTrace());
 			}
 		}
 	};
@@ -304,18 +313,18 @@ public class NavigationBar extends JPanel implements NavBarPhotoBoxObserable {
 		FolderManager manager = new FolderManager();
 		try {
 			photobox = manager.importPhotoBox(name, path);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ChoosenFileNotAFolderException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (CantCreateDirectoryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (FileNotFoundException filenotfoundexc) {
+			ErrorMessageDialog.showMessage(null, ERROR_FILEMANAGER,
+					ERROR_TITLE, filenotfoundexc.getStackTrace());
+		} catch (IllegalArgumentException illegargexcp) {
+			ErrorMessageDialog.showMessage(null, ERROR_FILEMANAGER,
+					ERROR_TITLE, illegargexcp.getStackTrace());
+		} catch (ChoosenFileNotAFolderException notafileexc) {
+			ErrorMessageDialog.showMessage(null, ERROR_FILEMANAGER,
+					ERROR_TITLE, notafileexc.getStackTrace());
+		} catch (CantCreateDirectoryException cantcreateexc) {
+			ErrorMessageDialog.showMessage(null, ERROR_FILEMANAGER,
+					ERROR_TITLE, cantcreateexc.getStackTrace());
 		}
 		if (photobox == null)
 			return; // Import verworfen.
