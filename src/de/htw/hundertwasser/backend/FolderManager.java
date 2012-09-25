@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import de.htw.hundertwasser.core.EnvironmentChecker;
 import de.htw.hundertwasser.core.ImportStatusBar;
+import de.htw.hundertwasser.core.Photo;
 import de.htw.hundertwasser.core.PhotoBox;
 import de.htw.hundertwasser.custom.error.CantCreateDirectoryException;
 import de.htw.hundertwasser.custom.error.ChoosenFileNotAFolderException;
@@ -253,6 +254,7 @@ public class FolderManager {
 		ImportStatusBar importStatusBar = new ImportStatusBar();
 		
 		File[] fileList = null;
+		PhotoBox photobox =null;
 		checkPath(pathtoFile);
 		if (name.trim().isEmpty()) throw new IllegalArgumentException(ERROR_NAME_EMPTY);
 		if (name==null) throw new IllegalArgumentException(ERROR_NAME_NULL);
@@ -287,6 +289,7 @@ public class FolderManager {
 						task.addEventListener(importStatusBar);
 						task.addPropertyChangeListener(importStatusBar);
 						task.execute();
+						photobox = new PhotoBox(getPhotoBoxWorkingDirectory()+name,name);
 					}
 					else
 					{
@@ -300,6 +303,8 @@ public class FolderManager {
 					task.addEventListener(importStatusBar);
 					task.addPropertyChangeListener(importStatusBar);
 					task.execute();
+					photobox = createPhotoBox(getPhotoBoxWorkingDirectory()+name,name);
+				
 				}
 			}
 			else
@@ -310,16 +315,36 @@ public class FolderManager {
 				task.addEventListener(importStatusBar);
 				task.addPropertyChangeListener(importStatusBar);
 				task.execute();
+				photobox = createPhotoBox(getPhotoBoxWorkingDirectory()+name,name);
 			}
 		}
 		else
 		{
 			throw new FileNotFoundException("File " + file.getName() +" won't exists." );
 		}
-		PhotoBox photobox = new PhotoBox(getPhotoBoxWorkingDirectory()+name,name);
 		return photobox;
 	}
 
+
+	
+	private PhotoBox createPhotoBox(String getAbsolutePath,String name) throws IllegalArgumentException, FileNotFoundException, ChoosenFileNotAFolderException
+	{
+		PhotoBox photobox = new PhotoBox(getAbsolutePath,name);
+		ImageManager img = new ImageManager();
+		File[] fileList=img.getImagesListInFolder(getAbsolutePath);
+		if (fileList!=null)
+		{
+			if (fileList.length!=0)
+			{
+				for(File file:fileList)
+				{
+					photobox.addPhoto(new Photo(file.getName(),file.getAbsolutePath()));
+				}
+			}
+		}
+		return photobox;
+	}
+	
 	/**
 	 * This Method determine if the given paht is empty or null an throw an
 	 * IllegalArgumentException in case.
