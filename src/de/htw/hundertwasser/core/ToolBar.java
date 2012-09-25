@@ -3,12 +3,9 @@ package de.htw.hundertwasser.core;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.FileNotFoundException;
@@ -36,6 +33,7 @@ import de.htw.test.MouseListener;
 
 /**
  * Class that describes the Toolbar
+ * 
  * @author: Dominic Holz
  * @version: 0.1
  * @date: 12.09.12
@@ -46,12 +44,13 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 	private static final long serialVersionUID = 1L;
 	private static final String ERROR_PRINTING = "An error occured while trying to print";
 	private static final String CONFIRM = "Are you sure?";
-	private static final String ZOOM_VALUE = "Needs to be implemented";
+	private static final String TODO = "Needs to be implemented";
 	private static final String ERROR = "An Error occured";
 	private static final String NO_PICTURE = "No picture given";
 	private static final String NEW_NAME = "Enter new name: ";
 	private static final String NAME_SUCCESS = "Name successfully changed";
 	private static final String SUCCESS = "Success";
+	private static final String ERROR_RENAME = "An Error occured while renaming";
 
 	// Variables
 	// private String name = "TestBild";
@@ -61,9 +60,10 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 	private boolean inPhotoBox;
 
 	private Photo photo;
-	private MouseListener msl;
 
-	/*
+	// private MouseListener msl;
+
+	/**
 	 * Constructor
 	 * 
 	 * @param editScreen
@@ -80,31 +80,30 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 		// setPreferredSize(new Dimension(200, 400));
 		// setMinimumSize(new Dimension(200, 400));
 
-		FormLayout formLayout = new FormLayout(new ColumnSpec[] {
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.GROWING_BUTTON_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,},
-			new RowSpec[] {
-				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(15dlu;default)"),
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,});
+		FormLayout formLayout = new FormLayout(
+				new ColumnSpec[] { FormFactory.DEFAULT_COLSPEC,
+						FormFactory.RELATED_GAP_COLSPEC,
+						FormFactory.GROWING_BUTTON_COLSPEC,
+						FormFactory.RELATED_GAP_COLSPEC,
+						FormFactory.DEFAULT_COLSPEC, }, new RowSpec[] {
+						FormFactory.RELATED_GAP_ROWSPEC,
+						RowSpec.decode("max(15dlu;default)"),
+						FormFactory.RELATED_GAP_ROWSPEC,
+						FormFactory.DEFAULT_ROWSPEC,
+						FormFactory.RELATED_GAP_ROWSPEC,
+						FormFactory.DEFAULT_ROWSPEC,
+						FormFactory.RELATED_GAP_ROWSPEC,
+						FormFactory.DEFAULT_ROWSPEC,
+						FormFactory.RELATED_GAP_ROWSPEC,
+						FormFactory.DEFAULT_ROWSPEC,
+						FormFactory.RELATED_GAP_ROWSPEC,
+						FormFactory.DEFAULT_ROWSPEC,
+						FormFactory.RELATED_GAP_ROWSPEC,
+						FormFactory.DEFAULT_ROWSPEC,
+						FormFactory.RELATED_GAP_ROWSPEC,
+						FormFactory.DEFAULT_ROWSPEC,
+						FormFactory.RELATED_GAP_ROWSPEC,
+						FormFactory.DEFAULT_ROWSPEC, });
 		formLayout.setHonorsVisibility(false);
 
 		setLayout(formLayout);
@@ -127,7 +126,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 				.getResource("/de/htw/hundertwasser/res/rename.png")));
 		add(btnRename, "3, 6, fill, center");
 		btnRename.addActionListener(getRenameListener());
-		btnRename.setSize(10, 20);
+		// btnRename.setSize(10, 20);
 
 		JButton btnZoom = new JButton(" Zoom           ");
 		btnZoom.setBackground(Color.WHITE);
@@ -137,7 +136,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 		btnZoom.setToolTipText("Zoom");
 		add(btnZoom, "3, 8, fill, center");
 		btnZoom.addActionListener(getZoomListner());
-		btnZoom.setSize(10, 20);
+		// btnZoom.setSize(10, 20);
 
 		JButton btnCut = new JButton("Cut               ");
 		btnCut.setBackground(Color.WHITE);
@@ -147,7 +146,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 		btnCut.setToolTipText("Cut");
 		add(btnCut, "3, 10, fill, center");
 		btnCut.addActionListener(getCutListener());
-		btnCut.setSize(10, 20);
+		// btnCut.setSize(10, 20);
 
 		JButton btnDelete = new JButton("Delete          ");
 		btnDelete.setBackground(Color.WHITE);
@@ -157,7 +156,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 		btnDelete.setToolTipText("Delete");
 		add(btnDelete, "3, 12, fill, center");
 		btnDelete.addActionListener(getDeleteListener());
-		btnDelete.setSize(10, 20);
+		// btnDelete.setSize(10, 20);
 
 		JButton btnPrint = new JButton("Print            ");
 		btnPrint.setBackground(Color.WHITE);
@@ -167,7 +166,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 		btnPrint.setToolTipText("Print");
 		add(btnPrint, "3, 14, fill, center");
 		btnPrint.addActionListener(getPrintListener());
-		btnPrint.setSize(10, 20);
+		// btnPrint.setSize(10, 20);
 
 		JButton btnFullscreen = new JButton("Fullscreen");
 		btnFullscreen.setBackground(Color.WHITE);
@@ -179,7 +178,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 		btnFullscreen.setToolTipText("Fullscreen");
 		add(btnFullscreen, "3, 16, fill, center");
 		btnFullscreen.addActionListener(getFullScreenListener());
-		btnFullscreen.setSize(10, 20);
+		// btnFullscreen.setSize(10, 20);
 
 		JButton btnBlackwhite = new JButton("  Black/White");
 		btnBlackwhite.setBackground(Color.WHITE);
@@ -191,7 +190,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 		btnBlackwhite.setToolTipText("Black/White");
 		add(btnBlackwhite, "3, 18, fill, center");
 		btnBlackwhite.addActionListener(getBlackAndWhiteListener());
-		btnBlackwhite.setSize(10, 20);
+		// btnBlackwhite.setSize(10, 20);
 
 	}
 
@@ -207,12 +206,12 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 					if (newName != null) {
 						if (photo != null) {
 
-							System.out.println(photo.getName());
+							// System.out.println(photo.getName());
 							photo.setName(newName);
 
 							JOptionPane.showMessageDialog(null, NAME_SUCCESS,
 									SUCCESS, JOptionPane.INFORMATION_MESSAGE);
-							System.out.println(photo.getName());
+							// System.out.println(photo.getName());
 						} else {
 							JOptionPane.showMessageDialog(null, NO_PICTURE,
 									ERROR, JOptionPane.OK_OPTION);
@@ -221,9 +220,8 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 
 				} catch (IllegalArgumentException illegalArg) {
 
-					JOptionPane.showMessageDialog(null,
-							illegalArg.getMessage(), ERROR,
-							JOptionPane.ERROR_MESSAGE);
+					ErrorMessageDialog.showMessage(null, ERROR_RENAME, ERROR,
+							illegalArg.getStackTrace());
 
 				}
 
@@ -235,7 +233,7 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 	private ActionListener getZoomListner() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, ZOOM_VALUE, "Zoom",
+				JOptionPane.showMessageDialog(null, TODO, "Zoom",
 						JOptionPane.OK_OPTION);
 
 				// TODO: Zoom Implementierung
@@ -243,36 +241,49 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 		};
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	private ActionListener getCutListener() {
 		return new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				// JOptionPane.showMessageDialog( null,
-				// ZOOM_VALUE,
-				// "Cut",
-				// JOptionPane.OK_OPTION );
+				JOptionPane.showMessageDialog(null, TODO, "Cut",
+						JOptionPane.OK_OPTION);
 
-				msl = new MouseListener();
+				// msl = new MouseListener();
 
 			}
 
 		};
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	private ActionListener getDeleteListener() {
 		return new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showConfirmDialog(null, CONFIRM, "Confirm Delete",
-						JOptionPane.YES_NO_OPTION);
+				int result = JOptionPane.showConfirmDialog(null, CONFIRM,
+						"Confirm Delete", JOptionPane.YES_NO_OPTION);
+
+				// if (result == JOptionPane.YES_OPTION) {
+				// ElementStorage.NO_LIST.charAt(2);
+				// }
 			}
 
-			// TODO: DELETE Implementierung
 		};
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	private ActionListener getPrintListener() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -280,32 +291,34 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 					print();
 				} catch (PrinterException printexc) {
 
-					JOptionPane.showMessageDialog(null, printexc.getMessage(),
-							ERROR_PRINTING, JOptionPane.ERROR_MESSAGE);
-					printexc.printStackTrace(); // For debug purpose
+					ErrorMessageDialog.showMessage(null, ERROR_PRINTING, ERROR,
+							printexc.getStackTrace());
+
 				} catch (FileNotFoundException fileexc) {
-					JOptionPane.showMessageDialog(null, fileexc.getMessage(),
-							ERROR_PRINTING, JOptionPane.ERROR_MESSAGE);
-					fileexc.printStackTrace();
+					ErrorMessageDialog.showMessage(null, ERROR_PRINTING, ERROR,
+							fileexc.getStackTrace());
 				} catch (IOException ioexc) {
-					JOptionPane.showMessageDialog(null, ioexc.getMessage(),
-							ERROR_PRINTING, JOptionPane.ERROR_MESSAGE);
-					ioexc.printStackTrace();
+					ErrorMessageDialog.showMessage(null, ERROR_PRINTING, ERROR,
+							ioexc.getStackTrace());
+
 				} catch (InsufficientPrivilegesException privexc) {
-					JOptionPane.showMessageDialog(null, privexc.getMessage(),
-							ERROR_PRINTING, JOptionPane.ERROR_MESSAGE);
-					privexc.printStackTrace();
+					ErrorMessageDialog.showMessage(null, ERROR_PRINTING, ERROR,
+							privexc.getStackTrace());
 
 				} catch (NullPointerException nullpt) {
-					JOptionPane.showMessageDialog(null, nullpt.getMessage(),
-							ERROR_PRINTING, JOptionPane.ERROR_MESSAGE);
-					nullpt.printStackTrace();
+					ErrorMessageDialog.showMessage(null, ERROR_PRINTING, ERROR,
+							nullpt.getStackTrace());
+
 				}
 			}
 		};
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	private Component getComponent() {
 		return this;
 	}
@@ -317,12 +330,14 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 			public void actionPerformed(ActionEvent e) {
 
 				if (inPhotoBox == true) {
-					PhotoBoxFullScreen pbfs = new PhotoBoxFullScreen((BufferedImage) editScreen.getImgViewer().getImage());
+					PhotoBoxFullScreen pbfs = new PhotoBoxFullScreen(
+							(BufferedImage) editScreen.getImgViewer()
+									.getImage());
+					pbfs.repaint();
 				} else {
 					PhotoAlbumFullScreen pafs;
-					pafs = new PhotoAlbumFullScreen((BufferedImage) editScreen.getImgViewer().getImage());
-//					pafs = new PhotoAlbumFullScreen(photo.getImage());
-					// pafs.add(getParent());
+					pafs = new PhotoAlbumFullScreen((BufferedImage) editScreen
+							.getImgViewer().getImage());
 					pafs.repaint();
 				}
 
@@ -332,18 +347,29 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	private ActionListener getBlackAndWhiteListener() {
 		return new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, ZOOM_VALUE, "Black/White",
+				JOptionPane.showMessageDialog(null, TODO, "Black/White",
 						JOptionPane.OK_OPTION);
 			}
 
 		};
 	}
 
+	/**
+	 * 
+	 * @throws PrinterException
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws InsufficientPrivilegesException
+	 */
 	private void print() throws PrinterException, FileNotFoundException,
 			IOException, InsufficientPrivilegesException {
 
@@ -359,19 +385,22 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 			// pjob.setJobName(jobName);
 			if (pjob.printDialog() == false) {
 				return;
-			}
-			pjob.setPrintable(new Printable() {
-
-				@Override
-				public int print(Graphics graphics, PageFormat pageFormat,
-						int pageIndex) throws PrinterException {
-					// TODO Auto-generated method stub
-					return 0;
+			} else {
+					JOptionPane.showMessageDialog(null, TODO, "Black/White",
+							JOptionPane.OK_OPTION);
 				}
-			});
-
-			pjob.print();
-		}
+			}
+			// pjob.setPrintable(new Printable() {
+			//
+			// @Override
+			// public int print(Graphics graphics, PageFormat pageFormat,
+			// int pageIndex) throws PrinterException {
+			// // TODO Auto-generated method stub
+			// return 0;
+			// }
+			// });
+			//
+			// pjob.print();
 	}
 
 	@Override
@@ -388,10 +417,4 @@ public class ToolBar extends JPanel implements ThumbNailBarObserver {
 		this.editScreen = editScreen;
 	}
 
-	// main method
-	//
-	// public static void main(String[] args) {
-	// ToolBar tb = new ToolBar();
-	// tb.setVisible(true);
-	// }
 }
