@@ -125,30 +125,6 @@ public class EditScreen extends JFrame implements WindowListener {
 		// Hinzuf�gen von INFOBAR und TOOLBAR in den CONTROLPANEL
 		controlPanel.add(infoBar, BorderLayout.NORTH);
 		controlPanel.add(toolBar, BorderLayout.CENTER);
-		
-		
-//		ADDS MOTIVATION PIC
-		
-		photo = new Photo("Motivation!", "Motivations Bild v2.jpg");
-		
-		try {
-			imgViewer.setImage(photo.getImage());
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InsufficientPrivilegesException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-//		
-		
 		// Hinzuf�gen der beiden Panels f�r Buttons
 		centralPanel.add(buttonPanelleft, BorderLayout.EAST);
 		centralPanel.add(buttonPanelright, BorderLayout.WEST);

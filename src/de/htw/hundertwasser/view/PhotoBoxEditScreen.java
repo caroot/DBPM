@@ -30,22 +30,6 @@ public class PhotoBoxEditScreen extends EditScreen {
 
 		// TODO Auslesen der Photobox
 		super();
-		try {
-			Photo photo = new Photo("Test", "AGV.jpg");
-			imgViewer.setImage(photo.getImage()); // TODO Auslesen hier
-		} catch (InsufficientPrivilegesException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 		JPanel mover = new JPanel();
 		mover.setPreferredSize(new Dimension(0, 100));
