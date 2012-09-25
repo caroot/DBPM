@@ -16,7 +16,6 @@ public interface FolderManagerObservable {
 	void removeFolderManagerObserver(FolderManagerObserver observer);
 	/**
 	 * Send Message to All Observers
-	 * @param photoBox
 	 */
-	void sendFolderManagerMessage(PhotoBox photoBox);
+	void sendFolderManagerMessage();
 }

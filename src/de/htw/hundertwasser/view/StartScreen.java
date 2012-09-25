@@ -10,7 +10,6 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import javax.naming.OperationNotSupportedException;
 import javax.swing.JFrame;
@@ -32,7 +31,7 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
  * @version 21.9.'12
  */
 
-public class StartScreen extends JFrame {
+public class StartScreen extends JFrame{
 	private static final long serialVersionUID = 1L;
 	// Constants
 	public static final String DBPM = "Dunkelbunt Photo Manager";

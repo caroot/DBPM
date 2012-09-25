@@ -4,6 +4,7 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.EventObject;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,8 +14,12 @@ import de.htw.hundertwasser.core.EnvironmentChecker;
 import de.htw.hundertwasser.core.ImportStatusBar;
 import de.htw.hundertwasser.core.Photo;
 import de.htw.hundertwasser.core.PhotoBox;
+import de.htw.hundertwasser.core.interfaces.FolderManagerObservable;
+import de.htw.hundertwasser.core.interfaces.FolderManagerObserver;
+import de.htw.hundertwasser.core.interfaces.ProgressStatusEventListener;
 import de.htw.hundertwasser.custom.error.CantCreateDirectoryException;
 import de.htw.hundertwasser.custom.error.ChoosenFileNotAFolderException;
+import de.htw.hundertwasser.custom.event.ProgressStatusEvent;
 
 /**
  * This class will manage the Folders of the current Project
@@ -22,7 +27,7 @@ import de.htw.hundertwasser.custom.error.ChoosenFileNotAFolderException;
  * @author daniel rhein
  * 
  */
-public class FolderManager {
+public class FolderManager implements ProgressStatusEventListener,FolderManagerObservable{
 
 	private static final String ERROR_NAME_EMPTY = "Name can't be empty";
 
@@ -41,6 +46,8 @@ public class FolderManager {
 
 	private static final String DPBM_PHOTOBOXDIR = "PhotoBox"
 			+ File.separatorChar;
+	
+	public ArrayList<FolderManagerObserver> alObserverList = new ArrayList<FolderManagerObserver>();
 	
 	public FolderManager() {
 		environmentChecker = new EnvironmentChecker();
@@ -231,6 +238,12 @@ public class FolderManager {
 		return arPhotoBox;
 	}
 	
+	
+//	public void  deletePhotoBox(String name)
+//	{
+//		ArrayList<PhotoBox> photobox =readCurrentWorkingDirectoryPhotoBox();
+//		
+//	}
 	/**
 	 * ImportPhotobox and it's content to the current working directory.
 	 * 
@@ -285,11 +298,13 @@ public class FolderManager {
 					if (JOptionPane.showConfirmDialog(null, "The folder "+ pathtoFile + " is empty. Would you like to create a empty Photobox?","Question",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)==JOptionPane.YES_OPTION)
 					{
 						CopyFilesManagerTask task = new CopyFilesManagerTask(fileList,getPhotoBoxWorkingDirectory()+name);
-						importStatusBar.setVisible(true);
 						task.addEventListener(importStatusBar);
+						task.addEventListener(this);
 						task.addPropertyChangeListener(importStatusBar);
 						task.execute();
-						photobox = new PhotoBox(getPhotoBoxWorkingDirectory()+name,name);
+						importStatusBar.setModal(true);
+						importStatusBar.setVisible(true);
+						return new PhotoBox(getPhotoBoxWorkingDirectory()+name,name);
 					}
 					else
 					{
@@ -299,11 +314,14 @@ public class FolderManager {
 				else
 				{
 					CopyFilesManagerTask task = new CopyFilesManagerTask(fileList,getPhotoBoxWorkingDirectory()+name);
-					importStatusBar.setVisible(true);
+					
 					task.addEventListener(importStatusBar);
+					task.addEventListener(this);
 					task.addPropertyChangeListener(importStatusBar);
 					task.execute();
-					photobox = createPhotoBox(getPhotoBoxWorkingDirectory()+name,name);
+					importStatusBar.setModal(true);
+					importStatusBar.setVisible(true);
+					return createPhotoBox(getPhotoBoxWorkingDirectory()+name,name);
 				
 				}
 			}
@@ -311,18 +329,20 @@ public class FolderManager {
 			{
 				File sourceFile = new File(pathtoFile);
 				CopyFilesManagerTask task = new CopyFilesManagerTask(sourceFile, getPhotoBoxWorkingDirectory()+name);
-				importStatusBar.setVisible(true);
 				task.addEventListener(importStatusBar);
+				task.addEventListener(this);
 				task.addPropertyChangeListener(importStatusBar);
 				task.execute();
-				photobox = createPhotoBox(getPhotoBoxWorkingDirectory()+name,name);
+				importStatusBar.setModal(true);
+				importStatusBar.setVisible(true);
+				return createPhotoBox(getPhotoBoxWorkingDirectory()+name,name);
 			}
 		}
 		else
 		{
 			throw new FileNotFoundException("File " + file.getName() +" won't exists." );
 		}
-		return photobox;
+		
 	}
 
 
@@ -359,4 +379,33 @@ public class FolderManager {
 			throw new IllegalArgumentException(ERROR_EMPTY_PATH);
 
 	}
+
+	@Override
+	public void handleProgressStatusEvent(EventObject statusinformation) {
+		ProgressStatusEvent event = (ProgressStatusEvent)statusinformation;
+		if (event.getFinished())
+		{
+			sendFolderManagerMessage();
+		}
+		
+	}
+
+	@Override
+	public void addFolderManagerObserver(FolderManagerObserver observer) {
+		alObserverList.add(observer);
+	}
+
+	@Override
+	public void removeFolderManagerObserver(FolderManagerObserver observer) {
+		alObserverList.remove(observer);
+	}
+
+	@Override
+	public void sendFolderManagerMessage() {
+		for(FolderManagerObserver observer:alObserverList)
+		{
+			observer.importNewPhotoBox();
+		}
+	}
+
 }

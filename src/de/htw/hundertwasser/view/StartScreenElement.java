@@ -4,17 +4,16 @@ package de.htw.hundertwasser.view;
 import java.awt.Color;
 import java.awt.FontFormatException;
 import java.awt.GridLayout;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.naming.OperationNotSupportedException;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
 import de.htw.hundertwasser.backend.ElementStorage;
@@ -22,6 +21,7 @@ import de.htw.hundertwasser.backend.FolderManager;
 import de.htw.hundertwasser.core.DialogHandler;
 import de.htw.hundertwasser.core.PhotoAlbum;
 import de.htw.hundertwasser.core.PhotoBox;
+import de.htw.hundertwasser.core.interfaces.FolderManagerObserver;
 import de.htw.hundertwasser.custom.error.CantCreateDirectoryException;
 import de.htw.hundertwasser.custom.error.ChoosenFileNotAFolderException;
 import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
@@ -32,7 +32,7 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
  * @author Fabian, Tim
  *
  */
-public class StartScreenElement extends JPanel {
+public class StartScreenElement  extends JPanel implements FolderManagerObserver {
 	private static final long serialVersionUID = 1L;
 	//Constants
 	public static final int ELEMENT = 0;
@@ -271,6 +271,38 @@ public class StartScreenElement extends JPanel {
 	
 	public static StartScreenElement getChoosenOne() {
 		return choosenOne;
+	}
+
+	@Override
+	public void importNewPhotoBox() {
+		FolderManager folderManager = new FolderManager();
+		ArrayList<PhotoBox> arphotoboxArrayList;
+		try {
+			arphotoboxArrayList = folderManager.readCurrentWorkingDirectoryPhotoBox();
+			for(PhotoBox photobox1:arphotoboxArrayList)
+			{
+				for (PhotoBox photobox2:ElementStorage.getBoxList())
+				{
+					if (photobox2.getName().equals(photobox1.getName()))
+					{
+						
+					}
+				}
+			}
+		} catch (IllegalArgumentException e) {
+			ErrorMessageDialog.showMessage(null, e.getMessage(), "ERROR", e.getStackTrace());
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			ErrorMessageDialog.showMessage(null, e.getMessage(), "ERROR", e.getStackTrace());
+			e.printStackTrace();
+		} catch (ChoosenFileNotAFolderException e) {
+			ErrorMessageDialog.showMessage(null, e.getMessage(), "ERROR", e.getStackTrace());
+			e.printStackTrace();
+		} catch (CantCreateDirectoryException e) {
+			ErrorMessageDialog.showMessage(null, e.getMessage(), "ERROR", e.getStackTrace());
+			e.printStackTrace();
+		}
+		
 	}
 
 }
