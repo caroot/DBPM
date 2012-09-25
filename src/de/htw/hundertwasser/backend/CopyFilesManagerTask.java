@@ -14,7 +14,7 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
-import de.htw.hundertwasser.core.interfaces.ProgressStatusListener;
+import de.htw.hundertwasser.core.interfaces.ProgressStatusEventListener;
 import de.htw.hundertwasser.custom.event.ProgressStatusEvent;
 import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 
@@ -68,7 +68,7 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
 		/**
 		 * An set of Progress status Listeners
 		 */
-		private ArrayList<ProgressStatusListener> eventlisteners = new ArrayList<ProgressStatusListener>();
+		private ArrayList<ProgressStatusEventListener> eventlisteners = new ArrayList<ProgressStatusEventListener>();
 		
 		
 	/**
@@ -287,12 +287,12 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
           Toolkit.getDefaultToolkit().beep();
       }	
 
-      public synchronized void addEventListener(ProgressStatusListener listener)
+      public synchronized void addEventListener(ProgressStatusEventListener listener)
       {
     	  eventlisteners.add(listener);
       }
       
-      public synchronized void removeEventListener(ProgressStatusListener listener)
+      public synchronized void removeEventListener(ProgressStatusEventListener listener)
       {
     	  eventlisteners.remove(listener);
       }
@@ -305,10 +305,10 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
       {
     	  ProgressStatusEvent event = new ProgressStatusEvent(this);
     	  event.setStatusInformation(statusInformation);
-    	  Iterator<ProgressStatusListener> iterator = eventlisteners.iterator();
+    	  Iterator<ProgressStatusEventListener> iterator = eventlisteners.iterator();
     	  while(iterator.hasNext())
     	  {
-    		  ((ProgressStatusListener)iterator.next()).handleProgressStatusEvent(event);
+    		  ((ProgressStatusEventListener)iterator.next()).handleProgressStatusEvent(event);
     	  }
       }
       /**
@@ -320,10 +320,10 @@ public class CopyFilesManagerTask extends SwingWorker<Void,Void>{
     	  ProgressStatusEvent event = new ProgressStatusEvent(this);
     	  event.setStatusInformation(STATUS_FINISHED);
     	  event.setFinished(true);
-    	  Iterator<ProgressStatusListener> iterator = eventlisteners.iterator();
+    	  Iterator<ProgressStatusEventListener> iterator = eventlisteners.iterator();
     	  while(iterator.hasNext())
     	  {
-    		  ((ProgressStatusListener)iterator.next()).handleProgressStatusEvent(event);
+    		  ((ProgressStatusEventListener)iterator.next()).handleProgressStatusEvent(event);
     	  }
       }
 }

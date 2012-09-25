@@ -7,7 +7,7 @@ import java.util.EventObject;
  * @author daniel
  *
  */
-public interface ProgressStatusListener {
+public interface ProgressStatusEventListener {
 	/**
 	 * Emits the progress status.
 	 * @param statusinformation

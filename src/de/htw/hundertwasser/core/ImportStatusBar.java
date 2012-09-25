@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SpringLayout;
 
-import de.htw.hundertwasser.core.interfaces.ProgressStatusListener;
+import de.htw.hundertwasser.core.interfaces.ProgressStatusEventListener;
 import de.htw.hundertwasser.custom.event.ProgressStatusEvent;
 import de.htw.hundertwasser.errorsupport.ErrorMessageDialog;
 import de.htw.hundertwasser.res.RessourcenEnummeration;
@@ -22,7 +22,7 @@ import de.htw.hundertwasser.res.RessourcenEnummeration;
  * @author daniel
  *
  */
-public class ImportStatusBar extends JDialog implements PropertyChangeListener,ProgressStatusListener{
+public class ImportStatusBar extends JDialog implements PropertyChangeListener,ProgressStatusEventListener{
 
 	/**
 	 * 
